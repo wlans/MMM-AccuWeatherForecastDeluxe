@@ -318,7 +318,7 @@ Module.register("MMM-DarkSkyForecast", {
         animatedIconName: this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
         iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon)),
         tempRange: this.formatHiLowTemperature(this.weatherData.daily[0].temp.max, this.weatherData.daily[0].temp.min),
-        precipitation: this.formatPrecipitation(this.weatherData.current.rain, this.weatherData.current.snow),
+        precipitation: this.formatPrecipitation(this.weatherData.current.pop, this.weatherData.current.rain, this.weatherData.current.snow),
         wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
 
       },
@@ -365,7 +365,7 @@ Module.register("MMM-DarkSkyForecast", {
     }
 
     // --------- Precipitation ---------
-    fItem.precipitation = this.formatPrecipitation(fData.rain, fData.snow);
+    fItem.precipitation = this.formatPrecipitation(fData.pop, fData.rain, fData.snow);
 
     // --------- Wind ---------
     fItem.wind = (this.formatWind(fData.wind_speed, fData.wind_deg, fData.wind_gust));
@@ -386,18 +386,21 @@ Module.register("MMM-DarkSkyForecast", {
   /*
     Returns a formatted data object for precipitation
    */
-  formatPrecipitation: function(rainAccumulation, snowAccumulation) {
+  formatPrecipitation: function(percentChance, rainAccumulation, snowAccumulation) {
 
     var accumulation = null;
+    var accumulationtype = null;
 
     //accumulation
     if (snowAccumulation) {
+      accumulationtype = "snow";
       if (typeof snowAccumulation === "number") {
         accumulation = Math.round(snowAccumulation) + " " + this.getUnit("accumulationSnow");
       } else if (typeof snowAccumulation === "object" && snowAccumulation["1h"]) {
         accumulation = Math.round(snowAccumulation["1h"]) + " " + this.getUnit("accumulationSnow");
       }
     } else if (rainAccumulation) {
+      accumulationtype = "rain";
       if (typeof rainAccumulation === "number") {
         accumulation = Math.round(rainAccumulation) + " " + this.getUnit("accumulationRain");
       } else if (typeof rainAccumulation === "object" && rainAccumulation["1h"]) {
@@ -406,7 +409,9 @@ Module.register("MMM-DarkSkyForecast", {
     }
 
     return {
-      accumulation: accumulation
+      pop: Math.round(percentChance * 100) + "%",
+      accumulation: accumulation,
+      accumulationtype: accumulationtype
     };
 
   },

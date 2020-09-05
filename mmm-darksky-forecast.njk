@@ -16,6 +16,9 @@
             <img class="current icon current" src="{{ forecast.currently.iconPath }}" />
           {% endif %}
           <span class="current temperature bright large light">{{ forecast.currently.temperature }}</span>
+          {% if config.showFeelsLike %}
+            <span class="current feelslike dimmed light">{{ forecast.currently.feelslike }}</span>
+          {% endif %}
         </span>
       </div>
     {% endif %}
@@ -41,7 +44,6 @@
                   <img class="inline-icon snow" src="{{ inlineIcons.snow }}" />
                 {% endif %}
               {% endif %}
-              <span class="pop">{{ forecast.currently.precipitation.pop }}</span>
               <span class="pop">{{ forecast.currently.precipitation.accumulation }}</span>
             {% endif %}
           </span>

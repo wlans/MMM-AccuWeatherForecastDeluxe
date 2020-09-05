@@ -65,9 +65,11 @@ Module.register("MMM-DarkSkyForecast", {
     maxHourliesToShow: 3,
     showDailyForecast: true,
     maxDailiesToShow: 3,
+    includeTodayInDailyForecast: false,
     showPrecipitation: true,
     concise: true,
     showWind: true,
+    showFeelsLike: true,
     language: config.language,
     iconset: "1c",
     useAnimatedIcons: true,
@@ -299,8 +301,13 @@ Module.register("MMM-DarkSkyForecast", {
 
     var dailies = [];
     if (this.config.showDailyForecast) {
-
-      for (var i = 1; i <= this.config.maxDailiesToShow; i++) {
+      var i = 1;
+      var maxi = this.config.maxDailiesToShow;
+      if (this.config.includeTodayInDailyForecast) {
+        i = 0;
+        maxi = this.config.maxDailiesToShow - 1;
+      }
+      for (i; i <= maxi; i++) {
         if (this.weatherData.daily[i] == null) {
           break;
         }
@@ -314,11 +321,12 @@ Module.register("MMM-DarkSkyForecast", {
     return {
       "currently" : {
         temperature: Math.round(this.weatherData.current.temp) + "°",
+        feelslike: Math.round(this.weatherData.current.feels_like) + "°",
         animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
         animatedIconName: this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
         iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon)),
         tempRange: this.formatHiLowTemperature(this.weatherData.daily[0].temp.max, this.weatherData.daily[0].temp.min),
-        precipitation: this.formatPrecipitation(this.weatherData.current.pop, this.weatherData.current.rain, this.weatherData.current.snow),
+        precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
         wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
 
       },
@@ -390,6 +398,7 @@ Module.register("MMM-DarkSkyForecast", {
 
     var accumulation = null;
     var accumulationtype = null;
+    var pop = null;
 
     //accumulation
     if (snowAccumulation) {
@@ -408,8 +417,12 @@ Module.register("MMM-DarkSkyForecast", {
       }
     }
 
+    if (percentChance) {
+      pop = Math.round(percentChance * 100) + "%";
+    }
+
     return {
-      pop: Math.round(percentChance * 100) + "%",
+      pop: pop,
       accumulation: accumulation,
       accumulationtype: accumulationtype
     };

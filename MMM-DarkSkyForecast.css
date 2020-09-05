@@ -44,6 +44,11 @@
   vertical-align: middle;
 }
 
+.MMM-DarkSkyForecast .current-conditions-wrapper .current.feelslike {
+  line-height: 80px;
+  vertical-align: bottom;
+}
+
 .MMM-DarkSkyForecast .current-conditions-wrapper .icon {
   vertical-align: middle;
   line-height: 80px;

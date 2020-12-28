@@ -1,8 +1,8 @@
 /*********************************
 
   Magic Mirror Module:
-  MMM-DarkSkyForecast
-  https://github.com/jclarke0000/MMM-DarkSkyForecast
+  MMM-OpenWeatherMapForecast
+  https://github.com/MarcLandis/MMM-OpenWeatherMapForecast
 
   Icons in use by this module:
 
@@ -31,14 +31,15 @@
   Some of the icons were modified to better work with the module's
   structure and aesthetic.
 
-  Weather data provided by Dark Sky
+  Weather data provided by OpenWeatherMap One Call API
 
   By Jeff Clarke
+  Modified by Dirk Rettschlag
   MIT Licensed
 
 *********************************/
 
-Module.register("MMM-DarkSkyForecast", {
+Module.register("MMM-OpenWeatherMapForecast", {
 
     /*
       This module uses the Nunjucks templating system introduced in
@@ -98,11 +99,11 @@ Module.register("MMM-DarkSkyForecast", {
     },
 
     getStyles: function() {
-        return ["MMM-DarkSkyForecast.css"];
+        return ["MMM-OpenWeatherMapForecast.css"];
     },
 
     getTemplate: function() {
-        return "mmm-darksky-forecast.njk";
+        return "MMM-OpenWeatherMapForecast.njk";
     },
 
     /*
@@ -486,11 +487,11 @@ Module.register("MMM-DarkSkyForecast", {
 
     /*
       Icon sets can be added here.  The path is relative to
-      MagicMirror/modules/MMM-DarkSky/icons, and the format
+      MagicMirror/modules/MMM-OpenWeatherMapForecast/icons, and the format
       is specified here so that you can use icons in any format
       that works for you.
 
-      Dark Sky currently specifies one of ten icons for weather
+      OpenWeatherMap currently specifies one of ten icons for weather
       conditions:
 
         clear-day
@@ -505,18 +506,19 @@ Module.register("MMM-DarkSkyForecast", {
         wind
 
       All of the icon sets below support these ten plus an
-      additional three in anticipation of Dark Sky enabling
+      additional three in anticipation of OpenWeatherMap enabling
       a few more:
 
         hail,
         thunderstorm,
         tornado
 
-      Lastly, the icons also contain two icons for use as inline
+      Lastly, the icons also contain three icons for use as inline
       indicators beside precipitation and wind conditions. These
       ones look best if designed to a 24px X 24px artboard.
 
         i-rain
+        i-snow
         i-wind
 
      */
@@ -534,7 +536,7 @@ Module.register("MMM-DarkSkyForecast", {
     },
 
     /*
-      This converts OpenWeather icon names to DarkSky icon names
+      This converts OpenWeatherMap icon id to icon names
     */
     convertOpenWeatherIdToIcon: function(id, openweather_icon) {
         if (id >= 200 && id < 300) {

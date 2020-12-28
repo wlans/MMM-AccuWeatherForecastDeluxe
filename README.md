@@ -4,7 +4,7 @@ This a module for <strong>MagicMirror</strong><br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
 
-![Screenshot](/../screenshots/MMM-OpenWeatherMapForecast.png?raw=true "Screenshot")
+![Screenshot](/screenshots/MMM-OpenWeatherMapForecast.png?raw=true "Screenshot")
 
 A weather module that displays current, hourly and daily forecast information
 using data from the OpenWeather One Call API. This is a replacement module for MMM-MyWeather, now that Weather Underground no longer allows free API access.  This a complete rewrite from scratch but maintains
@@ -201,7 +201,7 @@ Find out your latitude and longitude here:
 
 ## Layouts
 
-![Layouts](/../screenshots/forecast-layouts.png?raw=true "Layouts")
+![Layouts](/screenshots/forecast-layouts.png?raw=true "Layouts")
 
 
 ## Styling

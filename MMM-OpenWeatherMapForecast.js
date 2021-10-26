@@ -28,6 +28,9 @@
   https://www.graphberry.com/item/weather-icons
   https://www.graphberry.com/item/weathera-weather-forecast-icons
 
+  Weather animated Icons by basmilius
+  https://github.com/basmilius/weather-icons
+
   Some of the icons were modified to better work with the module's
   structure and aesthetic.
 
@@ -73,6 +76,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         showFeelsLike: true,
         language: config.language,
         iconset: "1c",
+        mainIconset: defaults.iconset,
         useAnimatedIcons: true,
         animateMainIconOnly: true,
         colored: true,
@@ -178,6 +182,9 @@ Module.register("MMM-OpenWeatherMapForecast", {
         }
         if (this.iconsets[this.config.iconset] == null) {
             this.config.iconset = "1c";
+        }
+        if (this.iconsets[this.config.mainIconset] == null) {
+            this.config.mainIconset = this.config.iconset;
         }
         this.sanitizeNumbers([
             "updateInterval",
@@ -326,11 +333,10 @@ Module.register("MMM-OpenWeatherMapForecast", {
                 feelslike: Math.round(this.weatherData.current.feels_like) + "°",
                 animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
                 animatedIconName: this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
-                iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon)),
+                iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
                 tempRange: this.formatHiLowTemperature(this.weatherData.daily[0].temp.max, this.weatherData.daily[0].temp.min),
                 precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
                 wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
-
             },
             "summary": summary,
             "hourly": hourlies,
@@ -523,16 +529,18 @@ Module.register("MMM-OpenWeatherMapForecast", {
 
      */
     iconsets: {
-        "1m": { path: "1m", format: "svg" },
-        "1c": { path: "1c", format: "svg" },
-        "2m": { path: "2m", format: "svg" },
-        "2c": { path: "2c", format: "svg" },
-        "3m": { path: "3m", format: "svg" },
-        "3c": { path: "3c", format: "svg" },
-        "4m": { path: "4m", format: "svg" },
-        "4c": { path: "4c", format: "svg" },
-        "5m": { path: "5m", format: "svg" },
-        "5c": { path: "5c", format: "svg" },
+        "1m":	{ path: "1m"	, format: "svg" },
+        "1c":	{ path: "1c"	, format: "svg" },
+        "2m":	{ path: "2m"	, format: "svg" },
+        "2c":	{ path: "2c"	, format: "svg" },
+        "3m":	{ path: "3m"	, format: "svg" },
+        "3c":	{ path: "3c"	, format: "svg" },
+        "4m":	{ path: "4m"	, format: "svg" },
+        "4c":	{ path: "4c"	, format: "svg" },
+        "5m":	{ path: "5m"	, format: "svg" },
+        "5c":	{ path: "5c"	, format: "svg" },
+        "6fa":	{ path: "6fa"	, format: "svg" },
+        "6oa":	{ path: "6oa"	, format: "svg" }
     },
 
     /*
@@ -590,10 +598,13 @@ Module.register("MMM-OpenWeatherMapForecast", {
     /*
       This generates a URL to the icon file
      */
-    generateIconSrc: function(icon) {
+    generateIconSrc: function(icon, mainIcon) {
+        if (mainIcon) {
+            return this.file("icons/" + this.iconsets[this.config.mainIconset].path + "/" +
+                icon + "." + this.iconsets[this.config.mainIconset].format);
+        }
         return this.file("icons/" + this.iconsets[this.config.iconset].path + "/" +
             icon + "." + this.iconsets[this.config.iconset].format);
-
     },
 
     /*

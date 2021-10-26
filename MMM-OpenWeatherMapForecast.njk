@@ -1,4 +1,4 @@
-<div class="wrapper {{ config.forecastLayout }} icon-set-{{ config.iconset }}{% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.forecastHeaderText %} with-forecast-header{% endif %}">
+<div class="wrapper {{ config.forecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.forecastHeaderText %} with-forecast-header{% endif %}">
 
   {% if loading %}
 
@@ -8,7 +8,7 @@
 
     {# -------------- Current Conditions -------------- #}
     {% if config.showCurrentConditions %}
-      <div class="current-conditions-wrapper">
+      <div class="current-conditions-wrapper icon-set-{{ config.iconset }}">
         <span class="current-conditions-wrapper">
           {% if forecast.currently.animatedIconId %}
             <canvas class="skycon-{{ identifier }} current icon current" id="{{ forecast.currently.animatedIconId }}" data-animated-icon-name="{{ forecast.currently.animatedIconName }}" width="{{ animatedIconSizes.main }}" height="{{ animatedIconSizes.main }}"></canvas>
@@ -84,7 +84,7 @@
 
     {# -------------- Forecast -------------- #}
     {% if config.showHourlyForecast or config.showDailyForecast %}
-      <div class="forecast-container">
+      <div class="forecast-container icon-set-{{ config.iconset }}">
 
         {% if config.showForecastTableColumnHeaderIcons and config.forecastLayout == "table" %}
           <div class="header-row">
@@ -172,7 +172,7 @@
 
 
           {% for d in forecast.daily %}
-            <div class="forecast-item hourly">
+            <div class="forecast-item daily">
               <span class="day-name">{{ d.day }}</span>
               <span class="forecast-icon-container">
               {% if d.animatedIconId %}

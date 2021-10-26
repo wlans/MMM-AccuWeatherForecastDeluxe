@@ -249,8 +249,7 @@
 
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .time,
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .high-temperature,
-.MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .low-temperature,
-{
+.MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .low-temperature {
     white-space: nowrap;
 }
 

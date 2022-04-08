@@ -67,7 +67,7 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>colored</code></td>
-      <td>Whether to present module in colour or black-and-white.  Note, if set to <code>false</code>, the monochramtic version of your chosen icon set will be forced.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>Whether to present module in colour or black-and-white.  Note, if set to <code>false</code>, the monochramtic version of your chosen icon set will be forced if it exist.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>units</code></td>
@@ -127,11 +127,15 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>iconset</code></td>
-      <td>Which icon set to use.  See below for previews of the icon sets.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
+      <td>Which icon set to use. See below for previews of the icon sets.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
+    </tr>
+    <tr>
+      <td><code>mainIconset</code></td>
+      <td>Which icon set to use for current weather. See below for previews of the icon sets.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>iconset value</code></td>
     </tr>
     <tr>
       <td><code>useAnimatedIcons</code></td>
-      <td>Whether to use the Dark Sky's own animated icon set.  When set to true, this will override your choice for <code>iconset</code>. However, flat icons will still be used in some instances.  For example if you set the <code>animateMainIconOnly</code> parameter to true, daily and hourly forecasts will not be animated and instead will use your choice for <code>iconset</code>.  Inline icons (i.e. used to prefix precipitation and wind information) will always be flat.  A good <code>iconset</code> match for the animated set is <code>1c</code>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td> *** <strong>LEGACY, please use icon set '6fa' or '6oa' for animated icons ***</strong> <p>Whether to use the Dark Sky's own animated icon set.  When set to true, this will override your choice for <code>iconset</code>. However, flat icons will still be used in some instances.  For example if you set the <code>animateMainIconOnly</code> parameter to true, daily and hourly forecasts will not be animated and instead will use your choice for <code>iconset</code>.  Inline icons (i.e. used to prefix precipitation and wind information) will always be flat.  A good <code>iconset</code> match for the animated set is <code>1c</code>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>animateMainIconOnly</code></td>
@@ -196,7 +200,7 @@ Find out your latitude and longitude here:
 
 ## Icon Sets
 
-![Icon Sets](icons/iconsets.png?raw=true "Icon Sets")
+![Icon Sets](icons/iconsets.gif?raw=true "Icon Sets")
 
 
 ## Layouts

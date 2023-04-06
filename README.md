@@ -114,6 +114,10 @@ Find out your latitude and longitude here:
       <td>How many daily forecasts to list.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>3</code></td>
     </tr>
     <tr>
+      <td><code>includeTodayInDailyForecast</code></td>
+      <td>Whether to inlcude today in the daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+    </tr>
+    <tr>
       <td><code>showPrecipitation</code></td>
       <td>Whether to show precipitation information. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>

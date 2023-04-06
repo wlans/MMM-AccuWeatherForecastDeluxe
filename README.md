@@ -50,6 +50,10 @@ Find out your latitude and longitude here:
   </thead>
   <tbody>
     <tr>
+      <td><code>endpoint</code></td>
+      <td>The URL of the onecall api; v2.5 is free, v3.0 requires a subscription with payment info and can be used with <code>https://api.openweathermap.org/data/3.0/onecall</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>https://api.openweathermap.org/data/2.5/onecall</code></td>
+    </tr>
+    <tr>
       <td><code>updateInterval</code></td>
       <td>How frequently, in minutes, to poll for data. Be careful not to set this too frequent so that you don't exceed Dark Sky's 1000 free requests per day cap.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>10</code></td>
     </tr>

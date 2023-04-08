@@ -39,6 +39,27 @@ Free tier is fine -- this module will not make any where near 1000 request on on
 Find out your latitude and longitude here:
 `https://www.latlong.net/`.
 
+
+## Sample Configuration
+
+```
+{
+  module: "MMM-OpenWeatherMapForecast",
+  header: "Weather",
+  position: "top_right",
+  classes: "default everyone",
+  disabled: false,
+  config: {
+    apikey: "SUPER SECRET!!!",
+    latitude: "51.506130",
+    longitude: "-0.090270",      
+    iconset: "4c",
+    concise: false,
+    forecastLayout: "table"
+  }
+},
+```
+
 ### Other optional parameters
 
 <table>
@@ -160,6 +181,7 @@ Find out your latitude and longitude here:
   </tbody>
 </table>
 
+
 ### Units & labels
 
 While OpenWeatherMap supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for Magic Mirror.
@@ -175,16 +197,24 @@ If you want a space before or after the label, include it here.
   </thead>
   <tbody>
     <tr>
+      <td><code>label_temp_c</code></td>
+      <td>The label you wish to display following metric/celcius temperatures.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"°"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_temp_i</code></td>
+      <td>The label you wish to display following imperial/fahrenheit temperatures.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"°"</code></td>
+    </tr>
+    <tr>
       <td><code>label_maximum</code></td>
       <td>The label you wish to display for prefixing wind gusts.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"max "</code>.</td>
     </tr>
     <tr>
       <td><code>label_high</code></td>
-      <td>The label you wish to display for prefixing high temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"H "</code>.</td>
+      <td>The label you wish to display for prefixing high temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"H "</code></td>
     </tr>
     <tr>
       <td><code>label_low</code></td>
-      <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L "</code>.</td>
+      <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L "</code></td>
     </tr>
     <tr>
       <td><code>label_timeFormat</code></td>
@@ -225,25 +255,52 @@ If you want a space before or after the label, include it here.
   </tbody>
 </table>
 
-## Sample Configuration
+### Decimal precision
 
-```
-{
-  module: "MMM-OpenWeatherMapForecast",
-  header: "Weather",
-  position: "top_right",
-  classes: "default everyone",
-  disabled: false,
-  config: {
-    apikey: "SUPER SECRET!!!",
-    latitude: "51.506130",
-    longitude: "-0.090270",      
-    iconset: "4c",
-    concise: false,
-    forecastLayout: "table"
-  }
-},
-```
+Options for specifying the decimal precision for various measurements.
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dp_rain_i</code></td>
+      <td>Decimal precision for imperial rain accumulation (in inches)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>2</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_rain_m</code></td>
+      <td>Decimal precision for metric rain accumulation (in millimeters) <br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>0</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_snow_i</code></td>
+      <td>Decimal precision for imperial snow accumulation (in inches)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>2</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_snow_m</code></td>
+      <td>Decimal precision for metric snow accumulation (in millimeters)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>0</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_temp_i</code></td>
+      <td>Decimal precision for imperial/fahrenheit temperatures<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>0</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_temp_m</code></td>
+      <td>Decimal precision for metric/celcius temperatures<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>0</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_wind_i</code></td>
+      <td>Decimal precision for imperial wind speeds (in miles per hour)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code></code></td>
+    </tr>
+    <tr>
+      <td><code>dp_wind_m</code></td>
+      <td>Decimal precision for metric wind speds (in meters per second) <br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code></code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Icon Sets
 

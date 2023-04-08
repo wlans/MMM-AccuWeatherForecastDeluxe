@@ -87,6 +87,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
         forecastTiledIconSize: 70,
         forecastTableIconSize: 30,
         updateFadeSpeed: 500,
+        label_temp_i: "°",
+        label_temp_c: "°",
         label_maximum: "max ",
         label_high: "H ",
         label_low: "L ",
@@ -99,7 +101,15 @@ Module.register("MMM-OpenWeatherMapForecast", {
         label_snow_m: " mm",
         label_wind_i: " mph",
         label_wind_m: " m/s",
-        moduleTimestampIdPrefix: "OPENWEATHER_ONE_CALL_TIMESTAMP_"
+        moduleTimestampIdPrefix: "OPENWEATHER_ONE_CALL_TIMESTAMP_",
+        dp_rain_i: 2,
+        dp_rain_m: 0,
+        dp_snow_i: 2,
+        dp_snow_m: 0,
+        dp_temp_i: 0,
+        dp_temp_m: 0,
+        dp_wind_i: 0,
+        dp_wind_m: 0,
     },
 
     validUnits: ["imperial", "metric", ""],
@@ -337,8 +347,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
 
         return {
             "currently": {
-                temperature: Math.round(this.weatherData.current.temp) + "°",
-                feelslike: Math.round(this.weatherData.current.feels_like) + "°",
+                temperature: this.getUnit('temp', this.weatherData.current.temp),
+                feelslike: this.getUnit('temp', this.weatherData.current.feels_like),
                 animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
                 animatedIconName: this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
                 iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
@@ -383,7 +393,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         // --------- Temperature ---------
 
         if (type == "hourly") { //just display projected temperature for that hour
-            fItem.temperature = Math.round(fData.temp) + "°";
+            fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
             fItem.tempRange = this.formatHiLowTemperature(fData.temp.max, fData.temp.min);
         }
@@ -402,8 +412,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
      */
     formatHiLowTemperature: function(h, l) {
         return {
-            high: this.config.label_high + Math.round(h) + "°",
-            low: this.config.label_low + Math.round(l) + "°"
+            high: this.config.label_high + this.getUnit('temp', h),
+            low: this.config.label_low + this.getUnit('temp', l)
         };
     },
 
@@ -422,19 +432,19 @@ Module.register("MMM-OpenWeatherMapForecast", {
             if (typeof snowAccumulation === "number") {
                 switch (this.config.units) {
                     case "imperial":
-                        accumulation = Number((Math.round(snowAccumulation)/25.4).toFixed(2)) + this.config.label_snow_i;
+                        accumulation = this.getUnit('snow', snowAccumulation/25.4);
                         break;
                     case "metric":
-                        accumulation = Math.round(snowAccumulation) + this.config.label_snow_m;
+                        accumulation = this.getUnit('snow', snowAccumulation);
                         break;
                 }
             } else if (typeof snowAccumulation === "object" && snowAccumulation["1h"]) {
                 switch (this.config.units) {
                     case "imperial":
-                        accumulation = Number((Math.round(snowAccumulation["1h"])/25.4).toFixed(2)) + this.config.label_snow_i;
+                        accumulation = this.getUnit('snow', snowAccumulation["1h"]/25.4);
                         break;
                     case "metric":
-                        accumulation = Math.round(snowAccumulation["1h"]) + this.config.label_snow_m;
+                        accumulation = this.getUnit('snow', snowAccumulation["1h"]);
                         break;
                 }
             }
@@ -443,19 +453,19 @@ Module.register("MMM-OpenWeatherMapForecast", {
             if (typeof rainAccumulation === "number") {
                 switch (this.config.units) {
                     case "imperial":
-                        accumulation = Number((Math.round(rainAccumulation)/25.4).toFixed(2)) + this.config.label_rain_i;
+                        accumulation = this.getUnit('rain', rainAccumulation/25.4);
                         break;
                     case "metric":
-                        accumulation = Math.round(rainAccumulation) + this.config.label_rain_i;
+                        accumulation = this.getUnit('rain', rainAccumulation);
                         break;
                 }
             } else if (typeof rainAccumulation === "object" && rainAccumulation["1h"]) {
                 switch (this.config.units) {
                     case "imperial":
-                        accumulation = Number((Math.round(rainAccumulation["1h"])/25.4).toFixed(2)) + this.config.label_rain_i;
+                        accumulation = this.getUnit('rain', rainAccumulation["1h"]/25.4);
                         break;
                     case "metric":
-                        accumulation = Math.round(rainAccumulation["1h"]) + this.config.label_rain_i;
+                        accumulation = this.getUnit('rain', rainAccumulation["1h"]);
                         break;
                 }
             }
@@ -477,29 +487,25 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Returns a formatted data object for wind conditions
      */
     formatWind: function(speed, bearing, gust) {
-
-        //wind gust
+        var windSpeed = windSpeed = this.getUnit('wind', speed) + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
         var windGust = null;
-        var windSpeed = null;
-        switch (this.config.units) {
-            case "imperial":
-                windSpeed = Math.round(speed) + this.config.label_wind_i + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
-                if (!this.config.concise && gust) {
-                    windGust = " (" + this.config.label_maximum + Math.round(gust) + this.config.label_wind_i + ")";
-                }
-                break;
-            case "metric":
-                windSpeed = Math.round(speed) + this.config.label_wind_m + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
-                if (!this.config.concise && gust) {
-                    windGust = " (" + this.config.label_maximum + Math.round(gust) + this.config.label_wind_m + ")";
-                }        
-                break;
+        if (!this.config.concise && gust) {
+            windGust = " (" + this.config.label_maximum + this.getUnit('wind', gust) + ")";
         }
 
         return {
             windSpeed: windSpeed,
             windGust: windGust
         };
+    },
+
+    /*
+      Returns the units in use for the data pull from OpenWeather
+     */
+    getUnit: function(metric, value) {
+        return String(parseFloat(value.toFixed(
+            this.config['dp_' + metric + (this.config.units === 'metric' ? '_m' : '_i')]
+        ))) + this.config['label_' + metric + (this.config.units === 'metric' ? '_m' : '_i')];
     },
 
     /*

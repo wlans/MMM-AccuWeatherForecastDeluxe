@@ -526,7 +526,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Wind direction is provided in degress from North in the data feed.
      */
     getOrdinal: function(bearing) {
-        return this.config.label_ordinals[Math.round(bearing * 16 / 360) % 16];
+        return this.config.label_ordinals[Math.round(bearing * this.config.label_ordinals.length / 360) % this.config.label_ordinals.length];
     },
 
     /*

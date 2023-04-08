@@ -176,15 +176,15 @@ If you want a space before or after the label, include it here.
   <tbody>
     <tr>
       <td><code>label_maximum</code></td>
-      <td>The label you wish to display for prefixing wind gusts.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"max"</code>.</td>
+      <td>The label you wish to display for prefixing wind gusts.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"max "</code>.</td>
     </tr>
     <tr>
       <td><code>label_high</code></td>
-      <td>The label you wish to display for prefixing high temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"H"</code>.</td>
+      <td>The label you wish to display for prefixing high temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"H "</code>.</td>
     </tr>
     <tr>
       <td><code>label_low</code></td>
-      <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L"</code>.</td>
+      <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L "</code>.</td>
     </tr>
     <tr>
       <td><code>label_timeFormat</code></td>

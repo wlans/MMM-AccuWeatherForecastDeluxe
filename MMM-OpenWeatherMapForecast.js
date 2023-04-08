@@ -95,7 +95,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         label_high: "H ",
         label_low: "L ",
         label_timeFormat: "h a",
-        label_days: ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"],
+        label_days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         label_today: "Today",
         label_tomorrow: "Tomorrow",
         label_ordinals: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"],

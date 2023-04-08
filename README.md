@@ -146,7 +146,7 @@ Find out your latitude and longitude here:
       <td>Show today's day as <code>label_today</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
       <td><code>showDayAsTomorrowInDailyForecast</code></td>
-      <td>Show tomorrow's day as <code>label_tmorrow</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+      <td>Show tomorrow's day as <code>label_tomorrow</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
     <tr>
       <td><code>showPrecipitation</code></td>

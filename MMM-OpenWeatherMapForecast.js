@@ -71,6 +71,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
         showDailyForecast: true,
         maxDailiesToShow: 3,
         includeTodayInDailyForecast: false,
+        showDayAsTodayInDailyForecast: false,
+        showDayAsTomorrowInDailyForecast: false,
         showPrecipitation: true,
         concise: true,
         showWind: true,
@@ -94,6 +96,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
         label_low: "L ",
         label_timeFormat: "h a",
         label_days: ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"],
+        label_today: "Today",
+        label_tomorrow: "Tomorrow",
         label_ordinals: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"],
         label_rain_i: " in.",
         label_rain_m: " mm",
@@ -339,7 +343,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
                     break;
                 }
 
-                dailies.push(this.forecastItemFactory(this.weatherData.daily[i], "daily"));
+                dailies.push(this.forecastItemFactory(this.weatherData.daily[i], "daily", i));
             }
 
         }
@@ -367,7 +371,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Hourly and Daily forecast items are very similar.  So one routine builds the data
       objects for both.
      */
-    forecastItemFactory: function(fData, type) {
+    forecastItemFactory: function(fData, type, index = null) {
 
         var fItem = new Object();
 
@@ -375,7 +379,17 @@ Module.register("MMM-OpenWeatherMapForecast", {
         if (type == "daily") {
 
             //day name (e.g.: "MON")
-            fItem.day = this.config.label_days[moment(fData.dt * 1000).format("d")];
+            switch (index) {
+                case 0:
+                    fItem.day = this.config.label_today;
+                    break;
+                case 1:
+                    fItem.day = this.config.label_tomorrow;
+                    break;
+                default:
+                    fItem.day = this.config.label_days[moment(fData.dt * 1000).format("d")];
+                    break;
+            }
 
         } else { //hourly
 
@@ -431,19 +445,19 @@ Module.register("MMM-OpenWeatherMapForecast", {
             accumulationtype = "snow";
             if (typeof snowAccumulation === "number") {
                 switch (this.config.units) {
-                    case "imperial":
+                    case 'imperial':
                         accumulation = this.getUnit('snow', snowAccumulation/25.4);
                         break;
-                    case "metric":
+                    case 'metric':
                         accumulation = this.getUnit('snow', snowAccumulation);
                         break;
                 }
             } else if (typeof snowAccumulation === "object" && snowAccumulation["1h"]) {
                 switch (this.config.units) {
-                    case "imperial":
+                    case 'imperial':
                         accumulation = this.getUnit('snow', snowAccumulation["1h"]/25.4);
                         break;
-                    case "metric":
+                    case 'metric':
                         accumulation = this.getUnit('snow', snowAccumulation["1h"]);
                         break;
                 }
@@ -452,19 +466,19 @@ Module.register("MMM-OpenWeatherMapForecast", {
             accumulationtype = "rain";
             if (typeof rainAccumulation === "number") {
                 switch (this.config.units) {
-                    case "imperial":
+                    case 'imperial':
                         accumulation = this.getUnit('rain', rainAccumulation/25.4);
                         break;
-                    case "metric":
+                    case 'metric':
                         accumulation = this.getUnit('rain', rainAccumulation);
                         break;
                 }
             } else if (typeof rainAccumulation === "object" && rainAccumulation["1h"]) {
                 switch (this.config.units) {
-                    case "imperial":
+                    case 'imperial':
                         accumulation = this.getUnit('rain', rainAccumulation["1h"]/25.4);
                         break;
-                    case "metric":
+                    case 'metric':
                         accumulation = this.getUnit('rain', rainAccumulation["1h"]);
                         break;
                 }
@@ -474,7 +488,6 @@ Module.register("MMM-OpenWeatherMapForecast", {
         if (percentChance) {
             pop = Math.round(percentChance * 100) + "%";
         }
-
         return {
             pop: pop,
             accumulation: accumulation,
@@ -487,7 +500,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Returns a formatted data object for wind conditions
      */
     formatWind: function(speed, bearing, gust) {
-        var windSpeed = windSpeed = this.getUnit('wind', speed) + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
+        var windSpeed = this.getUnit('wind', speed) + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
         var windGust = null;
         if (!this.config.concise && gust) {
             windGust = " (" + this.config.label_maximum + this.getUnit('wind', gust) + ")";

@@ -142,6 +142,12 @@ Find out your latitude and longitude here:
       <td><code>includeTodayInDailyForecast</code></td>
       <td>Whether to inlcude today in the daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
+      <td><code>showDayAsTodayInDailyForecast</code></td>
+      <td>Show today's day as <code>label_today</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+    </tr>
+      <td><code>showDayAsTomorrowInDailyForecast</code></td>
+      <td>Show tomorrow's day as <code>label_tmorrow</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+    </tr>
     <tr>
       <td><code>showPrecipitation</code></td>
       <td>Whether to show precipitation information. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
@@ -225,6 +231,14 @@ If you want a space before or after the label, include it here.
       <td>How you would like the days of the week displayed for daily forecasts.  Assumes index <code>0</code> is Sunday.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]</code></td>
     </tr>
     <tr>
+      <td><code>label_today</code></td>
+      <td>The label you wish to use for today in daily forecast when <code>showDayAsTodayInDailyForecast</code> is <code>true</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"Today"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_tomorrow</code></td>
+      <td>The label you wish to use for tomorrow in daily forecast when <code>showDayAsTomorrowInDailyForecast</code> is <code>true</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"Tomorrow"</code></td>
+    </tr>
+    <tr>
       <td><code>label_ordinals</code></td>
       <td>How you would like wind direction to be displayed.  Assumes index <code>0</code> is North and proceeds clockwise.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]</code></td>
     </tr>
@@ -293,11 +307,11 @@ Options for specifying the decimal precision for various measurements.
     </tr>
     <tr>
       <td><code>dp_wind_i</code></td>
-      <td>Decimal precision for imperial wind speeds (in miles per hour)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code></code></td>
+      <td>Decimal precision for imperial wind speeds (in miles per hour)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>0</code></td>
     </tr>
     <tr>
       <td><code>dp_wind_m</code></td>
-      <td>Decimal precision for metric wind speds (in meters per second) <br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code></code></td>
+      <td>Decimal precision for metric wind speds (in meters per second) <br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>0</code></td>
     </tr>
   </tbody>
 </table>

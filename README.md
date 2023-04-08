@@ -228,7 +228,7 @@ If you want a space before or after the label, include it here.
     </tr>
     <tr>
       <td><code>label_days</code></td>
-      <td>How you would like the days of the week displayed for daily forecasts.  Assumes index <code>0</code> is Sunday.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]</code></td>
+      <td>How you would like the days of the week displayed for daily forecasts.  Assumes index <code>0</code> is Sunday.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]</code></td>
     </tr>
     <tr>
       <td><code>label_today</code></td>

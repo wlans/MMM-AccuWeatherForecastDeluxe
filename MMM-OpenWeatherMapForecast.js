@@ -87,9 +87,9 @@ Module.register("MMM-OpenWeatherMapForecast", {
         forecastTiledIconSize: 70,
         forecastTableIconSize: 30,
         updateFadeSpeed: 500,
-        label_maximum: "max",
-        label_high: "H",
-        label_low: "L",
+        label_maximum: "max ",
+        label_high: "H ",
+        label_low: "L ",
         label_timeFormat: "h a",
         label_days: ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"],
         label_ordinals: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"],
@@ -396,8 +396,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
      */
     formatHiLowTemperature: function(h, l) {
         return {
-            high: (!this.config.concise ? this.config.label_high + " " : "") + Math.round(h) + "°",
-            low: (!this.config.concise ? this.config.label_low + " " : "") + Math.round(l) + "°"
+            high: this.config.label_high + Math.round(h) + "°",
+            low: this.config.label_low + Math.round(l) + "°"
         };
     },
 
@@ -451,7 +451,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         //wind gust
         var windGust = null;
         if (!this.config.concise && gust) {
-            windGust = " (" + this.config.label_maximum + " " + Math.round(gust) + " " + this.getUnit("windSpeed") + ")";
+            windGust = " (" + this.config.label_maximum + Math.round(gust) + " " + this.getUnit("windSpeed") + ")";
         }
 
         return {

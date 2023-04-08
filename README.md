@@ -157,17 +157,34 @@ Find out your latitude and longitude here:
       <td><code>forecastLayout</code></td>
       <td>Can be set to <code>tiled</code> or <code>table</code>. How to display hourly and forecast information.  See below for screenshot examples of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
     </tr>
+  </tbody>
+</table>
+
+### Units & labels
+
+While OpenWeatherMap supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for Magic Mirror.
+
+If you want a space before or after the label, include it here.
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
       <td><code>label_maximum</code></td>
-      <td>The label you wish to display for prefixing wind gusts.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"max "</code>.</td>
+      <td>The label you wish to display for prefixing wind gusts.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"max"</code>.</td>
     </tr>
     <tr>
       <td><code>label_high</code></td>
-      <td>The label you wish to display for prefixing high temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"H "</code>.</td>
+      <td>The label you wish to display for prefixing high temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"H"</code>.</td>
     </tr>
     <tr>
       <td><code>label_low</code></td>
-      <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L "</code>.</td>
+      <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L"</code>.</td>
     </tr>
     <tr>
       <td><code>label_timeFormat</code></td>
@@ -181,8 +198,30 @@ Find out your latitude and longitude here:
       <td><code>label_ordinals</code></td>
       <td>How you would like wind direction to be displayed.  Assumes index <code>0</code> is North and proceeds clockwise.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]</code></td>
     </tr>
-
-
+    <tr>
+      <td><code>label_rain_i</code></td>
+      <td>The imperial unit label for rain accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" in."</code></td>
+    </tr>
+    <tr>
+      <td><code>label_rain_m</code></td>
+      <td>The metric unit label for rain accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" mm"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_snow_i</code></td>
+      <td>The imperial unit label for snow accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" in."</code></td>
+    </tr>
+    <tr>
+      <td><code>label_snow_m</code></td>
+      <td>The metric unit label for snow accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" mm"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_wind_i</code></td>
+      <td>The imperial unit label for wind speed.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" mph"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_wind_m</code></td>
+      <td>The metric unit label for wind speed.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" m/s"</code></td>
+    </tr>
   </tbody>
 </table>
 

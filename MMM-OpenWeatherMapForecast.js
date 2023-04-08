@@ -93,6 +93,12 @@ Module.register("MMM-OpenWeatherMapForecast", {
         label_timeFormat: "h a",
         label_days: ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"],
         label_ordinals: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"],
+        label_rain_i: " in.",
+        label_rain_m: " mm",
+        label_snow_i: " in.",
+        label_snow_m: " mm",
+        label_wind_i: " mph",
+        label_wind_m: " m/s",
         moduleTimestampIdPrefix: "OPENWEATHER_ONE_CALL_TIMESTAMP_"
     },
 
@@ -413,21 +419,45 @@ Module.register("MMM-OpenWeatherMapForecast", {
         //accumulation
         if (snowAccumulation) {
             accumulationtype = "snow";
-            if (typeof snowAccumulation === "number" && this.config.units === "imperial") {
-                accumulation = Number((Math.round(snowAccumulation)/25.4).toFixed(2)) + " " + this.getUnit("accumulationSnow");
+            if (typeof snowAccumulation === "number") {
+                switch (this.config.units) {
+                    case "imperial":
+                        accumulation = Number((Math.round(snowAccumulation)/25.4).toFixed(2)) + this.config.label_snow_i;
+                        break;
+                    case "metric":
+                        accumulation = Math.round(snowAccumulation) + this.config.label_snow_m;
+                        break;
+                }
             } else if (typeof snowAccumulation === "object" && snowAccumulation["1h"]) {
-                accumulation = Math.round(snowAccumulation["1h"]) + " " + this.getUnit("accumulationSnow");
-            } else if (typeof snowAccumulation === "number" && this.config.units === "metric") {
-                accumulation = Math.round(snowAccumulation) + " " + this.getUnit("accumulationSnow");
+                switch (this.config.units) {
+                    case "imperial":
+                        accumulation = Number((Math.round(snowAccumulation["1h"])/25.4).toFixed(2)) + this.config.label_snow_i;
+                        break;
+                    case "metric":
+                        accumulation = Math.round(snowAccumulation["1h"]) + this.config.label_snow_m;
+                        break;
+                }
             }
         } else if (rainAccumulation) {
             accumulationtype = "rain";
-            if (typeof rainAccumulation === "number" && this.config.units === "imperial") {
-                accumulation = Number((Math.round(rainAccumulation)/25.4).toFixed(2)) + " " + this.getUnit("accumulationRain");
+            if (typeof rainAccumulation === "number") {
+                switch (this.config.units) {
+                    case "imperial":
+                        accumulation = Number((Math.round(rainAccumulation)/25.4).toFixed(2)) + this.config.label_rain_i;
+                        break;
+                    case "metric":
+                        accumulation = Math.round(rainAccumulation) + this.config.label_rain_i;
+                        break;
+                }
             } else if (typeof rainAccumulation === "object" && rainAccumulation["1h"]) {
-                accumulation = Math.round(rainAccumulation["1h"]) + " " + this.getUnit("accumulationRain");
-            } else if (typeof rainAccumulation === "number" && this.config.units === "metric") {
-                accumulation = Math.round(rainAccumulation) + " " + this.getUnit("accumulationRain");
+                switch (this.config.units) {
+                    case "imperial":
+                        accumulation = Number((Math.round(rainAccumulation["1h"])/25.4).toFixed(2)) + this.config.label_rain_i;
+                        break;
+                    case "metric":
+                        accumulation = Math.round(rainAccumulation["1h"]) + this.config.label_rain_i;
+                        break;
+                }
             }
         }
 
@@ -450,21 +480,26 @@ Module.register("MMM-OpenWeatherMapForecast", {
 
         //wind gust
         var windGust = null;
-        if (!this.config.concise && gust) {
-            windGust = " (" + this.config.label_maximum + Math.round(gust) + " " + this.getUnit("windSpeed") + ")";
+        var windSpeed = null;
+        switch (this.config.units) {
+            case "imperial":
+                windSpeed = Math.round(speed) + this.config.label_wind_i + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
+                if (!this.config.concise && gust) {
+                    windGust = " (" + this.config.label_maximum + Math.round(gust) + this.config.label_wind_i + ")";
+                }
+                break;
+            case "metric":
+                windSpeed = Math.round(speed) + this.config.label_wind_m + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
+                if (!this.config.concise && gust) {
+                    windGust = " (" + this.config.label_maximum + Math.round(gust) + this.config.label_wind_m + ")";
+                }        
+                break;
         }
 
         return {
-            windSpeed: Math.round(speed) + " " + this.getUnit("windSpeed") + (!this.config.concise ? " " + this.getOrdinal(bearing) : ""),
+            windSpeed: windSpeed,
             windGust: windGust
         };
-    },
-
-    /*
-      Returns the units in use for the data pull from OpenWeather
-     */
-    getUnit: function(metric) {
-        return this.units[metric][this.config.units];
     },
 
     /*
@@ -473,28 +508,6 @@ Module.register("MMM-OpenWeatherMapForecast", {
      */
     getOrdinal: function(bearing) {
         return this.config.label_ordinals[Math.round(bearing * 16 / 360) % 16];
-    },
-
-    /*
-      Some display items need the unit beside them.  This returns the correct
-      unit for the given metric based on the unit set in use.
-     */
-    units: {
-        accumulationRain: {
-            imperial: "in.",
-            metric: "mm",
-            "": "mm"
-        },
-        accumulationSnow: {
-            imperial: "in.",
-            metric: "mm",
-            "": "mm"
-        },
-        windSpeed: {
-            imperial: "mph",
-            metric: "m/s",
-            "": "m/s"
-        }
     },
 
     /*

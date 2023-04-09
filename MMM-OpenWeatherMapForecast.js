@@ -75,6 +75,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         showDayAsTomorrowInDailyForecast: false,
         showPrecipitation: true,
         concise: true,
+        get conciseWindDirection() {return this.concise},
         showWind: true,
         showFeelsLike: true,
         language: config.language,
@@ -492,7 +493,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Returns a formatted data object for wind conditions
      */
     formatWind: function(speed, bearing, gust) {
-        var windSpeed = this.getUnit('wind', speed) + (!this.config.concise ? " " + this.getOrdinal(bearing) : "");
+        var windSpeed = this.getUnit('wind', speed) + (!this.config.concise || !this.config.conciseWindDirection ? " " + this.getOrdinal(bearing) : "");
         var windGust = null;
         if (!this.config.concise && gust) {
             windGust = " (" + this.config.label_maximum + this.getUnit('wind', gust) + ")";

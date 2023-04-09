@@ -161,6 +161,10 @@ Find out your latitude and longitude here:
       <td>When set to <code>true</code>, this presents less information.  (e.g.: shorter summary, no precipitation accumulation, no wind gusts, etc.)<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
+      <td><code>conciseWindDirection</code></td>
+      <td>When set to <code>false</code>, shows the wind direction, overriding the value of <code>concise</code><br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>concise value</code></td>
+    </tr>
+    <tr>
       <td><code>iconset</code></td>
       <td>Which icon set to use. See below for previews of the icon sets.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
     </tr>

@@ -40,7 +40,7 @@ Find out your latitude and longitude here:
 `https://www.latlong.net/`.
 
 
-## Sample Configuration
+### Sample Configuration
 
 ```
 {
@@ -60,7 +60,7 @@ Find out your latitude and longitude here:
 },
 ```
 
-### Other optional parameters
+### Other Optional Parameters
 
 <table>
   <thead>
@@ -162,7 +162,7 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>conciseWindDirection</code></td>
-      <td>When set to <code>false</code>, shows the wind direction, overriding the value of <code>concise</code><br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>When set to <code>false</code>, shows the wind direction, overriding the value of <code>concise</code>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>iconset</code></td>
@@ -192,7 +192,7 @@ Find out your latitude and longitude here:
 </table>
 
 
-### Units & labels
+### Units & Labels
 
 While OpenWeatherMap supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for Magic Mirror.
 
@@ -273,7 +273,7 @@ If you want a space before or after the label, include it here.
   </tbody>
 </table>
 
-### Decimal precision
+### Decimal Precision
 
 Options for specifying the decimal precision for various measurements.
 

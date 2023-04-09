@@ -243,7 +243,6 @@
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .forecast-icon {
     width: 30px;
     height: 30px;
-    display: block;
     vertical-align: middle;
 }
 
@@ -285,10 +284,13 @@
 	text-align: center;
 }
 
-.MMM-OpenWeatherMapForecast .forecast-bar .bar {
+.MMM-OpenWeatherMapForecast .forecast-bars .bar {
 	background-color: #FFF;
 	line-height: 0.8em;
 	border-radius: 1em;
 	border: 0.5em transparent solid;
 	background-clip: padding-box;
+}
+.MMM-OpenWeatherMapForecast .forecast-bars .bar .forecast-icon-container {
+	padding: 0 0.5em;
 }

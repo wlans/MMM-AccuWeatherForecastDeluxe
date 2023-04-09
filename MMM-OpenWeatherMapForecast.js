@@ -75,7 +75,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         showDayAsTomorrowInDailyForecast: false,
         showPrecipitation: true,
         concise: true,
-        get conciseWindDirection() {return this.concise},
+        conciseWindDirection: true,
         showWind: true,
         showFeelsLike: true,
         language: config.language,

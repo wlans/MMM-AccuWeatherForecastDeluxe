@@ -162,7 +162,7 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>conciseWindDirection</code></td>
-      <td>When set to <code>false</code>, shows the wind direction, overriding the value of <code>concise</code><br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>concise value</code></td>
+      <td>When set to <code>false</code>, shows the wind direction, overriding the value of <code>concise</code><br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>iconset</code></td>

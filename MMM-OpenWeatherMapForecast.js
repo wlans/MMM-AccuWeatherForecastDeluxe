@@ -379,17 +379,9 @@ Module.register("MMM-OpenWeatherMapForecast", {
         if (type == "daily") {
 
             //day name (e.g.: "MON")
-            switch (index) {
-                case 0:
-                    fItem.day = this.config.label_today;
-                    break;
-                case 1:
-                    fItem.day = this.config.label_tomorrow;
-                    break;
-                default:
-                    fItem.day = this.config.label_days[moment(fData.dt * 1000).format("d")];
-                    break;
-            }
+            if (index === 0 && this.config.showDayAsTodayInDailyForecast) fItem.day = this.config.label_today;
+            else if (index === 1 && this.config.showDayAsTomorrowInDailyForecast) fItem.day = this.config.label_tomorrow;
+            else fItem.day = this.config.label_days[moment(fData.dt * 1000).format("d")];
 
         } else { //hourly
 

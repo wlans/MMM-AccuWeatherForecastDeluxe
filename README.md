@@ -275,7 +275,7 @@ If you want a space before or after the label, include it here.
 
 ### Decimal Precision
 
-Options for specifying the decimal precision for various measurements.
+Options for specifying the decimal precision for various measurements. OpenWeatherMap's data is typically up to 2 decimal places, so the useful values are from <code>0</code> to <code>2</code>.
 
 <table>
   <thead>

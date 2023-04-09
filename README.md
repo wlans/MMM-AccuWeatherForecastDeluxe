@@ -60,7 +60,7 @@ Find out your latitude and longitude here:
 },
 ```
 
-### Other Optional Parameters
+### Optional Parameters
 
 <table>
   <thead>

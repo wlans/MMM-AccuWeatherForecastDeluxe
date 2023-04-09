@@ -258,3 +258,37 @@
     display: block;
     white-space: nowrap;
 }
+
+
+/* ------------ Bars Layout ------------ */
+
+.MMM-OpenWeatherMapForecast .forecast-bars .temp {
+    color: #FFF;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.day-name,
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.forecast-icon-container {
+	width: 1%;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon {
+	width: 30px;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bar {
+	display: table;
+	overflow: hidden;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bar > span {
+	display: table-cell;
+	text-align: center;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bar .bar {
+	background-color: #FFF;
+	line-height: 0.8em;
+	border-radius: 1em;
+	border: 0.5em transparent solid;
+	background-clip: padding-box;
+}

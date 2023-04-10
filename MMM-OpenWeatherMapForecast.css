@@ -272,6 +272,7 @@
 
 .MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon {
 	width: 30px;
+    vertical-align: middle;
 }
 
 .MMM-OpenWeatherMapForecast .forecast-bar {
@@ -292,6 +293,6 @@
 	background-clip: padding-box;
 }
 
-.MMM-OpenWeatherMapForecast .forecast-bars .bar .forecast-icon-container {
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon-container {
 	padding: 0 0.5em;
 }

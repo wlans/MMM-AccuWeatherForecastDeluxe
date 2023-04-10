@@ -291,6 +291,7 @@
 	border: 0.5em transparent solid;
 	background-clip: padding-box;
 }
+
 .MMM-OpenWeatherMapForecast .forecast-bars .bar .forecast-icon-container {
 	padding: 0 0.5em;
 }

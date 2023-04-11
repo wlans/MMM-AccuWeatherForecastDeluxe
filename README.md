@@ -139,8 +139,8 @@ Find out your latitude and longitude here:
       <td>How many daily forecasts to list.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>3</code></td>
     </tr>
     <tr>
-      <td><code>includeTodayInDailyForecast</code></td>
-      <td>Whether to inlcude today in the daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+      <td><code>ignoreToday</code></td>
+      <td>If set to <code>true</code>, today's weather will not be displayed in daily forecast. <br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
       <td><code>showDayAsTodayInDailyForecast</code></td>
       <td>Show today's day as <code>label_today</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>

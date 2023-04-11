@@ -70,7 +70,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
         maxHourliesToShow: 3,
         showDailyForecast: true,
         maxDailiesToShow: 3,
-        includeTodayInDailyForecast: false,
+        ignoreToday: false,
         showDayAsTodayInDailyForecast: false,
         showDayAsTomorrowInDailyForecast: false,
         showPrecipitation: true,
@@ -338,7 +338,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
             var min = Number.MAX_VALUE;
             var max = -Number.MAX_VALUE;
 
-            if (this.config.includeTodayInDailyForecast) {
+            if (!this.config.ignoreToday) {
                 i = 0;
                 maxi = this.config.maxDailiesToShow - 1;
             }

@@ -118,7 +118,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
     },
 
     validUnits: ["imperial", "metric", ""],
-    validLayouts: ["tiled", "table"],
+    validLayouts: ["tiled", "table", "bars"],
 
     getScripts: function() {
         return ["moment.js", this.file("skycons.js")];
@@ -335,16 +335,30 @@ Module.register("MMM-OpenWeatherMapForecast", {
         if (this.config.showDailyForecast) {
             var i = 1;
             var maxi = this.config.maxDailiesToShow;
+            var min = Number.MAX_VALUE;
+            var max = -Number.MAX_VALUE;
+
             if (this.config.includeTodayInDailyForecast) {
                 i = 0;
                 maxi = this.config.maxDailiesToShow - 1;
+            }
+            //// iterate over this.weather.daily and calculate nin & max to send to forecastItemFactory
+            //
+            if (this.config.forecastLayout == 'bars') {
+                for (j = i; j <= maxi; j++) {
+                    if (this.weatherData.daily[j] == null) {
+                        break;
+                    }
+                    min = Math.min(min, this.weatherData.daily[j].temp.min);
+                    max = Math.max(max, this.weatherData.daily[j].temp.max);
+                }
             }
             for (i; i <= maxi; i++) {
                 if (this.weatherData.daily[i] == null) {
                     break;
                 }
 
-                dailies.push(this.forecastItemFactory(this.weatherData.daily[i], "daily", i));
+                dailies.push(this.forecastItemFactory(this.weatherData.daily[i], "daily", i, min, max));
             }
 
         }
@@ -372,7 +386,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Hourly and Daily forecast items are very similar.  So one routine builds the data
       objects for both.
      */
-    forecastItemFactory: function(fData, type, index = null) {
+    forecastItemFactory: function(fData, type, index = null, min = null, max = null) {
 
         var fItem = new Object();
 
@@ -403,6 +417,17 @@ Module.register("MMM-OpenWeatherMapForecast", {
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
             fItem.tempRange = this.formatHiLowTemperature(fData.temp.max, fData.temp.min);
+            if (this.config.forecastLayout == 'bars') {
+                fItem.bars = {
+                    min: min,
+                    max: max,
+                    total: max - min,
+                    interval: 100 / (max - min),
+                };
+                fItem.bars.barWidth = Math.round(fItem.bars.interval * (fData.temp.max - fData.temp.min));
+                fItem.bars.leftSpacerWidth = Math.round(fItem.bars.interval * (fData.temp.min - min));
+                fItem.bars.rightSpacerWidth = Math.round(fItem.bars.interval * (max - fData.temp.max));
+            }
         }
 
         // --------- Precipitation ---------

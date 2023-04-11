@@ -243,7 +243,6 @@
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .forecast-icon {
     width: 30px;
     height: 30px;
-    display: block;
     vertical-align: middle;
 }
 
@@ -257,4 +256,43 @@
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .accumulation {
     display: block;
     white-space: nowrap;
+}
+
+
+/* ------------ Bars Layout ------------ */
+
+.MMM-OpenWeatherMapForecast .forecast-bars .temp {
+    color: #FFF;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.day-name,
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.forecast-icon-container {
+	width: 1%;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon {
+	width: 30px;
+    vertical-align: middle;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bar {
+	display: table;
+	overflow: hidden;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bar > span {
+	display: table-cell;
+	text-align: center;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .bar {
+	background-color: #FFF;
+	line-height: 0.8em;
+	border-radius: 1em;
+	border: 0.5em transparent solid;
+	background-clip: padding-box;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon-container {
+	padding: 0 0.5em;
 }

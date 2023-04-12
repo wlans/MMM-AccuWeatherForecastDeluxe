@@ -84,11 +84,11 @@
 
   {% if config.showHourlyForecast %}
 
-    <div class="wrapper {{ config.hourlyForecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.forecastHeaderText %} with-forecast-header{% endif %}">
+    <div class="wrapper {{ config.hourlyForecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.hourlyForecastHeaderText %} with-forecast-header{% endif %}">
 
       {# -------------- Forecast Title -------------- #}
-      {% if not (config.forecastHeaderText == "") and (config.showHourlyForecast) %}
-        <header class="module-header forecast-header">{{ config.forecastHeaderText | safe }}</header>
+      {% if not (config.hourlyForecastHeaderText == "") and (config.showHourlyForecast) %}
+        <header class="module-header forecast-header">{{ config.hourlyForecastHeaderText | safe }}</header>
       {% endif %}
 
       {# -------------- Table & Tiled Hourly Forecast -------------- #}
@@ -190,11 +190,11 @@
 
   {% if config.showDailyForecast %}
 
-    <div class="wrapper {{ config.dailyForecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.forecastHeaderText %} with-forecast-header{% endif %}">
+    <div class="wrapper {{ config.dailyForecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.dailyForecastHeaderText %} with-forecast-header{% endif %}">
 
       {# -------------- Forecast Title -------------- #}
-      {% if not (config.forecastHeaderText == "") and (config.showDailyForecast) %}
-        <header class="module-header forecast-header">{{ config.forecastHeaderText | safe }}</header>
+      {% if not (config.dailyForecastHeaderText == "") and (config.showDailyForecast) %}
+        <header class="module-header forecast-header">{{ config.dailyForecastHeaderText | safe }}</header>
       {% endif %}
 
       {# -------------- Table & Tiled Forecasts -------------- #}
@@ -231,7 +231,6 @@
           {# Daily #}
           {% if config.showDailyForecast %}
 
-
             {% for d in forecast.daily %}
               <div class="forecast-item daily">
                 <span class="day-name">{{ d.day }}</span>
@@ -252,14 +251,6 @@
 
                   <span class="precipitation-container">
                     {% if d.precipitation.accumulation %}
-                      {% if (config.showInlineIcons) and config.forecastLayout == "tiled" %}
-                        {% if d.precipitation.accumulationtype == "rain" %}
-                          <img class="inline-icon rain" src="{{ inlineIcons.rain }}" />
-                        {% endif %}
-                        {% if d.precipitation.accumulationtype == "snow" %}
-                          <img class="inline-icon snow" src="{{ inlineIcons.snow }}" />
-                        {% endif %}
-                      {% endif %}
                       <span class="pop">{{ d.precipitation.pop }}</span>
                       {% if not config.concise %}
                         <span class="pop">{{ d.precipitation.accumulation }}</span>
@@ -274,16 +265,11 @@
 
                 {% if config.showWind %}
                   <span class="wind-container">
-                    {% if (config.showInlineIcons and config.forecastLayout == "tiled" ) %}
-                      <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
-                    {% endif %}
-
                     <span class="wind-speed">{{ d.wind.windSpeed }}</span>
 
                     {% if d.wind.windGust %}
                       <span class="wind-gusts">{{ d.wind.windGust }}</span>
                     {% endif %}
-
                   </span>
 
                 {% endif %}

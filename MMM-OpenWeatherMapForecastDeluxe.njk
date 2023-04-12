@@ -381,6 +381,34 @@
       {% elif config.showDailyForecast and config.dailyForecastLayout == "bars" %}
         {# -------------- bars dailyForecastLayout -------------- #}
         <table class="forecast-bars">
+          {% if config.showForecastTableColumnHeaderIcons %}
+            <thead>
+              <tr class="header-row">
+                <th class="date-time-header">&nbsp;</th>
+                <th class="weather-icon-header">&nbsp;</th>
+                {% 
+                  if config.showPrecipitationProbability
+                    or config.showPrecipitationAmount
+                %}
+                  <th class="precipitation-header">
+                    <img class="inline-icon rain" src="{{ inlineIcons.rain }}" />
+                  </th>
+                {% endif %}
+
+                {% 
+                  if config.showWindSpeed
+                    or config.showWindDirection
+                    or config.showWindGust
+                %}
+                  <th class="wind-header">
+                    <img class="inline-icon wind" src="{{ inlineIcons.wind }}" />
+                  </th>
+                {% endif %}
+
+                <th class="bar-header">&nbsp;</th>
+              </tr>
+            </thead>
+          {% endif %}
           <tbody>
           {% for d in forecast.daily %}
             <tr class="forecast-row">

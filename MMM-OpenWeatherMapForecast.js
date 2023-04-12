@@ -63,28 +63,37 @@ Module.register("MMM-OpenWeatherMapForecast", {
         showCurrentConditions: true,
         showExtraCurrentConditions: true,
         showSummary: true,
-        forecastHeaderText: "",
+        forecastHeaderText: "forecastHeaderText",
         showForecastTableColumnHeaderIcons: true,
         showHourlyForecast: true,
+        hourlyForecastLayout: "tiled", 
         hourlyForecastInterval: 3,
         maxHourliesToShow: 3,
         showDailyForecast: true,
+        dailyForecastLayout: "tiled",
+        showDailyLow: true,
         maxDailiesToShow: 3,
         ignoreToday: false,
         showDayAsTodayInDailyForecast: false,
         showDayAsTomorrowInDailyForecast: false,
-        showPrecipitation: true,
-        concise: true,
-        conciseWindDirection: true,
-        showWind: true,
+        showPrecipitation: true, //// THIS IS BEING REPLACED/EXPANDED
+        concise: true, //// THIS IS BEING REPLACED/EXPANDED
+        conciseWindDirection: true, //// THIS IS BEING REPLACED/EXPANDED
+        showWind: true, //// THIS IS BEING REPLACED/EXPANDED
         showFeelsLike: true,
+        showPrecipitationProbability: false,
+        showPrecipitationSeparator: false,
+        showPrecipitationAmount: false,
+        showWindSpeed: true,
+        showWindDirection: true,
+        showWindGust: false,
         language: config.language,
         iconset: "1c",
         mainIconset: defaults.iconset,
         useAnimatedIcons: true,
         animateMainIconOnly: true,
         colored: true,
-        forecastLayout: "tiled",
+        forecastLayout: "tiled", //// THIS IS BEING REPLACED/EXPANDED
         showInlineIcons: true,
         mainIconSize: 100,
         forecastTiledIconSize: 70,
@@ -92,9 +101,11 @@ Module.register("MMM-OpenWeatherMapForecast", {
         updateFadeSpeed: 500,
         label_temp_i: "°",
         label_temp_c: "°",
+        label_feels_like: "Feels like ",
         label_maximum: "max ",
         label_high: "H ",
         label_low: "L ",
+        label_hi_lo_separator: " / ",
         label_timeFormat: "h a",
         label_days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         label_today: "Today",
@@ -106,7 +117,12 @@ Module.register("MMM-OpenWeatherMapForecast", {
         label_snow_m: " mm",
         label_wind_i: " mph",
         label_wind_m: " m/s",
-        moduleTimestampIdPrefix: "OPENWEATHER_ONE_CALL_TIMESTAMP_",
+        label_gust_i: " mph",
+        label_gust_m: " m/s",
+        label_precip_separator: " ",
+        label_gust_wrapper_prefix: " (",
+        label_gust_wrapper_suffix: ")",
+        dp_precip_leading_zero: false,
         dp_rain_i: 2,
         dp_rain_m: 0,
         dp_snow_i: 2,
@@ -115,10 +131,12 @@ Module.register("MMM-OpenWeatherMapForecast", {
         dp_temp_m: 0,
         dp_wind_i: 0,
         dp_wind_m: 0,
+        moduleTimestampIdPrefix: "OPENWEATHER_ONE_CALL_TIMESTAMP_",
     },
 
     validUnits: ["imperial", "metric", ""],
-    validLayouts: ["tiled", "table", "bars"],
+    validHourlyLayouts: ["tiled", "table"],
+    validDailyLayouts: ["tiled", "table", "bars"],
 
     getScripts: function() {
         return ["moment.js", this.file("skycons.js")];
@@ -154,7 +172,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
             },
             animatedIconSizes: {
                 main: this.config.mainIconSize,
-                forecast: this.config.forecastLayout == "tiled" ? this.config.forecastTiledIconSize : this.config.forecastTableIconSize
+                forecast: (this.config.hourlyForecastLayout == "tiled" || this.config.dailyForecastLayout == "tiled") ? this.config.forecastTiledIconSize : this.config.forecastTableIconSize
             },
             moduleTimestampIdPrefix: this.config.moduleTimestampIdPrefix,
             identifier: this.identifier,
@@ -199,8 +217,11 @@ Module.register("MMM-OpenWeatherMapForecast", {
         if (this.validUnits.indexOf(this.config.units) == -1) {
             this.config.units = "imperial";
         }
-        if (this.validLayouts.indexOf(this.config.forecastLayout) == -1) {
-            this.config.forecastLayout = "tiled";
+        if (this.validHourlyLayouts.indexOf(this.config.hourlyForecastLayout) == -1) {
+            this.config.hourlyForecastLayout = "tiled";
+        }
+        if (this.validDailyLayouts.indexOf(this.config.dailyForecastLayout) == -1) {
+            this.config.dailyForecastLayout = "tiled";
         }
         if (this.iconsets[this.config.iconset] == null) {
             this.config.iconset = "1c";
@@ -342,9 +363,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
                 i = 0;
                 maxi = this.config.maxDailiesToShow - 1;
             }
-            //// iterate over this.weather.daily and calculate nin & max to send to forecastItemFactory
-            //
-            if (this.config.forecastLayout == 'bars') {
+            if (this.config.dailyForecastLayout == 'bars') {
                 for (j = i; j <= maxi; j++) {
                     if (this.weatherData.daily[j] == null) {
                         break;
@@ -417,7 +436,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
             fItem.tempRange = this.formatHiLowTemperature(fData.temp.max, fData.temp.min);
-            if (this.config.forecastLayout == 'bars') {
+            if (this.config.dailyForecastLayout == 'bars') {
                 fItem.bars = {
                     min: min,
                     max: max,

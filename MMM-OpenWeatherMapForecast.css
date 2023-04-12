@@ -233,11 +233,17 @@
 }
 
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item>span:first-child {
-    text-align: left;
+    text-align: right;
+    width: 1px;
 }
 
-.MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item>span:last-child {
+/* .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item>span:last-child {
     text-align: right;
+} */
+
+.MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .forecast-icon-container {
+	padding: 0 0.5em;
+    width: 1px;
 }
 
 .MMM-OpenWeatherMapForecast .wrapper.table .forecast-container .forecast-item .forecast-icon {

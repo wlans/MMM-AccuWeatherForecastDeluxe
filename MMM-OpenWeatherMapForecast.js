@@ -116,6 +116,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
         label_wind_m: " m/s",
         label_gust_i: " mph",
         label_gust_m: " m/s",
+        label_no_precip: "—",
+        label_no_wind: "—",
         label_precip_separator: " ",
         label_gust_wrapper_prefix: " (",
         label_gust_wrapper_suffix: ")",

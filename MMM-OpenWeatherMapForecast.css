@@ -17,12 +17,14 @@
 }
 
 .MMM-OpenWeatherMapForecast .wrapper.colored .temperature .high-temperature,
-.MMM-OpenWeatherMapForecast .wrapper.colored .temperature-container .high-temperature {
+.MMM-OpenWeatherMapForecast .wrapper.colored .temperature-container .high-temperature,
+.MMM-OpenWeatherMapForecast .wrapper.colored .forecast-bars .max-temp {
     color: #F8DD70;
 }
 
 .MMM-OpenWeatherMapForecast .wrapper.colored .temperature .low-temperature,
-.MMM-OpenWeatherMapForecast .wrapper.colored .temperature-container .low-temperature {
+.MMM-OpenWeatherMapForecast .wrapper.colored .temperature-container .low-temperature,
+.MMM-OpenWeatherMapForecast .wrapper.colored .forecast-bars .min-temp {
     color: #6FC4F5;
 }
 
@@ -299,6 +301,10 @@
 	border-radius: 1em;
 	border: 0.5em transparent solid;
 	background-clip: padding-box;
+}
+
+.MMM-OpenWeatherMapForecast .wrapper.colored .forecast-bars .bar {
+    background: padding-box linear-gradient(90deg, rgba(111,196,245,1) 0%, rgba(248,221,112,1) 100%);
 }
 
 .MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon-container {

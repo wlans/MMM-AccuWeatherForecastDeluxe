@@ -72,8 +72,9 @@ Module.register("MMM-OpenWeatherMapForecast", {
         dailyForecastHeaderText: "",
         showDailyForecast: true,
         dailyForecastLayout: "tiled",
-        showDailyLow: true,
         maxDailiesToShow: 3,
+        showDailyLow: true,
+        showDailyHiLowSeparator: true,
         ignoreToday: false,
         showDayAsTodayInDailyForecast: false,
         showDayAsTomorrowInDailyForecast: false,
@@ -538,14 +539,16 @@ Module.register("MMM-OpenWeatherMapForecast", {
       Returns a formatted data object for wind conditions
      */
     formatWind: function(speed, bearing, gust) {
-        var windSpeed = this.getUnit('wind', speed) + (!this.config.concise || !this.config.conciseWindDirection ? " " + this.getOrdinal(bearing) : "");
+        var windSpeed = this.getUnit('wind', speed);
+        var windDirection = (this.config.showWindDirection ? " " + this.getOrdinal(bearing) : "");
         var windGust = null;
-        if (!this.config.concise && gust) {
-            windGust = " (" + this.config.label_maximum + this.getUnit('wind', gust) + ")";
+        if (this.config.showWindGust && gust) {
+            windGust = this.config.label_gust_wrapper_prefix + this.config.label_maximum + this.getUnit('gust', gust) + this.config.label_gust_wrapper_suffix;
         }
 
         return {
             windSpeed: windSpeed,
+            windDIrection: windDirection,
             windGust: windGust
         };
     },

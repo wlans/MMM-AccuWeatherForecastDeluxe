@@ -272,7 +272,9 @@
 }
 
 .MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.day-name,
-.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.forecast-icon-container {
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.forecast-icon-container,
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.precipitation-container,
+.MMM-OpenWeatherMapForecast .forecast-bars .forecast-row td.wind-container {
 	width: 1%;
 }
 
@@ -301,4 +303,10 @@
 
 .MMM-OpenWeatherMapForecast .forecast-bars .forecast-icon-container {
 	padding: 0 0.5em;
+}
+
+.MMM-OpenWeatherMapForecast .forecast-bars .precipitation-container,
+.MMM-OpenWeatherMapForecast .forecast-bars .wind-container {
+    padding: 0 0.5em 0 0;
+    text-align: center;
 }

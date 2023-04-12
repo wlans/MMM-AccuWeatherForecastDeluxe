@@ -186,20 +186,24 @@
                     or config.showWindGust
                 %}
                   <span class="wind-container">
-                    {% if (config.showInlineIcons and config.hourlyForecastLayout == "tiled" ) %}
-                      <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
-                    {% endif %}
+                    {% if h.wind.windSpeedRaw > 0 %}
+                      {% if (config.showInlineIcons and config.hourlyForecastLayout == "tiled" ) %}
+                        <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
+                      {% endif %}
 
-                    {% if config.showWindSpeed %}
-                      <span class="wind-speed">{{ h.wind.windSpeed }}</span>
-                    {% endif %}
+                      {% if config.showWindSpeed %}
+                        <span class="wind-speed">{{ h.wind.windSpeed }}</span>
+                      {% endif %}
 
-                    {% if config.showWindDirection %}
-                      <span class="wind-direction">{{ h.wind.windDirection }}</span>
-                    {% endif %}
+                      {% if config.showWindDirection %}
+                        <span class="wind-direction">{{ h.wind.windDirection }}</span>
+                      {% endif %}
 
-                    {% if h.wind.windGust and config.showWindGust%}
-                      <span class="wind-gusts">{{ h.wind.windGust }}</span>
+                      {% if h.wind.windGust and config.showWindGust%}
+                        <span class="wind-gusts">{{ h.wind.windGust }}</span>
+                      {% endif %}
+                    {% else %}
+                      <span class="wind-speed">—</span>
                     {% endif %}
                   </span>
                 {% endif %}
@@ -321,19 +325,23 @@
                     or config.showWindGust 
                 %}
                   <span class="wind-container">
-                    {% if (config.showInlineIcons and config.dailyForecastLayout == "tiled" ) %}
-                      <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
-                    {% endif %}
-                    {% if config.showWindSpeed %}
-                      <span class="wind-speed">{{ d.wind.windSpeed }}</span>
-                    {% endif %}  
+                    {% if d.wind.windSpeedRaw > 0 %}
+                      {% if (config.showInlineIcons and config.dailyForecastLayout == "tiled" ) %}
+                        <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
+                      {% endif %}
+                      {% if config.showWindSpeed %}
+                        <span class="wind-speed">{{ d.wind.windSpeed }}</span>
+                      {% endif %}  
 
-                    {% if config.showWindDirection %}
-                      <span class="wind-direction">{{ d.wind.windDirection }}</span>
-                    {% endif %}  
+                      {% if config.showWindDirection %}
+                        <span class="wind-direction">{{ d.wind.windDirection }}</span>
+                      {% endif %}  
 
-                    {% if d.wind.windGust %}
-                      <span class="wind-gusts">{{ d.wind.windGust }}</span>
+                      {% if d.wind.windGust %}
+                        <span class="wind-gusts">{{ d.wind.windGust }}</span>
+                      {% endif %}
+                    {% else %}
+                      <span class="wind-speed">—</span>
                     {% endif %}
                   </span>
                 {% endif %}

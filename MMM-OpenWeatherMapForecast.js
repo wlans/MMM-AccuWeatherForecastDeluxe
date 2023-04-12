@@ -78,10 +78,6 @@ Module.register("MMM-OpenWeatherMapForecast", {
         ignoreToday: false,
         showDayAsTodayInDailyForecast: false,
         showDayAsTomorrowInDailyForecast: false,
-        showPrecipitation: true, //// THIS IS BEING REPLACED/EXPANDED
-        concise: true, //// THIS IS BEING REPLACED/EXPANDED
-        conciseWindDirection: true, //// THIS IS BEING REPLACED/EXPANDED
-        showWind: true, //// THIS IS BEING REPLACED/EXPANDED
         showFeelsLike: true,
         showPrecipitationProbability: true,
         showPrecipitationSeparator: true,
@@ -95,7 +91,6 @@ Module.register("MMM-OpenWeatherMapForecast", {
         useAnimatedIcons: true,
         animateMainIconOnly: true,
         colored: true,
-        forecastLayout: "tiled", //// THIS IS BEING REPLACED/EXPANDED
         showInlineIcons: true,
         mainIconSize: 100,
         forecastTiledIconSize: 70,
@@ -545,8 +540,10 @@ Module.register("MMM-OpenWeatherMapForecast", {
         if (this.config.showWindGust && gust) {
             windGust = this.config.label_gust_wrapper_prefix + this.config.label_maximum + this.getUnit('gust', gust) + this.config.label_gust_wrapper_suffix;
         }
-
+        var windSpeedRaw = parseFloat(speed.toFixed(this.config['dp_wind' + (this.config.units === 'metric' ? '_m' : '_i')]));
+        
         return {
+            windSpeedRaw: windSpeedRaw,
             windSpeed: windSpeed,
             windDirection: windDirection,
             windGust: windGust

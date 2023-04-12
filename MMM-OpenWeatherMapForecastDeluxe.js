@@ -124,6 +124,7 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
         label_gust_wrapper_prefix: " (",
         label_gust_wrapper_suffix: ")",
         dp_precip_leading_zero: false,
+        dp_wind_leading_zero: true,
         dp_rain_i: 2,
         dp_rain_m: 0,
         dp_snow_i: 2,
@@ -596,9 +597,22 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
       Returns the units in use for the data pull from OpenWeather
      */
     getUnit: function(metric, value) {
-        return String(parseFloat(value.toFixed(
+
+        var rounded = String(parseFloat(value.toFixed(
             this.config['dp_' + metric + (this.config.units === 'metric' ? '_m' : '_i')]
-        ))) + this.config['label_' + metric + (this.config.units === 'metric' ? '_m' : '_i')];
+        )));
+
+        switch (metric) {
+            case 'rain':
+                if (!this.config.dp_precip_leading_zero && rounded.indexOf("0.") === 0) rounded = rounded.substring(1);
+                break;
+            case 'wind': 
+                if (!this.config.dp_wind_leading_zero && rounded.indexOf("0.") === 0) rounded = rounded.substring(1);
+                break;
+        }
+
+        return rounded + this.config['label_' + metric + (this.config.units === 'metric' ? '_m' : '_i')];
+
     },
 
     /*

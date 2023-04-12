@@ -60,7 +60,7 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
         updateInterval: 10, // minutes
         requestDelay: 0,
         units: config.units,
-        socketListenerOnly: false,
+        listenerOnly: false,
         showCurrentConditions: true,
         showExtraCurrentConditions: true,
         showSummary: true,

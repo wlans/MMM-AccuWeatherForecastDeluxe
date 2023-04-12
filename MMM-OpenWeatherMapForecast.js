@@ -548,7 +548,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
 
         return {
             windSpeed: windSpeed,
-            windDIrection: windDirection,
+            windDirection: windDirection,
             windGust: windGust
         };
     },

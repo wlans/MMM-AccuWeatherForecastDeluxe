@@ -97,6 +97,7 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
         forecastTiledIconSize: 70,
         forecastTableIconSize: 30,
         updateFadeSpeed: 500,
+        showAttribution: true,
         label_temp_i: "°",
         label_temp_c: "°",
         label_feels_like: "Feels like ",

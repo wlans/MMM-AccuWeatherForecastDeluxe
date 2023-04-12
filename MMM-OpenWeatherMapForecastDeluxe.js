@@ -60,6 +60,7 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
         updateInterval: 10, // minutes
         requestDelay: 0,
         units: config.units,
+        socketListenerOnly: false,
         showCurrentConditions: true,
         showExtraCurrentConditions: true,
         showSummary: true,
@@ -245,18 +246,22 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
             this.config.iconset = this.config.iconset.replace("c", "m");
         }
 
-        //start data poll
-        var self = this;
-        setTimeout(function() {
+        if (!this.config.socketListenerOnly) {
 
-            //first data pull is delayed by config
-            self.getData();
+            //start data poll
+            var self = this;
+            setTimeout(function() {
 
-            setInterval(function() {
+                //first data pull is delayed by config
                 self.getData();
-            }, self.config.updateInterval * 60 * 1000); //convert to milliseconds
 
-        }, this.config.requestDelay);
+                setInterval(function() {
+                    self.getData();
+                }, self.config.updateInterval * 60 * 1000); //convert to milliseconds
+
+            }, this.config.requestDelay);
+            
+        }
     },
 
     getData: function() {
@@ -273,10 +278,42 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
 
     },
 
+    notificationReceived: function(notification, payload, sender) {
+        // console.log(this.name, 'notificationReceived', notification, payload, sender);
+        if (
+            this.config.socketListenerOnly &&
+            notification === "OPENWEATHER_ONE_CALL_FORECAST_WEATHER_DATA"
+        ) {
+            //clear animated icon cache
+            if (this.config.useAnimatedIcons) {
+                this.clearIcons();
+            }
+
+            //process weather data
+            this.dataRefreshTimeStamp = moment().format("x");
+            this.weatherData = payload;
+            this.formattedWeatherData = this.processWeatherData();
+
+            this.updateDom(this.config.updateFadeSpeed);
+
+            if (this.config.useAnimatedIcons) {
+                var self = this;
+                this.animatedIconDrawTimer = setInterval(function() {
+                    var elToTest = document.getElementById(self.config.moduleTimestampIdPrefix + self.identifier);
+                    if (elToTest != null && elToTest.getAttribute("data-timestamp") == self.dataRefreshTimeStamp) {
+                        clearInterval(self.animatedIconDrawTimer);
+                        self.playIcons(self);
+                    }
+                }, 100);
+            }
+
+        }
+    },
+
     socketNotificationReceived: function(notification, payload) {
-
+        
         if (notification === "OPENWEATHER_ONE_CALL_FORECAST_DATA" && payload.instanceId === this.identifier) {
-
+    
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
                 this.clearIcons();
@@ -290,7 +327,8 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
             this.updateDom(this.config.updateFadeSpeed);
 
             //broadcast weather update
-            this.sendNotification("OPENWEATHER_ONE_CALL_FORECAST_WEATHER_UPDATE", payload);
+            // this.sendNotification("OPENWEATHER_ONE_CALL_FORECAST_WEATHER_UPDATE", payload);
+            this.sendNotification("OPENWEATHER_ONE_CALL_FORECAST_WEATHER_DATA", payload);
 
             /*
               Start icon playback. We need to wait until the DOM update

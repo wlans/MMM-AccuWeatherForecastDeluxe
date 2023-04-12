@@ -49,7 +49,7 @@ module.exports = NodeHelper.create({
                     "&lang=" + payload.language;
                 // "&exclude=minutely"
 
-                console.log("[MMM-OpenWeatherMapForecastDeluxe] Getting data: " + url);
+                // console.log("[MMM-OpenWeatherMapForecastDeluxe] Getting data: " + url);
                 needle.get(url, function(error, response, body) {
 
                     if (!error && response.statusCode == 200) {

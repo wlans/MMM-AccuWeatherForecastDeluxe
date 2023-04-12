@@ -279,11 +279,12 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
     },
 
     notificationReceived: function(notification, payload, sender) {
-        // console.log(this.name, 'notificationReceived', notification, payload, sender);
         if (
-            this.config.socketListenerOnly &&
+            this.config.listenerOnly &&
             notification === "OPENWEATHER_ONE_CALL_FORECAST_WEATHER_DATA"
         ) {
+            // console.log(this.name, 'notificationReceived', notification, payload, sender);
+
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
                 this.clearIcons();

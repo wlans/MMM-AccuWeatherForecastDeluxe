@@ -42,7 +42,7 @@
 
 *********************************/
 
-Module.register("MMM-OpenWeatherMapForecast", {
+Module.register("MMM-OpenWeatherMapForecastDeluxe", {
 
     /*
       This module uses the Nunjucks templating system introduced in
@@ -142,11 +142,11 @@ Module.register("MMM-OpenWeatherMapForecast", {
     },
 
     getStyles: function() {
-        return ["MMM-OpenWeatherMapForecast.css"];
+        return ["MMM-OpenWeatherMapForecastDeluxe.css"];
     },
 
     getTemplate: function() {
-        return "MMM-OpenWeatherMapForecast.njk";
+        return "MMM-OpenWeatherMapForecastDeluxe.njk";
     },
 
     /*

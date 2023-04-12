@@ -1,4 +1,4 @@
-# MMM-OpenWeatherMapForecast
+# MMM-OpenWeatherMapForecastDeluxe
 
 This a module for <strong>MagicMirror</strong><br>
 https://magicmirror.builders/<br>
@@ -44,7 +44,7 @@ Find out your latitude and longitude here:
 
 ```
 {
-  module: "MMM-OpenWeatherMapForecast",
+  module: "MMM-OpenWeatherMapForecastDeluxe",
   header: "Weather",
   position: "top_right",
   classes: "default everyone",

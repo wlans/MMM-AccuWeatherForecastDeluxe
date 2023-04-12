@@ -1,6 +1,6 @@
 /*********************************
 
-  Node Helper for MMM-OpenWeatherMapForecast.
+  Node Helper for MMM-OpenWeatherMapForecastDeluxe.
 
   This helper is responsible for the DarkSky-compatible data pull from OpenWeather.
   At a minimum the API key, Latitude and Longitude parameters
@@ -10,7 +10,7 @@
 
   Additional, this module supplies two optional parameters:
 
-    units - one of "metric", "imperial", or "" (blank)
+    units - one of "metric", "imperial"
     lang - Any of the languages OpenWeather supports, as listed here: https://openweathermap.org/api/one-call-api#multi
 
   The DarkSky-compatible API request looks like this:
@@ -26,7 +26,7 @@ var moment = require("moment");
 module.exports = NodeHelper.create({
 
     start: function() {
-        console.log("====================== Starting node_helper for module [" + this.name + "]");
+        console.log("Starting node_helper for module [" + this.name + "]");
     },
 
     socketNotificationReceived: function(notification, payload) {
@@ -35,9 +35,9 @@ module.exports = NodeHelper.create({
             var self = this;
 
             if (payload.apikey == null || payload.apikey == "") {
-                console.log("[MMM-OpenWeatherMapForecast] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** No API key configured. Get an API key at https://openweathermap.org/api/one-call-api");
+                console.log("[MMM-OpenWeatherMapForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** No API key configured. Get an API key at https://openweathermap.org/api/one-call-api");
             } else if (payload.latitude == null || payload.latitude == "" || payload.longitude == null || payload.longitude == "") {
-                console.log("[MMM-OpenWeatherMapForecast] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** Latitude and/or longitude not provided.");
+                console.log("[MMM-OpenWeatherMapForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** Latitude and/or longitude not provided.");
             } else {
 
                 //make request to OpenWeather onecall API
@@ -49,7 +49,7 @@ module.exports = NodeHelper.create({
                     "&lang=" + payload.language;
                 // "&exclude=minutely"
 
-                // console.log("[MMM-OpenWeatherMapForecast] Getting data: " + url);
+                console.log("[MMM-OpenWeatherMapForecastDeluxe] Getting data: " + url);
                 needle.get(url, function(error, response, body) {
 
                     if (!error && response.statusCode == 200) {
@@ -60,7 +60,7 @@ module.exports = NodeHelper.create({
                         self.sendSocketNotification("OPENWEATHER_ONE_CALL_FORECAST_DATA", resp);
 
                     } else {
-                        console.log("[MMM-OpenWeatherMapForecast] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error);
+                        console.log("[MMM-OpenWeatherMapForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error);
                     }
 
                 });

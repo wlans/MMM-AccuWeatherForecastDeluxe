@@ -181,7 +181,7 @@
     <div class="wrapper {{ config.hourlyForecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.hourlyForecastHeaderText %} with-forecast-header{% endif %}">
 
       {# -------------- Forecast Title -------------- #}
-      {% if not (config.hourlyForecastHeaderText == "") and (config.showHourlyForecast) %}
+      {% if (config.hourlyForecastHeaderText != "") and (config.showHourlyForecast) %}
         <header class="module-header forecast-header">{{ config.hourlyForecastHeaderText | safe }}</header>
       {% endif %}
 
@@ -304,6 +304,7 @@
             if config.showDailyForecast 
               and config.hourlyForecastLayout == "table"
               and config.dailyForecastLayout == "table"
+              and config.dailyForecastHeaderText == ""
           %}
 
             {{ dailyForecastItems() }}
@@ -321,7 +322,7 @@
     <div class="wrapper {{ config.dailyForecastLayout }} {% if config.colored %} colored{% endif %}{% if config.showInlineIcons %} inline-icons{% endif %}{% if config.dailyForecastHeaderText %} with-forecast-header{% endif %}">
 
       {# -------------- Forecast Title -------------- #}
-      {% if not (config.dailyForecastHeaderText == "") and (config.showDailyForecast) %}
+      {% if (config.dailyForecastHeaderText != "") and (config.showDailyForecast) %}
         <header class="module-header forecast-header">{{ config.dailyForecastHeaderText | safe }}</header>
       {% endif %}
 
@@ -331,6 +332,7 @@
           config.showDailyForecast 
           and config.hourlyForecastLayout == "table"
           and config.dailyForecastLayout == "table"
+          and config.dailyForecastHeaderText == ""
         ) 
         and (
           config.dailyForecastLayout == "table" 

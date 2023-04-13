@@ -1,10 +1,10 @@
 # MMM-OpenWeatherForecastDeluxe
 
-A weather module that displays current, hourly and daily forecast information using data from the OpenWeather One Call API.
-
 This a module for <strong>MagicMirror</strong>.<br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
+
+A weather module that displays current, hourly and daily forecast information using data from the OpenWeather One Call API.
 
 | Tiled Layouts | Bars Layout (daily forecast only) |
 | --- | --- |

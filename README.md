@@ -34,7 +34,7 @@ At a minimum you need to supply the following required configuration parameters:
 You can request an API key to access data here:
 https://openweathermap.org/api/one-call-api
 
-Free tier is fine -- this module will not make any where near 1000 request on one day. (†SEE NOTE ABOUT MULTIPLE INSTANCES)
+Free tier is fine -- by itself, a single instance of this module will not make any where near 1000 request on one day with the default `updateInterval` of `10`.
 
 Find out your latitude and longitude here:
 https://www.latlong.net/
@@ -68,6 +68,13 @@ https://www.latlong.net/
 },
 ```
 
+### Using Multiple Instances
+
+Using increasingly larger `requestDelay` values can help prevent your API calls from multiple instances from being too close together, but ultimately each instance will make it's own api calls, which combined with other modules that might use the same API, can threaten your rate limit.
+
+You can use the `listenerOnly` option with multiple instances, so that only a primary one makes API calls, and other `listenerOnly` instances strictly do not, and instead receive notifications broadcasted with the api's payload whenever the primary instance gets its data. `listenerOnly` instances will not use/do not need the `apikey`, `latitude`, `longitude`, `endpoint`, `updateInterval` or `requestDelay` paremeters.
+
+
 ### Optional Parameters
 
 <table>
@@ -92,7 +99,7 @@ https://www.latlong.net/
     </tr>
     <tr>
       <td><code>listenerOnly</code></td>
-      <td>For use with multiple instances of this module; set this to <code>true</code> on subsequent instances and they will not make any api calls. They will receive updated weather payloads when an instance of this module with <code>listenerOnly: true</code> makes an api call.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+      <td>For use with multiple instances of this module; set this to <code>true</code> on subsequent instances and they will not make any api calls. They will receive updated weather payloads when an instance of this module with the default <code>listenerOnly: false</code> value makes an api call.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
     <tr>
       <td><code>updateFadeSpeed</code></td>

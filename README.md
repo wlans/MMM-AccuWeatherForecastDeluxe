@@ -328,7 +328,7 @@ If you want a space before or after the label, include it here.
     </tr>
     <tr>
       <td><code>label_ordinals</code></td>
-      <td>How you would like wind direction to be displayed.  Assumes index <code>0</code> is North and proceeds clockwise.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]</code></td>
+      <td>How you would like wind direction to be displayed.  Assumes index <code>0</code> is North and proceeds clockwise.<br><br>Meteorological wind direction is defined as the direction from which it originates. Hence, a wind coming from the south has a wind direction of 180 degrees; one from the east is 90.<br><br><strong>Type</strong> <code>Array of Strings</code><br>Defaults to <code>["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]</code></td>
     </tr>
     <tr>
       <td><code>label_rain_i</code></td>

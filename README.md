@@ -20,7 +20,7 @@ much of the same functionality.
 ## Installation
 
 1. Navigate into your MagicMirror `modules` folder and execute<br>
-`git clone https://github.com/luxiouronimo/MMM-OpenWeatherMapForecastDeluxe.git`.
+`git clone https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe.git`.
 2. Enter the new `MMM-OpenWeatherForecastDeluxe` directory and execute `npm install`.
 
 
@@ -110,11 +110,11 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>units</code></td>
-      <td>One of the following: <code>imperial</code>, <code>metric</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to units set for Magic Mirror.<br />See https://openweathermap.org/api/one-call-api#data for details on units.</td>
+      <td>One of the following: <code>imperial</code>, <code>metric</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to units set for Magic Mirror.<br />See also: <a href="https://openweathermap.org/api/one-call-api#data">details on units</a>.</td>
     </tr>
     <tr>
       <td><code>language</code></td>
-      <td>The language to be used for display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to the language set for Magic Mirror, but can be overridden with any of the language codes listed here: https://openweathermap.org/api/one-call-api#multi.</td>
+      <td>The language to be used for display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to the language set for Magic Mirror, but can be overridden with any of the available <a href="https://openweathermap.org/api/one-call-api#multi">language codes</a>.</td>
     </tr>
     <tr>
       <td><code>colored</code></td>
@@ -142,7 +142,7 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>showSummary</code></td>
-      <td>Whether to show the forecast summary. See the full list: https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>Whether to show the forecast summary. See the <a href="https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2">full list</a>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>hourlyForecastHeaderText</code></td>
@@ -158,7 +158,7 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>hourlyForecastLayout</code></td>
-      <td>Can be set to <code>table</code> or <code>tiled</code>. How to display hourly and forecast information. See below for screenshot examples of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
+      <td>Can be set to <code>table</code> or <code>tiled</code>. How to display hourly and forecast information. See below for <a href="#layouts-and-configs">screenshot examples</a> of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
     </tr>
     <tr>
       <td><code>hourlyForecastInterval</code></td>
@@ -178,7 +178,7 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>dailyForecastLayout</code></td>
-      <td>Can be set to <code>bars</code>, <code>table</code> or <code>tiled</code>. How to display hourly and forecast information.  See below for screenshot examples of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
+      <td>Can be set to <code>bars</code>, <code>table</code> or <code>tiled</code>. How to display hourly and forecast information.  See below for <a href="#layouts-and-configs">screenshot examples</a> of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
     </tr>
     <tr>
       <td><code>maxDailiesToShow</code></td>
@@ -206,7 +206,7 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>showFeelsLike</code></td>
-      <td>Whether to show the temperature parameter that accounts for human perception of weather in the current conditions. More info: https://openweather.co.uk/blog/post/new-feels-temperature-openweather-apis<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>Whether to show the temperature parameter that accounts for human perception of weather in the current conditions. (<a href="https://openweather.co.uk/blog/post/new-feels-temperature-openweather-apis">More info</a>)<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>showPrecipitationProbability</code></td>
@@ -316,7 +316,7 @@ If you want a space before or after the label, include it here.
     </tr>
     <tr>
       <td><code>label_timeFormat</code></td>
-      <td>How you want the time formatted for hourly forecast display.  Accepts any valid moment.js format (https://momentjs.com/docs/#/displaying/format/). For example, specify short 24h format with <code>"k[h]"</code> (e.g.: <code>14h</code>)<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"h a"</code> (e.g.: <code>9 am</code>)</td>
+      <td>How you want the time formatted for hourly forecast display.  Accepts any valid <a href="https://momentjs.com/docs/#/displaying/format/">moment.js format</a>. For example, specify short 24h format with <code>"k[h]"</code> (e.g.: <code>14h</code>)<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"h a"</code> (e.g.: <code>9 am</code>)</td>
     </tr>
     <tr>
       <td><code>label_days</code></td>

@@ -18,8 +18,8 @@ much of the same functionality.
 ## Installation
 
 1. Navigate into your MagicMirror `modules` folder and execute<br>
-`git clone https://github.com/MarcLandis/MMM-OpenWeatherMapForecast.git`.
-2. Enter the new `MMM-OpenWeatherMapForecast` directory and execute `npm install`.
+`git clone https://github.com/luxiouronimo/MMM-OpenWeatherMapForecastDeluxe.git`.
+2. Enter the new `MMM-OpenWeatherForecastDeluxe` directory and execute `npm install`.
 
 
 
@@ -34,7 +34,7 @@ At a minimum you need to supply the following required configuration parameters:
 You can request an API key to access data here:
 `https://openweathermap.org/api/one-call-api`.
 
-Free tier is fine -- this module will not make any where near 1000 request on one day.
+Free tier is fine -- this module will not make any where near 1000 request on one day. (†SEE NOTE ABOUT MULTIPLE INSTANCES)
 
 Find out your latitude and longitude here:
 `https://www.latlong.net/`.
@@ -44,18 +44,26 @@ Find out your latitude and longitude here:
 
 ```
 {
-  module: "MMM-OpenWeatherMapForecastDeluxe",
-  header: "Weather",
+  module: "MMM-OpenWeatherForecastDeluxe",
+  header: "Tiled Layouts",
   position: "top_right",
   classes: "default everyone",
   disabled: false,
   config: {
     apikey: "SUPER SECRET!!!",
     latitude: "51.506130",
-    longitude: "-0.090270",      
+    longitude: "-0.090270",
+    hourlyForecastInterval: 2,
+    maxDailiesToShow: 3,
+    ignoreToday: true,
+    showDayAsTomorrowInDailyForecast: true,
+    showPrecipitationProbability: false,
+    showWindDirection: false,
+    showWindGust: false,
     iconset: "4c",
-    concise: false,
-    forecastLayout: "table"
+    useAnimatedIcons: false,
+    label_high: "",
+    label_low: "",
   }
 },
 ```
@@ -72,19 +80,27 @@ Find out your latitude and longitude here:
   <tbody>
     <tr>
       <td><code>endpoint</code></td>
-      <td>The URL of the onecall api; v2.5 is free, v3.0 requires a subscription with payment info and can be used with <code>https://api.openweathermap.org/data/3.0/onecall</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>https://api.openweathermap.org/data/2.5/onecall</code></td>
+      <td>The URL of the onecall api; v2.5 is free, v3.0 requires a subscription and can be used with <code>https://api.openweathermap.org/data/3.0/onecall</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>https://api.openweathermap.org/data/2.5/onecall</code></td>
     </tr>
     <tr>
       <td><code>updateInterval</code></td>
-      <td>How frequently, in minutes, to poll for data. Be careful not to set this too frequent so that you don't exceed Dark Sky's 1000 free requests per day cap.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>10</code></td>
+      <td>How frequently, in minutes, to poll for data. Be careful not to set this too frequent so that you don't exceed the 1000 free requests per day cap. (†SEE NOTE ABOUT MULTIPLE INSTANCES)<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>10</code></td>
     </tr>
     <tr>
       <td><code>requestDelay</code></td>
       <td>In milliseconds, how long to delay the request.  If you have multiple instances of the module running, set one of them to a delay of a second or two to keep the API calls from being too close together.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>250</code></td>
     </tr>
     <tr>
+      <td><code>listenerOnly</code></td>
+      <td>For use with multiple instances of this module; set this to <code>true</code> on subsequent instances and they will not make any api calls. They will receive updated weather payloads when an instance of this module with <code>listenerOnly: true</code> makes an api call.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+    </tr>
+    <tr>
       <td><code>updateFadeSpeed</code></td>
       <td>How quickly in milliseconds to fade the module out and in upon data refresh.  Set this to <code>0</code> for no fade.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>500</code> (i.e.: 1/2 second).</td>
+    </tr>
+    <tr>
+      <td><code>units</code></td>
+      <td>One of the following: <code>imperial</code>, <code>metric</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to units set for Magic Mirror.<br />See https://openweathermap.org/api/one-call-api#data for details on units.</td>
     </tr>
     <tr>
       <td><code>language</code></td>
@@ -95,8 +111,16 @@ Find out your latitude and longitude here:
       <td>Whether to present module in colour or black-and-white.  Note, if set to <code>false</code>, the monochramtic version of your chosen icon set will be forced if it exist.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
-      <td><code>units</code></td>
-      <td>One of the following: <code>imperial</code>, <code>metric</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to units set for Magic Mirror.<br />See https://openweathermap.org/api/one-call-api#data for details on units.</td>
+      <td><code>highColor</code></td>
+      <td>The color to use for the current and daily forecast high temperatures.<br><br><strong>Type</strong> <code>String/hex color</code><br>Defaults to <code>'#F8DD70'</code></td>
+    </tr>
+    <tr>
+      <td><code>lowColor</code></td>
+      <td>The color to use for the current and daily forecast low temperatures.<br><br><strong>Type</strong> <code>String/hex color</code><br>Defaults to <code>'#6FC4F5'</code></td>
+    </tr>
+    <tr>
+      <td><code>relativeColors</code></td>
+      <td>If set to <code>true</code>, the daily forecast high and low temps (and bars) will be colored relative to the overall high and low for the range of days.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
     <tr>
       <td><code>showCurrentConditions</code></td>
@@ -108,11 +132,11 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>showSummary</code></td>
-      <td>Whether to show the forecast summary.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>Whether to show the forecast summary. (see the (full list)[https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2])<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
-      <td><code>forecastHeaderText</code></td>
-      <td>Show a header above the forecast display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>""</code></td>
+      <td><code>hourlyForecastHeaderText</code></td>
+      <td>Show a header above the hourly forecast display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>""</code></td>
     </tr>
     <tr>
       <td><code>showForecastTableColumnHeaderIcons</code></td>
@@ -123,6 +147,10 @@ Find out your latitude and longitude here:
       <td>Whether to show hourly forecast information. when set to <code>true</code> it works with the <code>hourlyForecastInterval</code> and <code>maxHourliesToShow</code> parameters.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
+      <td><code>hourlyForecastLayout</code></td>
+      <td>Can be set to <code>table</code> or <code>tiled</code>. How to display hourly and forecast information.  See below for screenshot examples of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
+    </tr>
+    <tr>
       <td><code>hourlyForecastInterval</code></td>
       <td>How many hours apart each listed hourly forecast is.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>3</code></td>
     </tr>
@@ -131,8 +159,16 @@ Find out your latitude and longitude here:
       <td>How many hourly forecasts to list.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>3</code></td>
     </tr>
     <tr>
+      <td><code>dailyForecastHeaderText</code></td>
+      <td>Show a header above the daily forecast display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>""</code></td>
+    </tr>
+    <tr>
       <td><code>showDailyForecast</code></td>
       <td>Whether to show daily forecast information. when set to <code>true</code> it works with the <code>maxDailiesToShow</code> parameter.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>dailyForecastLayout</code></td>
+      <td>Can be set to <code>bars</code>, <code>table</code> or <code>tiled</code>. How to display hourly and forecast information.  See below for screenshot examples of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
     </tr>
     <tr>
       <td><code>maxDailiesToShow</code></td>
@@ -142,35 +178,57 @@ Find out your latitude and longitude here:
       <td><code>ignoreToday</code></td>
       <td>If set to <code>true</code>, today's weather will not be displayed in daily forecast. <br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
+    <tr>
+      <td><code>showDailyLow</code></td>
+      <td>Show the day's low temperature in the daily forecast and current conditions.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>showDailyHiLowSeparator</code></td>
+      <td>Show the <code>label_hi_lo_separator</code> between the daily forecast's high and low temperatures.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
+    <tr>
       <td><code>showDayAsTodayInDailyForecast</code></td>
       <td>Show today's day as <code>label_today</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
+    <tr>
       <td><code>showDayAsTomorrowInDailyForecast</code></td>
       <td>Show tomorrow's day as <code>label_tomorrow</code> in daily forecast.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
     </tr>
     <tr>
-      <td><code>showPrecipitation</code></td>
-      <td>Whether to show precipitation information. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td><code>showFeelsLike</code></td>
+      <td>Whether to show the temperature parameter that accounts for human perception of weather in the current conditions. see: (Feels like)[https://openweather.co.uk/blog/post/new-feels-temperature-openweather-apis]<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
-      <td><code>showWind</code></td>
-      <td>Whether to show wind information. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td><code>showPrecipitationProbability</code></td>
+      <td>Whether to show precipitation probability. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
-      <td><code>concise</code></td>
-      <td>When set to <code>true</code>, this presents less information.  (e.g.: shorter summary, no precipitation accumulation, no wind gusts, etc.)<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td><code>showPrecipitationSeparator</code></td>
+      <td>Whether to show <code>label_precip_separator</code> between the probability and the amount. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
-      <td><code>conciseWindDirection</code></td>
-      <td>When set to <code>false</code>, shows the wind direction, overriding the value of <code>concise</code>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td><code>showPrecipitationAmount</code></td>
+      <td>Whether to show precipitation accumulation. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>showWindSpeed</code></td>
+      <td>Whether to show wind speed. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>showWindDirection</code></td>
+      <td>Whether to show wind direction. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>showWindGust</code></td>
+      <td>Whether to show wind gust information. This affects current conditions, hourly and daily forecasts<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>iconset</code></td>
-      <td>Which icon set to use. See below for previews of the icon sets.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
+      <td>Which icon set to use. See below for (previews of the icon sets)[#Icon Sets].<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
     </tr>
     <tr>
       <td><code>mainIconset</code></td>
-      <td>Which icon set to use for current weather. See below for previews of the icon sets.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>iconset value</code></td>
+      <td>Which icon set to use for current weather. See below for (previews of the icon sets)[#Icon Sets].<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>iconset value</code></td>
     </tr>
     <tr>
       <td><code>useAnimatedIcons</code></td>
@@ -184,17 +242,13 @@ Find out your latitude and longitude here:
       <td><code>showInlineIcons</code></td>
       <td>Whether to prefix wind and precipitation information with an icon.  Only affects the <code>tiled</code> layout.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
-    <tr>
-      <td><code>forecastLayout</code></td>
-      <td>Can be set to <code>tiled</code> or <code>table</code>. How to display hourly and forecast information.  See below for screenshot examples of each.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>tiled</code></td>
-    </tr>
   </tbody>
 </table>
 
 
 ### Units & Labels
 
-While OpenWeatherMap supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for Magic Mirror.
+While OpenWeather supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for Magic Mirror.
 
 If you want a space before or after the label, include it here.
 
@@ -275,7 +329,7 @@ If you want a space before or after the label, include it here.
 
 ### Decimal Precision
 
-Options for specifying the decimal precision for various measurements. OpenWeatherMap's data is typically up to 2 decimal places, so the useful values are from <code>0</code> to <code>2</code>.
+Options for specifying the decimal precision for various measurements. OpenWeather's data is typically up to 2 decimal places, so the useful values are from <code>0</code> to <code>2</code>.
 
 <table>
   <thead>
@@ -335,17 +389,17 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 This module is set to be 300px wide by default.  If you wish to override it, you can add the following to your `custom.css` file:
 
 ```
-.MMM-OpenWeatherMapForecast .module-content {
+.MMM-OpenWeatherForecastDeluxe .module-content {
   width: 500px; /* adjust this to taste */
 }
 ```
 
-Most important elements of this module have one or more class names applied. Examine the `MMM-OpenWeatherMapForecast.css` or inspect elements directly with your browser of choice to determine what class you would like to override.
+Most important elements of this module have one or more class names applied. Examine the `MMM-OpenWeatherForecastDeluxe.css` or inspect elements directly with your browser of choice to determine what class you would like to override.
 
 
 ## For Module Developers
 
-This module broadcasts a notification when it recieves a weather update.  The notification is `OPENWEATHER_ONE_CALL_FORECAST_DATA` and the payload contains OpenWeatherMap's JSON weather forecast object.  For details on the weather object, see https://openweathermap.org/api/one-call-api.
+This module broadcasts a notification when it recieves a weather update.  The notification is `OPENWEATHER_ONE_CALL_FORECAST_DATA` and the payload contains OpenWeather's JSON weather forecast object.  For details on the weather object, see https://openweathermap.org/api/one-call-api.
 
 
 ## Attributions

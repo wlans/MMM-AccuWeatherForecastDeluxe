@@ -59,8 +59,13 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         endpoint: "https://api.openweathermap.org/data/2.5/onecall",
         updateInterval: 10, // minutes
         requestDelay: 0,
-        units: config.units,
         listenerOnly: false,
+        units: config.units,
+        language: config.language,
+        colored: true,
+        highColor: '#F8DD70',
+        lowColor: '#6FC4F5',
+        relativeColors: false,
         showCurrentConditions: true,
         showExtraCurrentConditions: true,
         showSummary: true,
@@ -74,9 +79,9 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         showDailyForecast: true,
         dailyForecastLayout: "tiled",
         maxDailiesToShow: 3,
+        ignoreToday: false,
         showDailyLow: true,
         showDailyHiLowSeparator: true,
-        ignoreToday: false,
         showDayAsTodayInDailyForecast: false,
         showDayAsTomorrowInDailyForecast: false,
         showFeelsLike: true,
@@ -86,15 +91,10 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         showWindSpeed: true,
         showWindDirection: true,
         showWindGust: true,
-        language: config.language,
         iconset: "1c",
         mainIconset: defaults.iconset,
         useAnimatedIcons: true,
         animateMainIconOnly: true,
-        colored: true,
-        highColor: '#F8DD70',
-        lowColor: '#6FC4F5',
-        relativeColors: false,
         showInlineIcons: true,
         mainIconSize: 100,
         forecastTiledIconSize: 70,
@@ -103,11 +103,11 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         showAttribution: true,
         label_temp_i: "°",
         label_temp_c: "°",
-        label_feels_like: "Feels like ",
         label_maximum: "max ",
         label_high: "H ",
         label_low: "L ",
         label_hi_lo_separator: " / ",
+        label_feels_like: "Feels like ",
         label_timeFormat: "h a",
         label_days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         label_today: "Today",
@@ -367,14 +367,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     */
     processWeatherData: function() {
 
-        var summary;
-        if (this.config.concise) {
-            summary = this.weatherData.hourly ? this.weatherData.hourly[0].weather[0].description : this.weatherData.current.weather[0].description;
-        } else {
-            summary = (this.weatherData.current.weather[0].description + ".") + " " +
-                (this.weatherData.hourly ? this.weatherData.hourly[0].weather[0].description + " " : "") +
-                (this.weatherData.daily ? this.weatherData.daily[0].weather[0].description : "");
-        }
+        var summary = this.weatherData.current.weather[0].description;
 
         var hourlies = [];
         if (this.config.showHourlyForecast) {

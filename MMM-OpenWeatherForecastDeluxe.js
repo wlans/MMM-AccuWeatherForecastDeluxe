@@ -58,6 +58,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         longitude: "",
         endpoint: "https://api.openweathermap.org/data/2.5/onecall",
         updateInterval: 10, // minutes
+        updateFadeSpeed: 500, // milliseconds
         requestDelay: 0,
         listenerOnly: false,
         units: config.units,
@@ -99,7 +100,6 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         mainIconSize: 100,
         forecastTiledIconSize: 70,
         forecastTableIconSize: 30,
-        updateFadeSpeed: 500,
         showAttribution: true,
         label_temp_i: "°",
         label_temp_c: "°",

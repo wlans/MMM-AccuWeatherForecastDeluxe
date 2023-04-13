@@ -132,7 +132,7 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>showSummary</code></td>
-      <td>Whether to show the forecast summary. (see the (full list)[https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2])<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>Whether to show the forecast summary. (see the [full list](https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2])<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>hourlyForecastHeaderText</code></td>
@@ -196,7 +196,7 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>showFeelsLike</code></td>
-      <td>Whether to show the temperature parameter that accounts for human perception of weather in the current conditions. see: (Feels like)[https://openweather.co.uk/blog/post/new-feels-temperature-openweather-apis]<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td>Whether to show the temperature parameter that accounts for human perception of weather in the current conditions. (see: [Feels like](https://openweather.co.uk/blog/post/new-feels-temperature-openweather-apis))<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>showPrecipitationProbability</code></td>
@@ -224,7 +224,7 @@ Find out your latitude and longitude here:
     </tr>
     <tr>
       <td><code>iconset</code></td>
-      <td>Which icon set to use. See below for (previews of the icon sets)[#Icon Sets].<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
+      <td>Which icon set to use. See below for [previews of the icon sets](#Icon Sets).<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>1c</code></td>
     </tr>
     <tr>
       <td><code>mainIconset</code></td>

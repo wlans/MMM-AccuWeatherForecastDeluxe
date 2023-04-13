@@ -547,7 +547,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 },
 ```
 
-![Layouts](/screenshots/layout-tiled.png?raw=true "Tiled Layouts")
+![Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Layouts")
 ```
 {
   module: "MMM-OpenWeatherForecastDeluxe",

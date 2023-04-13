@@ -4,7 +4,7 @@ This a module for <strong>MagicMirror</strong><br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
 
-![Screenshot](/screenshots/MMM-OpenWeatherMapForecast.png?raw=true "Screenshot")
+![Screenshot](/screenshots/layouts-tiled.png?raw=true "Screenshot")
 
 A weather module that displays current, hourly and daily forecast information
 using data from the OpenWeather One Call API. This is a replacement module for MMM-MyWeather, now that Weather Underground no longer allows free API access.  This a complete rewrite from scratch but maintains
@@ -67,10 +67,11 @@ https://www.latlong.net/
   }
 },
 ```
+More example configurations below in [Layouts and Configs](README.md#layouts-and-configs)
 
 ### Using Multiple Instances
 
-Using increasingly larger `requestDelay` values can help prevent your API calls from multiple instances from being too close together, but ultimately each instance will make it's own api calls, which combined with other modules that might use the same API, can threaten your rate limit.
+Using increasingly larger `requestDelay` values can help prevent the API calls of multiple instances from being too close together, but ultimately each instance will make it's own api calls, which when combined with other modules that might use the same API, can threaten your rate limit.
 
 You can use the `listenerOnly` option with multiple instances, so that only a primary one makes API calls, and other `listenerOnly` instances strictly do not, and instead receive notifications broadcasted with the api's payload whenever the primary instance gets its data. `listenerOnly` instances will not use/do not need the `apikey`, `latitude`, `longitude`, `endpoint`, `updateInterval` or `requestDelay` paremeters.
 
@@ -446,10 +447,132 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 ![Icon Sets](icons/iconsets.gif?raw=true "Icon Sets")
 
 
-## Layouts
+## Layouts and Configs
 
-![Layouts](/screenshots/forecast-layouts.png?raw=true "Layouts")
+![Layouts](/screenshots/layouts-table.png?raw=true "Table Layouts")
+```
+{
+  module: "MMM-OpenWeatherForecastDeluxe",
+  header: "Table Layouts",
+  position: "top_right",
+  classes: "default everyone",
+  disabled: false,
+  config: {
+    apikey: "SUPER SECRET!!!",
+    latitude: "51.506130",
+    longitude: "-0.090270",
+    relativeColors: true,
+    hourlyForecastLayout: "table",
+    maxHourliesToShow: 5,
+    dailyForecastLayout: "table",
+    maxDailiesToShow: 5,
+    ignoreToday: true,
+    showPrecipitationProbability: false,
+    showPrecipitationSeparator: false,
+    showWindGust: false,
+    iconset: "4c",
+    useAnimatedIcons: false,
+    label_ordinals: ['↓', '↙', '←', '↖', '↑', '↗', '→', '↘'],
+    label_high: "",
+    label_low: "",
+  }
+},
+```
 
+![Layouts](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)")
+```
+{
+  module: "MMM-OpenWeatherForecastDeluxe",
+  header: "Bars Layout (daily forecast only)",
+  position: "top_right",
+  classes: "default everyone",
+  disabled: false,
+  config: {
+    apikey: "SUPER SECRET!!!",
+    latitude: "51.506130",
+    longitude: "-0.090270",
+    relativeColors: true,
+    showCurrentConditions: false,
+    showExtraCurrentConditions: false,
+    showSummary: false,
+    showForecastTableColumnHeaderIcons: false,
+    showHourlyForecast: false,
+    dailyForecastLayout: 'bars',
+    maxDailiesToShow: 8, // can't do more than today + 7 = 8
+    showPrecipitationProbability: false,
+    showPrecipitationSeparator: false,
+    showPrecipitationAmount: false,
+    showWindSpeed: false,
+    showWindDirection: false,
+    showWindGust: false,
+    iconset: "4c",
+    useAnimatedIcons: false,
+    label_high: "",
+    label_low: "",
+  }
+},
+```
+
+![Layouts](/screenshots/layout-bars-nocolor.png?raw=true "Bars Layout (colored: false)")
+```
+{
+  module: "MMM-OpenWeatherForecastDeluxe",
+  header: "Bars Layout (colored: false)",
+  position: "top_right",
+  classes: "default everyone",
+  disabled: false,
+  config: {
+    apikey: "SUPER SECRET!!!",
+    latitude: "51.506130",
+    longitude: "-0.090270",
+    colored: false,
+    showCurrentConditions: false,
+    showExtraCurrentConditions: false,
+    showSummary: false,
+    showForecastTableColumnHeaderIcons: false,
+    showHourlyForecast: false,
+    dailyForecastLayout: 'bars',
+    maxDailiesToShow: 8, // can't do more than today + 7 = 8
+    showPrecipitationProbability: false,
+    showPrecipitationSeparator: false,
+    showPrecipitationAmount: false,
+    showWindSpeed: false,
+    showWindDirection: false,
+    showWindGust: false,
+    iconset: "3m",
+    useAnimatedIcons: false,
+    label_high: "",
+    label_low: "",
+  }
+},
+```
+
+![Layouts](/screenshots/layout-tiled.png?raw=true "Tiled Layouts")
+```
+{
+  module: "MMM-OpenWeatherForecastDeluxe",
+  header: "Tiled Layouts",
+  position: "top_right",
+  classes: "default everyone",
+  disabled: false,
+  config: {
+    apikey: "SUPER SECRET!!!",
+    latitude: "51.506130",
+    longitude: "-0.090270",
+    hourlyForecastInterval: 2,
+    maxDailiesToShow: 3,
+    ignoreToday: true,
+    showDayAsTomorrowInDailyForecast: true,
+    showPrecipitationProbability: false,
+    showWindDirection: false,
+    showWindGust: false,
+    iconset: "4c",
+    useAnimatedIcons: false,
+    label_high: "",
+    label_low: "",
+  }
+},
+```
 
 ## Styling
 

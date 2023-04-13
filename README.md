@@ -1,6 +1,8 @@
 # MMM-OpenWeatherForecastDeluxe
 
-This a module for <strong>MagicMirror</strong><br>
+A weather module that displays current, hourly and daily forecast information using data from the OpenWeather One Call API.
+
+This a module for <strong>MagicMirror</strong>.<br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
 
@@ -8,16 +10,10 @@ https://github.com/MichMich/MagicMirror
 | --- | --- |
 | ![Tiled Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Lauouts") | ![Bars Layout (daily forecast only)](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)") |
 
-A weather module that displays current, hourly and daily forecast information
-using data from the OpenWeather One Call API. This is a replacement module for MMM-MyWeather, now that Weather Underground no longer allows free API access.  This a complete rewrite from scratch but maintains
-much of the same functionality.
-
-[gerjomarty](https://github.com/gerjomarty) reworked the module to use OpenWeatherMap after Dark Sky no longer accepts free API access.
-
-**NOTE:** This module uses the Nunjucks templating system introduced in version 2.2.0 of MagicMirror.  If you're seeing nothing on your display where you expect this module to appear, make sure your MagicMirror version is at least 2.2.0.
-
 
 ## Installation
+
+**NOTE:** This module uses the Nunjucks templating system introduced in version 2.2.0 of MagicMirror.  If you're seeing nothing on your display where you expect this module to appear, make sure your MagicMirror version is at least 2.2.0.
 
 1. Navigate into your MagicMirror `modules` folder and execute<br>
 `git clone https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe.git`.
@@ -595,6 +591,8 @@ This module broadcasts a notification when it recieves a weather update.  The no
 
 
 ## Attributions
+
+This module has a heritage; <a href="https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe/network/members">learn more</a>!
 
 **Skycons - Animated icon set by Dark Sky**<br />
 http://darkskyapp.github.io/skycons/<br />

@@ -69,7 +69,7 @@ https://www.latlong.net/
   }
 },
 ```
-More example configurations below in [Layouts and Configs](README.md#layouts-and-configs)
+More example configurations below in [Layouts and Configs](#layouts-and-configs)
 
 ### Using Multiple Instances
 

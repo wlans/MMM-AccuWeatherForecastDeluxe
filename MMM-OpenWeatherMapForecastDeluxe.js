@@ -406,25 +406,17 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
                 i = 0;
                 maxi = this.config.maxDailiesToShow - 1;
             }
-            if (this.config.dailyForecastLayout == 'bars') {
-                //// if this config.colored: true:
-                //// THIS NEEDS TO CALCULATE THE COLOR BETWEEN
-                //// this.config.lowColor and this.config.highColor
-                for (j = i; j <= maxi; j++) {
-                    if (this.weatherData.daily[j] == null) {
-                        break;
-                    }
-                    min = Math.min(min, this.weatherData.daily[j].temp.min);
-                    max = Math.max(max, this.weatherData.daily[j].temp.max);
+            for (j = i; j <= maxi; j++) {
+                if (this.weatherData.daily[j] == null) {
+                    break;
                 }
-                //// WE NOW HAVE THE MIN AND MAX TEMPS FOR THE RELEVANT RANGE
-                //// however this shouldn't be limited to bars
+                min = Math.min(min, this.weatherData.daily[j].temp.min);
+                max = Math.max(max, this.weatherData.daily[j].temp.max);
             }
             for (i; i <= maxi; i++) {
                 if (this.weatherData.daily[i] == null) {
                     break;
                 }
-
                 dailies.push(this.forecastItemFactory(this.weatherData.daily[i], "daily", i, min, max));
             }
 
@@ -483,28 +475,26 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
             fItem.tempRange = this.formatHiLowTemperature(fData.temp.max, fData.temp.min);
-            if (this.config.dailyForecastLayout == 'bars') {
-                fItem.bars = {
-                    min: min,
-                    max: max,
-                    total: max - min,
-                    interval: 100 / (max - min),
-                };
-                fItem.bars.barWidth = Math.round(fItem.bars.interval * (fData.temp.max - fData.temp.min));
-                
-                fItem.bars.leftSpacerWidth = Math.round(fItem.bars.interval * (fData.temp.min - min));
-                var colorStartPos = fItem.bars.interval * (fData.temp.min - min) / 100;
+            
+            fItem.bars = {
+                min: min,
+                max: max,
+                total: max - min,
+                interval: 100 / (max - min),
+            };
+            fItem.bars.barWidth = Math.round(fItem.bars.interval * (fData.temp.max - fData.temp.min));
+            
+            fItem.bars.leftSpacerWidth = Math.round(fItem.bars.interval * (fData.temp.min - min));
+            var colorStartPos = fItem.bars.interval * (fData.temp.min - min) / 100;
 
-                fItem.bars.rightSpacerWidth = Math.round(fItem.bars.interval * (max - fData.temp.max));
-                var colorEndPos = fItem.bars.interval * (fData.temp.max - min) / 100;
+            fItem.bars.rightSpacerWidth = Math.round(fItem.bars.interval * (max - fData.temp.max));
+            var colorEndPos = fItem.bars.interval * (fData.temp.max - min) / 100;
 
-                var colorLo = this.config.lowColor.substring(1);
-                var colorHi = this.config.highColor.substring(1);
-                
-                fItem.bars.colorStart = '#' + this.interpolateColor(colorLo, colorHi, colorStartPos);
-                fItem.bars.colorEnd = '#' + this.interpolateColor(colorLo, colorHi, colorEndPos);
-
-            }
+            var colorLo = this.config.lowColor.substring(1);
+            var colorHi = this.config.highColor.substring(1);
+            
+            fItem.colorStart = '#' + this.interpolateColor(colorLo, colorHi, colorStartPos);
+            fItem.colorEnd = '#' + this.interpolateColor(colorLo, colorHi, colorEndPos);
         }
 
         // --------- Precipitation ---------

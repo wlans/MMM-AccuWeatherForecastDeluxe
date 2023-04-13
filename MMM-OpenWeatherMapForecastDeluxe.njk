@@ -16,12 +16,28 @@
         {% endif %}
         </span>
         <span class="temperature-container small">
-          <span class="high-temperature">{{ d.tempRange.high }}</span>
+          <span class="high-temperature"{% 
+            if config.colored 
+          %} 
+            {% if config.relativeColors %}
+              style="color: {{ d.colorEnd }};"
+            {% else %}
+              style="color: {{ config.highColor }};"
+            {% endif %}
+          {% endif %}>{{ d.tempRange.high }}</span>
           {% if config.showDailyHiLowSeparator %}
             <span class="temperature-separator dimmed">{{ config.label_hi_lo_separator }}</span>
           {% endif%}
           {% if config.showDailyLow %}
-          <span class="low-temperature">{{ d.tempRange.low }}</span>
+          <span class="low-temperature"{% 
+            if config.colored 
+          %} 
+            {% if config.relativeColors %}
+              style="color: {{ d.colorStart }};"
+            {% else %}
+              style="color: {{ config.lowColor }};"
+            {% endif %}
+          {% endif %}>{{ d.tempRange.low }}</span>
           {% endif%}
         </span>
 
@@ -119,9 +135,17 @@
       {% if config.showExtraCurrentConditions %}
         <div class="extra-current-conditions-wrapper small bright">
           <span class="temperature-container">
-            <span class="high-temperature">{{ forecast.currently.tempRange.high }}</span>
+            <span class="high-temperature"{% 
+              if config.colored 
+            %} 
+              style="color: {{ config.highColor }};"
+            {% endif %}>{{ forecast.currently.tempRange.high }}</span>
             <span class="temperature-separator dimmed">/</span>
-            <span class="low-temperature">{{ forecast.currently.tempRange.low }}</span>
+            <span class="low-temperature"{% 
+              if config.colored 
+            %} 
+              style="color: {{ config.lowColor }};"
+            {% endif %}>{{ forecast.currently.tempRange.low }}</span>
           </span>
 
           {% if config.showPrecipitationAmount and forecast.currently.precipitation.accumulation %}
@@ -466,17 +490,17 @@
                     if config.colored 
                   %} 
                     {% if config.relativeColors %}
-                      style="color: {{ d.bars.colorStart }};"
+                      style="color: {{ d.colorStart }};"
                     {% else %}
                      style="color: {{ config.lowColor }};"
                     {% endif %}
                   {% endif %}>{{ d.tempRange.low }}</span>
-                  <span class="bar" style="width: {{ d.bars.barWidth }}%;{% if config.colored %}background: padding-box linear-gradient(90deg, {{ d.bars.colorStart }} 0%, {{ d.bars.colorEnd }} 100%);{% endif %}">&nbsp;</span>
+                  <span class="bar" style="width: {{ d.bars.barWidth }}%;{% if config.colored %}background: padding-box linear-gradient(90deg, {{ d.colorStart }} 0%, {{ d.colorEnd }} 100%);{% endif %}">&nbsp;</span>
                   <span class="temp max-temp"{% 
                     if config.colored 
                   %} 
                     {% if config.relativeColors %}
-                      style="color: {{ d.bars.colorEnd }};"
+                      style="color: {{ d.colorEnd }};"
                     {% else %}
                       style="color: {{ config.highColor }};"
                     {% endif %}

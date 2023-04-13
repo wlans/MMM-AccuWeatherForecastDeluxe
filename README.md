@@ -32,12 +32,12 @@ At a minimum you need to supply the following required configuration parameters:
 * `longitude`
 
 You can request an API key to access data here:
-`https://openweathermap.org/api/one-call-api`.
+https://openweathermap.org/api/one-call-api
 
 Free tier is fine -- this module will not make any where near 1000 request on one day. (†SEE NOTE ABOUT MULTIPLE INSTANCES)
 
 Find out your latitude and longitude here:
-`https://www.latlong.net/`.
+https://www.latlong.net/
 
 
 ### Sample Configuration
@@ -80,7 +80,7 @@ Find out your latitude and longitude here:
   <tbody>
     <tr>
       <td><code>endpoint</code></td>
-      <td>The URL of the onecall api; v2.5 is free, v3.0 requires a subscription and can be used with <code>https://api.openweathermap.org/data/3.0/onecall</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>https://api.openweathermap.org/data/2.5/onecall</code></td>
+      <td>The URL of the onecall api; v2.5 is free, v3.0 requires a subscription and can be used with <code>https://api.openweathermap.org/data/3.0/onecall</code><br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>https://api.openweathermap.org/data/2.5/onecall</code></td>
     </tr>
     <tr>
       <td><code>updateInterval</code></td>
@@ -261,12 +261,12 @@ If you want a space before or after the label, include it here.
   </thead>
   <tbody>
     <tr>
-      <td><code>label_temp_c</code></td>
-      <td>The label you wish to display following metric/celcius temperatures.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"°"</code></td>
-    </tr>
-    <tr>
       <td><code>label_temp_i</code></td>
       <td>The label you wish to display following imperial/fahrenheit temperatures.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"°"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_temp_m</code></td>
+      <td>The label you wish to display following metric/celcius temperatures.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"°"</code></td>
     </tr>
     <tr>
       <td><code>label_maximum</code></td>
@@ -279,6 +279,14 @@ If you want a space before or after the label, include it here.
     <tr>
       <td><code>label_low</code></td>
       <td>The label you wish to display for prefixing low temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"L "</code></td>
+    </tr>
+    <tr>
+      <td><code>label_hi_lo_separator</code></td>
+      <td>The label between high and low temperatures.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" / "</code></td>
+    </tr>
+    <tr>
+      <td><code>label_feels_like</code></td>
+      <td>The label that preceeds the "feels like" temperature.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"Feels like "</code></td>
     </tr>
     <tr>
       <td><code>label_timeFormat</code></td>
@@ -302,7 +310,7 @@ If you want a space before or after the label, include it here.
     </tr>
     <tr>
       <td><code>label_rain_i</code></td>
-      <td>The imperial unit label for rain accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" in."</code></td>
+      <td>The imperial unit label for rain accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" in"</code></td>
     </tr>
     <tr>
       <td><code>label_rain_m</code></td>
@@ -310,7 +318,7 @@ If you want a space before or after the label, include it here.
     </tr>
     <tr>
       <td><code>label_snow_i</code></td>
-      <td>The imperial unit label for snow accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" in."</code></td>
+      <td>The imperial unit label for snow accumulation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" in"</code></td>
     </tr>
     <tr>
       <td><code>label_snow_m</code></td>
@@ -324,12 +332,40 @@ If you want a space before or after the label, include it here.
       <td><code>label_wind_m</code></td>
       <td>The metric unit label for wind speed.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" m/s"</code></td>
     </tr>
+    <tr>
+      <td><code>label_gust_i</code></td>
+      <td>The imperial unit label for wind gust.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" mph"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_gust_m</code></td>
+      <td>The metric unit label for wind gust.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" m/s"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_no_precip</code></td>
+      <td>The value to show instead of 0% precipitation.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"—"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_no_wind</code></td>
+      <td>The value to show instead of 0(wind units).<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>"—"</code></td>
+    </tr>
+    <tr>
+      <td><code>label_precip_separator</code></td>
+      <td>The label to show between precipitation probability and amount.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" "</code></td>
+    </tr>
+    <tr>
+      <td><code>label_gust_wrapper_prefix</code></td>
+      <td>The label that preceeds the wind gust.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>" ("</code></td>
+    </tr>
+    <tr>
+      <td><code>label_gust_wrapper_suffix</code></td>
+      <td>The label that follows the wind gust.<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>")"</code></td>
+    </tr>
   </tbody>
 </table>
 
 ### Decimal Precision
 
-Options for specifying the decimal precision for various measurements. OpenWeather's data is typically up to 2 decimal places, so the useful values are from <code>0</code> to <code>2</code>.
+Options for specifying the decimal precision for various measurements. OpenWeather's data is typically up to 2 decimal places, so the useful integer values are from <code>0</code> to <code>2</code>.
 
 <table>
   <thead>
@@ -339,6 +375,14 @@ Options for specifying the decimal precision for various measurements. OpenWeath
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><code>dp_precip_leading_zero</code></td>
+      <td>Whether to include the leading zero for precipitation amount.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>dp_wind_leading_zero</code></td>
+      <td>Whether to include the leading zero for wind measurements.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>false</code></td>
+    </tr>
     <tr>
       <td><code>dp_rain_i</code></td>
       <td>Decimal precision for imperial rain accumulation (in inches)<br><br><strong>Type</strong> <code>Integer</code><br>Defaults to <code>2</code></td>

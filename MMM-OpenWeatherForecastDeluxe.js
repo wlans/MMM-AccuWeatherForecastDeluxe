@@ -102,7 +102,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         forecastTableIconSize: 30,
         showAttribution: true,
         label_temp_i: "°",
-        label_temp_c: "°",
+        label_temp_m: "°",
         label_maximum: "max ",
         label_high: "H ",
         label_low: "L ",

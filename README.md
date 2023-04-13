@@ -4,7 +4,9 @@ This a module for <strong>MagicMirror</strong><br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
 
-![Screenshot](/screenshots/layouts-tiled.png?raw=true "Screenshot")
+| Tiled Layouts | Bars Layout (daily forecast only) |
+| --- | --- |
+| ![Tiled Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Lauouts") | ![Bars Layout (daily forecast only)](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)") |
 
 A weather module that displays current, hourly and daily forecast information
 using data from the OpenWeather One Call API. This is a replacement module for MMM-MyWeather, now that Weather Underground no longer allows free API access.  This a complete rewrite from scratch but maintains
@@ -449,7 +451,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 
 ## Layouts and Configs
 
-![Layouts](/screenshots/layouts-table.png?raw=true "Table Layouts")
+![Table Layouts](/screenshots/layouts-table.png?raw=true "Table Layouts")
 ```
 {
   module: "MMM-OpenWeatherForecastDeluxe",
@@ -479,7 +481,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 },
 ```
 
-![Layouts](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)")
+![Bars Layout (daily forecast only)](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)")
 ```
 {
   module: "MMM-OpenWeatherForecastDeluxe",
@@ -513,7 +515,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 },
 ```
 
-![Layouts](/screenshots/layout-bars-nocolor.png?raw=true "Bars Layout (colored: false)")
+![Bars Layout (colored; false)](/screenshots/layout-bars-nocolor.png?raw=true "Bars Layout (colored: false)")
 ```
 {
   module: "MMM-OpenWeatherForecastDeluxe",
@@ -547,7 +549,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 },
 ```
 
-![Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Layouts")
+![Tiled Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Layouts")
 ```
 {
   module: "MMM-OpenWeatherForecastDeluxe",

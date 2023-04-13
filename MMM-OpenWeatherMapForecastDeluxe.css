@@ -17,14 +17,14 @@
 }
 
 .MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .temperature .high-temperature,
-.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .temperature-container .high-temperature,
-.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .forecast-bars .max-temp {
+.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .temperature-container .high-temperature/*,
+.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .forecast-bars .max-temp*/ {
     color: #F8DD70;
 }
 
 .MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .temperature .low-temperature,
-.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .temperature-container .low-temperature,
-.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .forecast-bars .min-temp {
+.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .temperature-container .low-temperature/*,
+.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .forecast-bars .min-temp*/ {
     color: #6FC4F5;
 }
 
@@ -317,9 +317,9 @@
 	background-clip: padding-box;
 }
 
-.MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .forecast-bars .bar {
+/* .MMM-OpenWeatherMapForecastDeluxe .wrapper.colored .forecast-bars .bar {
     background: padding-box linear-gradient(90deg, rgba(111,196,245,1) 0%, rgba(248,221,112,1) 100%);
-}
+} */
 
 .MMM-OpenWeatherMapForecastDeluxe .forecast-bars .forecast-icon-container {
 	padding: 0 0.5em;

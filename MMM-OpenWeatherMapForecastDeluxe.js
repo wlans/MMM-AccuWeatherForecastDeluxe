@@ -92,6 +92,9 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
         useAnimatedIcons: true,
         animateMainIconOnly: true,
         colored: true,
+        highColor: '#F8DD70',
+        lowColor: '#6FC4F5',
+        relativeColors: false,
         showInlineIcons: true,
         mainIconSize: 100,
         forecastTiledIconSize: 70,
@@ -404,6 +407,9 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
                 maxi = this.config.maxDailiesToShow - 1;
             }
             if (this.config.dailyForecastLayout == 'bars') {
+                //// if this config.colored: true:
+                //// THIS NEEDS TO CALCULATE THE COLOR BETWEEN
+                //// this.config.lowColor and this.config.highColor
                 for (j = i; j <= maxi; j++) {
                     if (this.weatherData.daily[j] == null) {
                         break;
@@ -411,6 +417,8 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
                     min = Math.min(min, this.weatherData.daily[j].temp.min);
                     max = Math.max(max, this.weatherData.daily[j].temp.max);
                 }
+                //// WE NOW HAVE THE MIN AND MAX TEMPS FOR THE RELEVANT RANGE
+                //// however this shouldn't be limited to bars
             }
             for (i; i <= maxi; i++) {
                 if (this.weatherData.daily[i] == null) {
@@ -471,7 +479,6 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
         fItem.iconPath = this.generateIconSrc(this.convertOpenWeatherIdToIcon(fData.weather[0].id, fData.weather[0].icon));
 
         // --------- Temperature ---------
-
         if (type == "hourly") { //just display projected temperature for that hour
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
@@ -484,8 +491,19 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
                     interval: 100 / (max - min),
                 };
                 fItem.bars.barWidth = Math.round(fItem.bars.interval * (fData.temp.max - fData.temp.min));
+                
                 fItem.bars.leftSpacerWidth = Math.round(fItem.bars.interval * (fData.temp.min - min));
+                var colorStartPos = fItem.bars.interval * (fData.temp.min - min) / 100;
+
                 fItem.bars.rightSpacerWidth = Math.round(fItem.bars.interval * (max - fData.temp.max));
+                var colorEndPos = fItem.bars.interval * (fData.temp.max - min) / 100;
+
+                var colorLo = this.config.lowColor.substring(1);
+                var colorHi = this.config.highColor.substring(1);
+                
+                fItem.bars.colorStart = '#' + this.interpolateColor(colorLo, colorHi, colorStartPos);
+                fItem.bars.colorEnd = '#' + this.interpolateColor(colorLo, colorHi, colorEndPos);
+
             }
         }
 
@@ -802,5 +820,16 @@ Module.register("MMM-OpenWeatherMapForecastDeluxe", {
                 self.config[key] = parseInt(self.config[key]);
             }
         });
+    },
+
+    /*
+        Calculate a color that is f% between c0 and c1
+        c0 = start hex (w/o #), c1 = end hex (w/o #), f is btwn 0 and 1
+    */
+    interpolateColor: function(c0, c1, f){
+        c0 = c0.match(/.{1,2}/g).map((oct)=>parseInt(oct, 16) * (1-f))
+        c1 = c1.match(/.{1,2}/g).map((oct)=>parseInt(oct, 16) * f)
+        let ci = [0,1,2].map(i => Math.min(Math.round(c0[i]+c1[i]), 255))
+        return ci.reduce((a,v) => ((a << 8) + v), 0).toString(16).padStart(6, "0")
     }
 });

@@ -462,9 +462,9 @@
               <td>
                 <div class="forecast-bar">
                   <span style="width: {{ d.bars.leftSpacerWidth }}%;"></span>
-                  <span class="temp min-temp">{{ d.tempRange.low }}</span>
-                  <span class="bar" style="width: {{ d.bars.barWidth }}%;">&nbsp;</span>
-                  <span class="temp max-temp">{{ d.tempRange.high }}</span>
+                  <span class="temp min-temp"{% if config.colored %} style="color: {{ d.bars.colorStart }};"{% endif %}>{{ d.tempRange.low }}</span>
+                  <span class="bar" style="width: {{ d.bars.barWidth }}%;{% if config.colored %}background: padding-box linear-gradient(90deg, {{ d.bars.colorStart }} 0%, {{ d.bars.colorEnd }} 100%);{% endif %}">&nbsp;</span>
+                  <span class="temp max-temp"{% if config.colored %} style="color: {{ d.bars.colorEnd }};"{% endif %}>{{ d.tempRange.high }}</span>
                   <span style="width: {{ d.bars.rightSpacerWidth }}%;"></span>
                 </div>
               </td>

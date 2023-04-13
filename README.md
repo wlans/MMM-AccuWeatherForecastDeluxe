@@ -249,6 +249,22 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
       <td><code>showInlineIcons</code></td>
       <td>Whether to prefix wind and precipitation information with an icon.  Only affects the <code>tiled</code> layout.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
+    <tr>
+      <td><code>mainIconSize</code></td>
+      <td>The square pixel size of the weather icon in the current conditions.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>100</code></td>
+    </tr>
+    <tr>
+      <td><code>forecastTiledIconSize</code></td>
+      <td>The square pixel size of the weather icon in the <code>tiled</code> layouts.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>70</code></td>
+    </tr>
+    <tr>
+      <td><code>forecastTableIconSize</code></td>
+      <td>The square pixel size of the weather icon in the <code>table</code> and <code>bars</code> layouts.<br><br><strong>Type</strong> <code>Number</code><br>Defaults to <code>30</code></td>
+    </tr>
+    <tr>
+      <td><code>showAttribution</code></td>
+      <td>Whether to include attribution at the bottom of the module for the data source (Powered by OpenWeather)<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+    </tr>
   </tbody>
 </table>
 

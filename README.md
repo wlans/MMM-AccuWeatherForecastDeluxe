@@ -500,7 +500,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
     showForecastTableColumnHeaderIcons: false,
     showHourlyForecast: false,
     dailyForecastLayout: 'bars',
-    maxDailiesToShow: 8, // can't do more than today + 7 = 8
+    maxDailiesToShow: 8,
     showPrecipitationProbability: false,
     showPrecipitationSeparator: false,
     showPrecipitationAmount: false,
@@ -534,7 +534,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
     showForecastTableColumnHeaderIcons: false,
     showHourlyForecast: false,
     dailyForecastLayout: 'bars',
-    maxDailiesToShow: 8, // can't do more than today + 7 = 8
+    maxDailiesToShow: 8,
     showPrecipitationProbability: false,
     showPrecipitationSeparator: false,
     showPrecipitationAmount: false,

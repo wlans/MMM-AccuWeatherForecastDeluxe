@@ -449,6 +449,57 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 
 ## Layouts and Configs
 
+<table>
+  <thead>
+    <tr>
+      <th>Screenshot</th>
+      <th>Configuration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>![Layouts](/screenshots/layouts-table.png?raw=true "Table Layouts")</td>
+      <td>```
+{
+  module: "MMM-OpenWeatherForecastDeluxe",
+  header: "Table Layouts",
+  position: "top_right",
+  classes: "default everyone",
+  disabled: false,
+  config: {
+    apikey: "SUPER SECRET!!!",
+    latitude: "51.506130",
+    longitude: "-0.090270",
+    relativeColors: true,
+    hourlyForecastLayout: "table",
+    maxHourliesToShow: 5,
+    dailyForecastLayout: "table",
+    maxDailiesToShow: 5,
+    ignoreToday: true,
+    showPrecipitationProbability: false,
+    showPrecipitationSeparator: false,
+    showWindGust: false,
+    iconset: "4c",
+    useAnimatedIcons: false,
+    label_ordinals: ['↓', '↙', '←', '↖', '↑', '↗', '→', '↘'],
+    label_high: "",
+    label_low: "",
+  }
+},
+```
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+
+  </tbody>
+</table>
 ![Layouts](/screenshots/layouts-table.png?raw=true "Table Layouts")
 ```
 {

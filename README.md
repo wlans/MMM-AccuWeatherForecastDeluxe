@@ -4,7 +4,7 @@ This a module for <strong>MagicMirror</strong>.<br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
 
-A weather module that displays current, hourly and daily forecast information using data from the OpenWeather One Call API.
+A weather module that displays current, hourly and daily forecast information using data from the AccuWeather API.
 
 | Tiled Layouts | Bars Layout (daily forecast only) |
 | --- | --- |
@@ -17,7 +17,7 @@ A weather module that displays current, hourly and daily forecast information us
 
 1. Navigate into your MagicMirror `modules` folder and execute<br>
 `git clone https://github.com/maxbethge/MMM-AccuWeatherForecastDeluxe.git`.
-2. Enter the new `MMM-OpenWeatherForecastDeluxe` directory and execute `npm install`.
+2. Enter the new `MMM-AccuWeatherForecastDeluxe` directory and execute `npm install`.
 
 
 
@@ -26,8 +26,7 @@ A weather module that displays current, hourly and daily forecast information us
 At a minimum you need to supply the following required configuration parameters:
 
 * `apikey`
-* `latitude`
-* `longitude`
+* `locationKey`
 
 You can request an API key to access data here:
 https://openweathermap.org/api/one-call-api
@@ -42,15 +41,14 @@ https://www.latlong.net/
 
 ```
 {
-  module: "MMM-OpenWeatherForecastDeluxe",
+  module: "MMM-AccuWeatherForecastDeluxe",
   header: "Tiled Layouts",
   position: "top_right",
   classes: "default everyone",
   disabled: false,
   config: {
     apikey: "SUPER SECRET!!!",
-    latitude: "51.506130",
-    longitude: "-0.090270",
+    locationKey: "337209",
     hourlyForecastInterval: 2,
     maxDailiesToShow: 3,
     ignoreToday: true,

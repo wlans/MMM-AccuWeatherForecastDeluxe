@@ -53,7 +53,7 @@ module.exports = NodeHelper.create({
 
                 var url = payload.endpoint +
                     "/" + payload.locationKey +
-                    "?appkey=" + payload.apikey +
+                    "?apikey=" + payload.apikey +
                     //"&lat=" + payload.latitude +
                     //"&lon=" + payload.longitude +
                     //(payload.units !== "" ? "&units=" + payload.units : "") +
@@ -71,7 +71,7 @@ module.exports = NodeHelper.create({
                         self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
 
                     } else {
-                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error);
+                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error + "\n" + body);
                     }
 
                 });

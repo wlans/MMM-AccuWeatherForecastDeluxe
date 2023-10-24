@@ -53,12 +53,12 @@ module.exports = NodeHelper.create({
 
                 var url = payload.endpoint +
                     "/" + payload.locationKey +
-                    "?appid=" + payload.apikey +
+                    "?appkey=" + payload.apikey +
                     //"&lat=" + payload.latitude +
                     //"&lon=" + payload.longitude +
                     //(payload.units !== "" ? "&units=" + payload.units : "") +
                     //"&lang=" + payload.language;
-                    "&details=false";
+                    "&details=true";
 
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
                 needle.get(url, function(error, response, body) {

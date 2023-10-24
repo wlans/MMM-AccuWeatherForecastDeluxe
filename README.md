@@ -16,7 +16,7 @@ A weather module that displays current, hourly and daily forecast information us
 **NOTE:** This module uses the Nunjucks templating system introduced in version 2.2.0 of MagicMirror.  If you're seeing nothing on your display where you expect this module to appear, make sure your MagicMirror version is at least 2.2.0.
 
 1. Navigate into your MagicMirror `modules` folder and execute<br>
-`git clone https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe.git`.
+`git clone https://github.com/maxbethge/MMM-AccuWeatherForecastDeluxe.git`.
 2. Enter the new `MMM-OpenWeatherForecastDeluxe` directory and execute `npm install`.
 
 

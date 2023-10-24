@@ -1,16 +1,16 @@
 {
-    "name": "mmm-openweatherforecastdeluxe",
+    "name": "mmm-accuweatherforecastdeluxe",
     "version": "2.0.0",
     "description": "Magic Mirror module that gets weather forecast data from OpenWeather",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe"
+        "url": "git+https://github.com/maxbethge/MMM-OpenWeatherForecastDeluxe"
     },
-    "main": "MMM-OpenWeatherForecastDeluxe.js",
+    "main": "MMM-AccuWeatherForecastDeluxe.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "Jeff Clarke",
+    "author": "Max Bethge",
     "license": "MIT",
     "dependencies": {
         "moment": "^2.28.0",

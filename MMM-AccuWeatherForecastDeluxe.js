@@ -1,8 +1,8 @@
 /*********************************
 
   Magic Mirror Module:
-  MMM-OpenWeatherMapForecast
-  https://github.com/MarcLandis/MMM-OpenWeatherMapForecast
+  MMM-AccuWeatherMapForecast
+  https://github.com/maxbethge/MMM-AccuWeatherMapForecastDeluxe
 
   Icons in use by this module:
 
@@ -34,15 +34,16 @@
   Some of the icons were modified to better work with the module's
   structure and aesthetic.
 
-  Weather data provided by OpenWeatherMap One Call API
+  Weather data provided by AccuWeather API
 
   By Jeff Clarke
   Modified by Dirk Rettschlag
+  Modified by Max Bethge
   MIT Licensed
 
 *********************************/
 
-Module.register("MMM-OpenWeatherForecastDeluxe", {
+Module.register("MMM-AccuWeatherForecastDeluxe", {
 
     /*
       This module uses the Nunjucks templating system introduced in
@@ -54,9 +55,10 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
 
     defaults: {
         apikey: "",
-        latitude: "",
-        longitude: "",
-        endpoint: "https://api.openweathermap.org/data/2.5/onecall",
+        //latitude: "",
+        //longitude: "",
+        locationKey: "",
+        endpoint: "http://dataservice.accuweather.com/forecasts/v1/daily/5day",
         updateInterval: 10, // minutes
         updateFadeSpeed: 500, // milliseconds
         requestDelay: 0,
@@ -79,7 +81,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         dailyForecastHeaderText: "",
         showDailyForecast: true,
         dailyForecastLayout: "tiled",
-        maxDailiesToShow: 3,
+        maxDailiesToShow: 5,
         ignoreToday: false,
         showDailyLow: true,
         showDailyHiLowSeparator: true,
@@ -136,7 +138,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         dp_temp_m: 0,
         dp_wind_i: 0,
         dp_wind_m: 0,
-        moduleTimestampIdPrefix: "OPENWEATHER_ONE_CALL_TIMESTAMP_",
+        moduleTimestampIdPrefix: "ACCUWEATHER_ONE_CALL_TIMESTAMP_",
     },
 
     validUnits: ["imperial", "metric", ""],
@@ -148,11 +150,11 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     },
 
     getStyles: function() {
-        return ["MMM-OpenWeatherForecastDeluxe.css"];
+        return ["MMM-AccuWeatherForecastDeluxe.css"];
     },
 
     getTemplate: function() {
-        return "MMM-OpenWeatherForecastDeluxe.njk";
+        return "MMM-AccuWeatherForecastDeluxe.njk";
     },
 
     /*
@@ -270,10 +272,11 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     },
 
     getData: function() {
-        this.sendSocketNotification("OPENWEATHER_ONE_CALL_FORECAST_GET", {
+        this.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_GET", {
             apikey: this.config.apikey,
-            latitude: this.config.latitude,
-            longitude: this.config.longitude,
+            //latitude: this.config.latitude,
+            //longitude: this.config.longitude,
+            locationKey: this.config.locationKey,
             units: this.config.units,
             language: this.config.language,
             instanceId: this.identifier,
@@ -286,7 +289,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     notificationReceived: function(notification, payload, sender) {
         if (
             this.config.listenerOnly &&
-            notification === "OPENWEATHER_ONE_CALL_FORECAST_WEATHER_DATA"
+            notification === "ACCUWEATHER_ONE_CALL_FORECAST_WEATHER_DATA"
         ) {
             // console.log(this.name, 'notificationReceived', notification, payload, sender);
 
@@ -318,7 +321,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
 
     socketNotificationReceived: function(notification, payload) {
         
-        if (notification === "OPENWEATHER_ONE_CALL_FORECAST_DATA" && payload.instanceId === this.identifier) {
+        if (notification === "ACCUWEATHER_ONE_CALL_FORECAST_DATA" && payload.instanceId === this.identifier) {
     
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
@@ -333,8 +336,8 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
             this.updateDom(this.config.updateFadeSpeed);
 
             //broadcast weather update
-            // this.sendNotification("OPENWEATHER_ONE_CALL_FORECAST_WEATHER_UPDATE", payload);
-            this.sendNotification("OPENWEATHER_ONE_CALL_FORECAST_WEATHER_DATA", payload);
+            // this.sendNotification("ACCUWEATHER_ONE_CALL_FORECAST_WEATHER_UPDATE", payload);
+            this.sendNotification("ACCUWEATHER_ONE_CALL_FORECAST_WEATHER_DATA", payload);
 
             /*
               Start icon playback. We need to wait until the DOM update
@@ -367,8 +370,8 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     */
     processWeatherData: function() {
 
-        var summary = this.weatherData.current.weather[0].description;
-
+        var summary = this.weatherData.Headline.Text;
+//TODO: call hourly API
         var hourlies = [];
         if (this.config.showHourlyForecast) {
 
@@ -400,17 +403,17 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
                 maxi = this.config.maxDailiesToShow - 1;
             }
             for (j = i; j <= maxi; j++) {
-                if (this.weatherData.daily[j] == null) {
+                if (this.weatherData.DailyForecasts[j] == null) {
                     break;
                 }
-                min = Math.min(min, this.weatherData.daily[j].temp.min);
-                max = Math.max(max, this.weatherData.daily[j].temp.max);
+                min = Math.min(min, this.weatherData.DailyForecasts[j].Temperature.Minimum.Value);
+                max = Math.max(max, this.weatherData.DailyForecasts[j].Temperature.Maximum.Value);
             }
             for (i; i <= maxi; i++) {
-                if (this.weatherData.daily[i] == null) {
+                if (this.weatherData.DailyForecasts[i] == null) {
                     break;
                 }
-                dailies.push(this.forecastItemFactory(this.weatherData.daily[i], "daily", i, min, max));
+                dailies.push(this.forecastItemFactory(this.weatherData.DailyForecasts[i], "daily", i, min, max));
             }
 
         }
@@ -418,12 +421,16 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
 
         return {
             "currently": {
-                temperature: this.getUnit('temp', this.weatherData.current.temp),
-                feelslike: this.getUnit('temp', this.weatherData.current.feels_like),
+                temperature: this.getUnit('temp', 100),
+                //temperature: this.getUnit('temp', this.weatherData.current.temp),
+                feelslike: this.getUnit('temp', 101),
+                //feelslike: this.getUnit('temp', this.weatherData.current.feels_like),
                 animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
-                animatedIconName: this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
-                iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
-                tempRange: this.formatHiLowTemperature(this.weatherData.daily[0].temp.max, this.weatherData.daily[0].temp.min),
+                animatedIconName: this.convertAccuWeatherIdToIcon(1, "snow"),
+                //animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
+                //iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
+                iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(1, "snow"), true),
+                tempRange: this.formatHiLowTemperature(this.weatherData.DailyForecasts[0].Temperature.Maximum.Value, this.weatherData.DailyForecasts[0].Temperature.Minimum.Value),
                 precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
                 wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
             },
@@ -448,26 +455,26 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
             //day name (e.g.: "MON")
             if (index === 0 && this.config.showDayAsTodayInDailyForecast) fItem.day = this.config.label_today;
             else if (index === 1 && this.config.showDayAsTomorrowInDailyForecast) fItem.day = this.config.label_tomorrow;
-            else fItem.day = this.config.label_days[moment(fData.dt * 1000).format("d")];
+            else fItem.day = this.config.label_days[moment(fData.EpochDate * 1000).format("d")];
 
         } else { //hourly
 
             //time (e.g.: "5 PM")
-            fItem.time = moment(fData.dt * 1000).format(this.config.label_timeFormat);
+            fItem.time = moment(fData.EpochDate * 1000).format(this.config.label_timeFormat);
         }
 
         // --------- Icon ---------
         if (this.config.useAnimatedIcons && !this.config.animateMainIconOnly) {
             fItem.animatedIconId = this.getAnimatedIconId();
-            fItem.animatedIconName = this.convertOpenWeatherIdToIcon(fData.weather[0].id, fData.weather[0].icon);
+            fItem.animatedIconName = this.convertAccuWeatherIdToIcon(fData.weather[0].id, fData.weather[0].icon);
         }
-        fItem.iconPath = this.generateIconSrc(this.convertOpenWeatherIdToIcon(fData.weather[0].id, fData.weather[0].icon));
+        fItem.iconPath = this.generateIconSrc(this.convertAccuWeatherIdToIcon(fData.Day.Icon, fData.Day.IconPhrase));
 
         // --------- Temperature ---------
         if (type == "hourly") { //just display projected temperature for that hour
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
-            fItem.tempRange = this.formatHiLowTemperature(fData.temp.max, fData.temp.min);
+            fItem.tempRange = this.formatHiLowTemperature(fData.Temperature.Maximum.Value, fData.Temperature.Mimimum.Value);
             
             fItem.bars = {
                 min: min,
@@ -475,13 +482,13 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
                 total: max - min,
                 interval: 100 / (max - min),
             };
-            fItem.bars.barWidth = Math.round(fItem.bars.interval * (fData.temp.max - fData.temp.min));
+            fItem.bars.barWidth = Math.round(fItem.bars.interval * (fData.Temperature.Maximum.Value - fData.Temperature.Minimum.Value));
             
-            fItem.bars.leftSpacerWidth = Math.round(fItem.bars.interval * (fData.temp.min - min));
-            var colorStartPos = fItem.bars.interval * (fData.temp.min - min) / 100;
+            fItem.bars.leftSpacerWidth = Math.round(fItem.bars.interval * (fData.Temperature.Minimum.Value - min));
+            var colorStartPos = fItem.bars.interval * (fData.Temperature.Minimum.Value - min) / 100;
 
-            fItem.bars.rightSpacerWidth = Math.round(fItem.bars.interval * (max - fData.temp.max));
-            var colorEndPos = fItem.bars.interval * (fData.temp.max - min) / 100;
+            fItem.bars.rightSpacerWidth = Math.round(fItem.bars.interval * (max - fData.Temperature.Maximum.Value));
+            var colorEndPos = fItem.bars.interval * (fData.Temperature.Maximum.Value - min) / 100;
 
             var colorLo = this.config.lowColor.substring(1);
             var colorHi = this.config.highColor.substring(1);
@@ -491,10 +498,12 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
         }
 
         // --------- Precipitation ---------
-        fItem.precipitation = this.formatPrecipitation(fData.pop, fData.rain, fData.snow);
+//TODO: get max value from day/night
+        fItem.precipitation = this.formatPrecipitation(fData.Day.PrecipitationProbability, fData.Day.Rain.Value, fData.Day.Snow.Value);
 
         // --------- Wind ---------
-        fItem.wind = (this.formatWind(fData.wind_speed, fData.wind_deg, fData.wind_gust));
+//TODO: get max value from day/night
+        fItem.wind = (this.formatWind(fData.Day.Wind.Speed.Value, fData.Day.Wind.Direction.Degrees, fData.Day.WindGust.Speed.Value));
 
         return fItem;
     },
@@ -595,7 +604,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     },
 
     /*
-      Returns the units in use for the data pull from OpenWeather
+      Returns the units in use for the data pull from AccuWeather
      */
     getUnit: function(metric, value) {
 
@@ -626,7 +635,7 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
 
     /*
       Icon sets can be added here.  The path is relative to
-      MagicMirror/modules/MMM-OpenWeatherMapForecast/icons, and the format
+      MagicMirror/modules/MMM-AccuWeatherMapForecastDeluxe/icons, and the format
       is specified here so that you can use icons in any format
       that works for you.
 
@@ -677,54 +686,49 @@ Module.register("MMM-OpenWeatherForecastDeluxe", {
     },
 
     /*
-      This converts OpenWeatherMap icon id to icon names
+      This converts AccuWeather icon id to icon names
+      https://developer.accuweather.com/weather-icons
     */
-    convertOpenWeatherIdToIcon: function(id, openweather_icon) {
-        if (id >= 200 && id < 300) {
+    convertAccuWeatherIdToIcon: function(id, accuweather_icon) {
+        if (id in [15,16,17,41,42]) {
             // Thunderstorm
             return "thunderstorm";
-        } else if (id >= 300 && id < 400) {
-            // Drizzle
-            return "rain";
-        } else if (id === 511) {
-            // Rain - freezing rain
-            return "sleet";
-        } else if (id >= 500 && id < 600) {
+        //} else if (id >= 300 && id < 400) {
+        //    // Drizzle
+        //    return "rain";
+        //} else if (id === 511) {
+       //     // Rain - freezing rain
+        //    return "sleet";
+        } else if (id in [12,13,14,18]) {
             // Rain
             return "rain";
-        } else if (id >= 610 && id < 620) {
+        } else if (id in [25,26,39,40]) {
             // Snow - sleet or with rain
             return "sleet";
-        } else if (id >= 600 && id < 700) {
+        } else if (id in [19,20,21,22,23,29,43,44]) {
             // Snow
             return "snow";
-        } else if (id === 781) {
-            // Atmosphere - tornado
-            return "tornado";
-        } else if (id >= 700 && id < 800) {
+        //} else if (id === 781) {
+       //     // Atmosphere - tornado
+        //    return "tornado";
+        } else if (id == 11) {
             // Atmosphere
             return "fog";
-        } else if (id >= 800 && id < 810) {
-            var isDay = openweather_icon.slice(-1) === "d";
-
-            if (id === 800) {
-                // Clear
-                if (isDay) {
-                    return "clear-day";
-                } else {
-                    return "clear-night";
-                }
-            } else if (id === 801 || id == 802) {
-                // Clouds - few or scattered
-                if (isDay) {
-                    return "partly-cloudy-day";
-                } else {
-                    return "partly-cloudy-night";
-                }
-            } else if (id === 803 || id === 804) {
-                // Clouds - broken or overcast
-                return "cloudy";
-            }
+        } else if (id in [1,2,3]) {
+            return "clear-day";
+        } else if (id in [4,5,6]) {
+            return "partly-cloudy-day";
+        } else if (id in [7,8]) {
+            return "cloudy";
+        } else if (id in [33,34]) {
+            return "clear-night";
+        } else if (id in [35,36]) {
+            return "partly-cloudy-night";
+        } else if (id in [37,38]) {
+            return "cloudy";
+       // } else if (id >= 800 && id < 810) {
+        } else {
+            return "";
         }
     },
 

@@ -286,7 +286,8 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
             language: this.config.language,
             instanceId: this.identifier,
             requestDelay: this.config.requestDelay,
-            endpoint: this.config.endpoint
+            endpoint: this.config.endpoint,
+            endpointNow: this.config.endpointNow,
         });
 
     },

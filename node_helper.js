@@ -61,7 +61,7 @@ module.exports = NodeHelper.create({
 
                 var url2 = payload.endpointNow +
                     "/" + payload.locationKey +
-                    "?apikey=" + payload.apikey  +
+                    "?apikey=" + ((payload.apikey2 == null || payload.apikey2 == "") ? payload.apikey : payload.apikey2)  +
                     "&lang=" + payload.language + 
                     "&details=true";
 
@@ -81,7 +81,7 @@ module.exports = NodeHelper.create({
                     console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url2);
                     const resp2 = await fetch(url2);
                     const json2 = await resp2.json();
-                    f.Current = json2;
+                    f.Current = json2[0];
                     console.log(json2);
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 2");
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + f);

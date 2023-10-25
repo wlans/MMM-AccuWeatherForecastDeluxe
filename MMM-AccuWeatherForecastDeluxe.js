@@ -702,7 +702,8 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
       https://developer.accuweather.com/weather-icons
     */
     convertAccuWeatherIdToIcon: function(id, accuweather_icon) {
-        if (id in [15,16,17,41,42]) {
+        console.log(this.name, 'convertAccuWeatherIdToIcon', id, accuweather_icon);
+        if ([15,16,17,41,42].includes(id)) {
             // Thunderstorm
             return "thunderstorm";
         //} else if (id >= 300 && id < 400) {
@@ -711,32 +712,32 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         //} else if (id === 511) {
        //     // Rain - freezing rain
         //    return "sleet";
-        } else if (id in [12,13,14,18]) {
+        } else if ([12,13,14,18].includes(id)) {
             // Rain
             return "rain";
-        } else if (id in [25,26,39,40]) {
+        } else if ([25,26,39,40].includes(id)) {
             // Snow - sleet or with rain
             return "sleet";
-        } else if (id in [19,20,21,22,23,29,43,44]) {
+        } else if ([19,20,21,22,23,29,43,44].includes(id)) {
             // Snow
             return "snow";
         //} else if (id === 781) {
        //     // Atmosphere - tornado
         //    return "tornado";
-        } else if (id == 11) {
+        } else if (id === 11) {
             // Atmosphere
             return "fog";
-        } else if (id in [1,2,3]) {
+        } else if ([1,2,3].includes(id)) {
             return "clear-day";
-        } else if (id in [4,5,6]) {
+        } else if ([4,5,6].includes(id)) {
             return "partly-cloudy-day";
-        } else if (id in [7,8]) {
+        } else if ([7,8].includes(id)) {
             return "cloudy";
-        } else if (id in [33,34]) {
+        } else if ([33,34].includes(id)) {
             return "clear-night";
-        } else if (id in [35,36]) {
+        } else if ([35,36].includes(id)) {
             return "partly-cloudy-night";
-        } else if (id in [37,38]) {
+        } else if ([37,38].includes(id)) {
             return "cloudy";
        // } else if (id >= 800 && id < 810) {
         } else {

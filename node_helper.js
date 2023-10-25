@@ -74,22 +74,22 @@ module.exports = NodeHelper.create({
                     const resp1 = await fetch(url);
                     const json1 = await resp1.json();
                     console.log(json1);
-                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + json1);
+                    //console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + json1);
                     f = json1;
                     f.instanceId = payload.instanceId;
-                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 1");
+                    //console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 1");
                     console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url2);
                     const resp2 = await fetch(url2);
                     const json2 = await resp2.json();
                     f.Current = json2[0];
                     console.log(json2);
-                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 2");
-                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + f);
+                    //console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 2");
+                    console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + f);
                     self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", f);
-                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after sendSocketNotification");
+                    console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after sendSocketNotification");
                   })().catch(function (error) {
                     // if there's an error, log it
-                    console.log(error);
+                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error);
                 });
 
                 /*

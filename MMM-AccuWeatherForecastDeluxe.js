@@ -269,6 +269,8 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
             }, this.config.requestDelay);
             
         }
+
+        Log.info("Done starting module: " + this.name);
     },
 
     getData: function() {

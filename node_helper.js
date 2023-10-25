@@ -68,7 +68,7 @@ module.exports = NodeHelper.create({
 
                         //Good response
                         console.log("[MMM-AccuWeatherForecastDeluxe] before resp");
-                        var resp = JSON.stringify(body); //body; //needle automagically parses the response as JSON
+                        var resp = body; //JSON.stringify(body); //body; //needle automagically parses the response as JSON
                         console.log("[MMM-AccuWeatherForecastDeluxe] before instance id - " + payload.instanceId);
                         resp.instanceId = payload.instanceId;
                         console.log("[MMM-AccuWeatherForecastDeluxe] after instance id - " + resp.instanceId);

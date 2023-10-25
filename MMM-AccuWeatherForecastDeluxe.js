@@ -55,7 +55,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
     defaults: {
         apikey: "",
-        //apikey2: "",
+        apikey2: "",
         //latitude: "",
         //longitude: "",
         locationKey: "",
@@ -278,7 +278,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     getData: function() {
         this.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_GET", {
             apikey: this.config.apikey,
-            //apikey2: this.config.apikey2,
+            apikey2: this.config.apikey2,
             //latitude: this.config.latitude,
             //longitude: this.config.longitude,
             locationKey: this.config.locationKey,
@@ -432,20 +432,20 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
         return {
             "currently": {
-                temperature: this.getUnit('temp', -32),
+                temperature: this.getUnit('temp', this.weatherData.Current.Temperature.Imperial.Value),
                 //temperature: this.getUnit('temp', this.weatherData.current.temp),
-                feelslike: this.getUnit('temp', 101),
+                feelslike: this.getUnit('temp', this.weatherData.Current.RealFeelTemperature.Imperial.Value),
                 //feelslike: this.getUnit('temp', this.weatherData.current.feels_like),
                 animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
-                animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.DailyForecasts[0].Day.Icon, this.weatherData.DailyForecasts[0].Day.IconPhrase),
+                animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.Current.WeatherIcon, this.weatherData.Current.WeatherText),
                 //animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
                 //iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
                 iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.DailyForecasts[0].Day.Icon, this.weatherData.DailyForecasts[0].Day.IconPhrase), true),
                 tempRange: this.formatHiLowTemperature(this.weatherData.DailyForecasts[0].Temperature.Maximum.Value, this.weatherData.DailyForecasts[0].Temperature.Minimum.Value),
-                precipitation: this.formatPrecipitation(null, null, null),
+                precipitation: this.formatPrecipitation(null, ((this.weatherData.Current.PrecipitationType === 'Rain')? this.weatherData.Current.PrecipitationSummary.Past12Hours.Imperial.Value : null), ((this.weatherData.Current.PrecipitationType === 'Snow')? this.weatherData.Current.PrecipitationSummary.Past12Hours.Imperial.Value : null)),
                 //precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
-                wind: this.formatWind(0, 0, 0),
-                //wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
+                //wind: this.formatWind(0, 0, 0),
+                wind: this.formatWind(this.weatherData.Current.Wind.Speed.Imperial.Value, this.weatherData.Current.Wind.Direction.Degrees, this.weatherData.Current.WindGust.Speed.Imperial.Value),
             },
             "summary": summary,
             "hourly": hourlies,
@@ -706,7 +706,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
       https://developer.accuweather.com/weather-icons
     */
     convertAccuWeatherIdToIcon: function(id, accuweather_icon) {
-        console.log(this.name, 'convertAccuWeatherIdToIcon', id, accuweather_icon);
+        //console.log(this.name, 'convertAccuWeatherIdToIcon', id, accuweather_icon);
         if ([15,16,17,41,42].includes(id)) {
             // Thunderstorm
             return "thunderstorm";

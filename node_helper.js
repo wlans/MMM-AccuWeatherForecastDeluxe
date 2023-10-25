@@ -87,7 +87,10 @@ module.exports = NodeHelper.create({
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + f);
                     self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", f);
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after sendSocketNotification");
-                  })();
+                  })().catch(function (error) {
+                    // if there's an error, log it
+                    console.log(error);
+                });
 
                 /*
                

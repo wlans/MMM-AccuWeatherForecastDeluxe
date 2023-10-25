@@ -289,7 +289,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     },
 
     notificationReceived: function(notification, payload, sender) {
-        console.log(this.name, 'notificationReceived', notification, payload, sender);
+        //console.log(this.name, 'notificationReceived', notification, payload, sender);
 
         if (
             this.config.listenerOnly &&
@@ -476,7 +476,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         // --------- Icon ---------
         if (this.config.useAnimatedIcons && !this.config.animateMainIconOnly) {
             fItem.animatedIconId = this.getAnimatedIconId();
-            fItem.animatedIconName = this.convertAccuWeatherIdToIcon(fData.weather[0].id, fData.weather[0].icon);
+            fItem.animatedIconName = this.convertAccuWeatherIdToIcon(fData.Day.Icon, fData.Day.IconPhrase);
         }
         fItem.iconPath = this.generateIconSrc(this.convertAccuWeatherIdToIcon(fData.Day.Icon, fData.Day.IconPhrase));
 

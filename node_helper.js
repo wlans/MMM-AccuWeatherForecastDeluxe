@@ -30,6 +30,7 @@ module.exports = NodeHelper.create({
     },
 
     socketNotificationReceived: function(notification, payload) {
+        console.log("[MMM-AccuWeatherForecastDeluxe] " + notification );
         if (notification === "ACCUWEATHER_ONE_CALL_FORECAST_GET") {
 
             var self = this;
@@ -62,7 +63,7 @@ module.exports = NodeHelper.create({
 
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
                 needle.get(url, function(error, response, body) {
-
+                    console.log("[MMM-AccuWeatherForecastDeluxe] " + JSON.stringify(body));
                     if (!error && response.statusCode == 200) {
 
                         //Good response
@@ -72,7 +73,7 @@ module.exports = NodeHelper.create({
                         self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
 
                     } else {
-                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error + "\n" + body);
+                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error + " - " + body);
                     }
 
                 });

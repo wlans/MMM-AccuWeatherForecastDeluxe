@@ -62,7 +62,7 @@ module.exports = NodeHelper.create({
 
                 var resp = {};
 
-
+                /*
                
                 try {
                     const resp1 =  await needle('get', url, {json: true})
@@ -114,8 +114,8 @@ module.exports = NodeHelper.create({
                // .catch(function(err) {
                //     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
                // })
-
-                /*
+*/
+                
                 needle.get(url, function(error, response, body) {
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + JSON.stringify(body));
                     if (!error && response.statusCode == 200) {
@@ -128,7 +128,7 @@ module.exports = NodeHelper.create({
                         resp.instanceId = payload.instanceId;
                         //console.log("[MMM-AccuWeatherForecastDeluxe] after instance id - " + resp.instanceId);
                         console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
-                        //self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
+                        self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
                         //console.log("[MMM-AccuWeatherForecastDeluxe] after sendSocketNotification");
 
                     } else {
@@ -136,7 +136,7 @@ module.exports = NodeHelper.create({
                     }
 
                 });
-                */
+                
 
                 //var apikey2 = (payload.apikey2 == null || payload.apikey2 == "") ? payload.apikey : payload.apikey2
                 /*
@@ -171,10 +171,10 @@ module.exports = NodeHelper.create({
 */
                 console.log("[MMM-AccuWeatherForecastDeluxe] after API calls");
 
-                if(resp != null) {
-                  self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
-                  console.log("[MMM-AccuWeatherForecastDeluxe] after sendSocketNotification");
-                }
+                //if(resp != null) {
+               //   self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
+               //   console.log("[MMM-AccuWeatherForecastDeluxe] after sendSocketNotification");
+               // }
 
             }
         }

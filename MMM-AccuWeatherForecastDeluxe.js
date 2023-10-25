@@ -731,9 +731,9 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         } else if (id === 11) {
             // Atmosphere
             return "fog";
-        } else if ([1,2,3].includes(id)) {
+        } else if ([1,2].includes(id)) {
             return "clear-day";
-        } else if ([4,5,6].includes(id)) {
+        } else if ([3,4,5,6].includes(id)) {
             return "partly-cloudy-day";
         } else if ([7,8].includes(id)) {
             return "cloudy";

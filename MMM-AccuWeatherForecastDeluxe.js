@@ -291,7 +291,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
             this.config.listenerOnly &&
             notification === "ACCUWEATHER_ONE_CALL_FORECAST_WEATHER_DATA"
         ) {
-            // console.log(this.name, 'notificationReceived', notification, payload, sender);
+            console.log(this.name, 'notificationReceived', notification, payload, sender);
 
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
@@ -322,7 +322,8 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     socketNotificationReceived: function(notification, payload) {
         
         if (notification === "ACCUWEATHER_ONE_CALL_FORECAST_DATA" && payload.instanceId === this.identifier) {
-    
+            console.log(this.name, 'socketNotificationReceived', notification, payload);
+
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
                 this.clearIcons();
@@ -369,7 +370,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
       the houly / daily forecast items.
     */
     processWeatherData: function() {
-
+        console.log(this.name, 'processWeatherData', this);
         var summary = this.weatherData.Headline.Text;
 //TODO: call hourly API
         var hourlies = [];
@@ -448,7 +449,8 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     forecastItemFactory: function(fData, type, index = null, min = null, max = null) {
 
         var fItem = new Object();
-
+        console.log(this.name, 'forecastItemFactory', fData, index, min, max);
+        
         // --------- Date / Time Display ---------
         if (type == "daily") {
 

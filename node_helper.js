@@ -68,6 +68,7 @@ module.exports = NodeHelper.create({
                         //Good response
                         var resp = body; //needle automagically parses the response as JSON
                         resp.instanceId = payload.instanceId;
+                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + body);
                         self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
 
                     } else {

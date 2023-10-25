@@ -60,21 +60,22 @@ module.exports = NodeHelper.create({
 
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
 
-                var resp;
+                var resp = {};
 
 
                
                 try {
-                    resp =  needle('get', url)
-                    .then(function (response) {
+                    const resp1 =  needle('get', url);
+                   /* .then(function (response) {
                         const parsed = JSON.parse(response.body);
-                        return JSON.stringify(parsed);
+                        return parsed;
                        })
                     .catch(function(err) {
                         console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
                       });
+                      */
                     //console.log("[MMM-AccuWeatherForecastDeluxe] waiting for body");
-                    //resp =  response.body;
+                    resp =  JSON.parse(resp1.body);
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
                     resp.instanceId = payload.instanceId;
                     
@@ -91,18 +92,19 @@ module.exports = NodeHelper.create({
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting current weather data: " + url);
                 
                   try {
-                    var resp2 =  needle('get', url)
+                    const resp2 =  needle('get', url);
+                    /*var resp2 =  needle('get', url)
                     .then(function (response) {
                         const parsed = JSON.parse(response.body);
                         return JSON.stringify(parsed);
                        })
                     .catch(function(err) {
                         console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
-                      });
+                      });*/
                     //console.log("[MMM-AccuWeatherForecastDeluxe] waiting for body");
                     //resp =  response.body;
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp2);
-                    resp.CurrentWeather =  resp2;
+                    resp.CurrentWeather =  JSON.parse(resp2.body);
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
                   } catch (err) {
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);

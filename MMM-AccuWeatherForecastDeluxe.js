@@ -432,15 +432,15 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
         return {
             "currently": {
-                temperature: this.getUnit('temp', 100),
+                temperature: this.getUnit('temp', -32),
                 //temperature: this.getUnit('temp', this.weatherData.current.temp),
                 feelslike: this.getUnit('temp', 101),
                 //feelslike: this.getUnit('temp', this.weatherData.current.feels_like),
                 animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
-                animatedIconName: this.convertAccuWeatherIdToIcon(1, "snow"),
+                animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.DailyForecasts[0].Day.Icon, this.weatherData.DailyForecasts[0].Day.IconPhrase),
                 //animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
                 //iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
-                iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(1, "snow"), true),
+                iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.DailyForecasts[0].Day.Icon, this.weatherData.DailyForecasts[0].Day.IconPhrase), true),
                 tempRange: this.formatHiLowTemperature(this.weatherData.DailyForecasts[0].Temperature.Maximum.Value, this.weatherData.DailyForecasts[0].Temperature.Minimum.Value),
                 precipitation: this.formatPrecipitation(null, null, null),
                 //precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),

@@ -81,10 +81,10 @@ module.exports = NodeHelper.create({
 
                 });
 
-                var apikey2 = (payload.apikey2 == null || payload.apikey2 == "") ? payload.apikey : payload.apikey2
+                //var apikey2 = (payload.apikey2 == null || payload.apikey2 == "") ? payload.apikey : payload.apikey2
                 url = payload.endpointNow +
                     "/" + payload.locationKey +
-                    "?apikey=" + apikey2  +
+                    "?apikey=" + payload.apikey  +
                     "&lang=" + payload.language + 
                     "&details=true";
 

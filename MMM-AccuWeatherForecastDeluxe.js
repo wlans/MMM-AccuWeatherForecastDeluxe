@@ -60,12 +60,13 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         //longitude: "",
         locationKey: "",
         endpoint: "http://dataservice.accuweather.com/forecasts/v1/daily/5day",
+        endpointNow: "http://dataservice.accuweather.com/currentconditions/v1",
         updateInterval: 60, // minutes
         updateFadeSpeed: 500, // milliseconds
         requestDelay: 0,
         listenerOnly: false,
         units: config.units,
-        language: config.language,
+        language: "en-us",
         colored: true,
         highColor: '#F8DD70',
         lowColor: '#6FC4F5',
@@ -486,8 +487,8 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         if (type == "hourly") { //just display projected temperature for that hour
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
-            console.log(this.name, 'high/low', fData);
-            console.log(this.name, 'high/low', JSON.stringify(fData));
+            //console.log(this.name, 'high/low', fData);
+            //console.log(this.name, 'high/low', JSON.stringify(fData));
             fItem.tempRange = this.formatHiLowTemperature(fData.Temperature.Maximum.Value, fData.Temperature.Minimum.Value);
             
             fItem.bars = {

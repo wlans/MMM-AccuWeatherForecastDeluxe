@@ -62,13 +62,15 @@ module.exports = NodeHelper.create({
                     "&details=true";
 
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
+                var resp;
                 needle.get(url, function(error, response, body) {
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + JSON.stringify(body));
                     if (!error && response.statusCode == 200) {
 
                         //Good response
                         console.log("[MMM-AccuWeatherForecastDeluxe] before resp");
-                        var resp = body; //JSON.stringify(body); //body; //needle automagically parses the response as JSON
+                        //var resp = body; //JSON.stringify(body); //body; //needle automagically parses the response as JSON
+                        resp = body;
                         console.log("[MMM-AccuWeatherForecastDeluxe] before instance id - " + payload.instanceId);
                         resp.instanceId = payload.instanceId;
                         console.log("[MMM-AccuWeatherForecastDeluxe] after instance id - " + resp.instanceId);
@@ -81,6 +83,10 @@ module.exports = NodeHelper.create({
                     }
 
                 });
+
+                if(resp != null) {
+                  self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
+                }
 
             }
         }

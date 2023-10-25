@@ -55,6 +55,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
     defaults: {
         apikey: "",
+        apikey2: "",
         //latitude: "",
         //longitude: "",
         locationKey: "",
@@ -276,6 +277,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     getData: function() {
         this.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_GET", {
             apikey: this.config.apikey,
+            apikey2: this.config.apikey2,
             //latitude: this.config.latitude,
             //longitude: this.config.longitude,
             locationKey: this.config.locationKey,

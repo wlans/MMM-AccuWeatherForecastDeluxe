@@ -58,9 +58,36 @@ module.exports = NodeHelper.create({
                     "&lang=" + payload.language + 
                     "&details=true";
 
-                console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
 
-                var resp = {};
+                var url2 = payload.endpointNow +
+                    "/" + payload.locationKey +
+                    "?apikey=" + payload.apikey  +
+                    "&lang=" + payload.language + 
+                    "&details=true";
+
+
+                //var resp = {};
+
+                (async () => {
+                    var f = {};
+                    console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
+                    const resp1 = await fetch(url);
+                    const json1 = await res.json();
+                    console.log(json1);
+                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + json1);
+                    f = json1;
+                    f.instanceId = payload.instanceId;
+                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 1");
+                    console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url2);
+                    const resp2 = await fetch(url2);
+                    const json2 = await resp2.json();
+                    f.Current = json2;
+                    console.log(json2);
+                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after 2");
+                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + f);
+                    self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", f);
+                    console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  after sendSocketNotification");
+                  })();
 
                 /*
                
@@ -115,7 +142,7 @@ module.exports = NodeHelper.create({
                //     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
                // })
 */
-                
+                /*
                 needle.get(url, function(error, response, body) {
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + JSON.stringify(body));
                     if (!error && response.statusCode == 200) {
@@ -137,7 +164,7 @@ module.exports = NodeHelper.create({
 
                 });
                 
-
+*/
                 //var apikey2 = (payload.apikey2 == null || payload.apikey2 == "") ? payload.apikey : payload.apikey2
                 /*
                 url = payload.endpointNow +

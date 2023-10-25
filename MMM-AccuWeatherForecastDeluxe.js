@@ -484,7 +484,9 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         if (type == "hourly") { //just display projected temperature for that hour
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
-            fItem.tempRange = this.formatHiLowTemperature(fData.Temperature.Maximum.Value, fData.Temperature.Mimimum.Value);
+            console.log(this.name, 'high/low', fData);
+            console.log(this.name, 'high/low', JSON.stringify(fData));
+            fItem.tempRange = this.formatHiLowTemperature(fData.Temperature.Maximum.Value, fData.Temperature.Minimum.Value);
             
             fItem.bars = {
                 min: min,

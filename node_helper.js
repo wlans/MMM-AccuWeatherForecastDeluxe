@@ -72,7 +72,7 @@ module.exports = NodeHelper.create({
                     var f = {};
                     console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
                     const resp1 = await fetch(url);
-                    const json1 = await res.json();
+                    const json1 = await res1.json();
                     console.log(json1);
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  " + json1);
                     f = json1;

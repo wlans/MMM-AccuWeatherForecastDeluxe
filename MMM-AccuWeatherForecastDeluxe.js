@@ -59,7 +59,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         //longitude: "",
         locationKey: "",
         endpoint: "http://dataservice.accuweather.com/forecasts/v1/daily/5day",
-        updateInterval: 10, // minutes
+        updateInterval: 60, // minutes
         updateFadeSpeed: 500, // milliseconds
         requestDelay: 0,
         listenerOnly: false,
@@ -287,11 +287,13 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     },
 
     notificationReceived: function(notification, payload, sender) {
+        console.log(this.name, 'notificationReceived', notification, payload, sender);
+
         if (
             this.config.listenerOnly &&
             notification === "ACCUWEATHER_ONE_CALL_FORECAST_WEATHER_DATA"
         ) {
-            console.log(this.name, 'notificationReceived', notification, payload, sender);
+            console.log(this.name, 'in notification ===', notification, payload, sender);
 
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
@@ -320,9 +322,10 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     },
 
     socketNotificationReceived: function(notification, payload) {
-        
+        console.log(this.name, 'socketNotificationReceived', notification, payload);
+
         if (notification === "ACCUWEATHER_ONE_CALL_FORECAST_DATA" && payload.instanceId === this.identifier) {
-            console.log(this.name, 'socketNotificationReceived', notification, payload);
+            console.log(this.name, 'in notification ===', notification, payload);
 
             //clear animated icon cache
             if (this.config.useAnimatedIcons) {
@@ -370,7 +373,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
       the houly / daily forecast items.
     */
     processWeatherData: function() {
-        console.log(this.name, 'processWeatherData', this);
+        console.log(this.name, 'processWeatherData', this.weatherData.Headline.Text);
         var summary = this.weatherData.Headline.Text;
 //TODO: call hourly API
         var hourlies = [];
@@ -391,7 +394,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
             }
 
         }
-
+        console.log(this.name, 'about to create dailies');
         var dailies = [];
         if (this.config.showDailyForecast) {
             var i = 1;
@@ -404,6 +407,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
                 maxi = this.config.maxDailiesToShow - 1;
             }
             for (j = i; j <= maxi; j++) {
+                console.log(this.name, 'daily',this.weatherData.DailyForecasts[j]);
                 if (this.weatherData.DailyForecasts[j] == null) {
                     break;
                 }
@@ -432,8 +436,10 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
                 //iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
                 iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(1, "snow"), true),
                 tempRange: this.formatHiLowTemperature(this.weatherData.DailyForecasts[0].Temperature.Maximum.Value, this.weatherData.DailyForecasts[0].Temperature.Minimum.Value),
-                precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
-                wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
+                precipitation: this.formatPrecipitation(null, null, null),
+                //precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
+                wind: this.formatWind(0, 0, 0),
+                //wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
             },
             "summary": summary,
             "hourly": hourlies,
@@ -450,7 +456,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
         var fItem = new Object();
         console.log(this.name, 'forecastItemFactory', fData, index, min, max);
-        
+
         // --------- Date / Time Display ---------
         if (type == "daily") {
 

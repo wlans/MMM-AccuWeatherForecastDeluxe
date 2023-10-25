@@ -55,10 +55,7 @@ module.exports = NodeHelper.create({
                 var url = payload.endpoint +
                     "/" + payload.locationKey +
                     "?apikey=" + payload.apikey +
-                    //"&lat=" + payload.latitude +
-                    //"&lon=" + payload.longitude +
-                    //(payload.units !== "" ? "&units=" + payload.units : "") +
-                    //"&lang=" + payload.language;
+                    "&lang=" + payload.language + 
                     "&details=true";
 
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + url);
@@ -75,8 +72,38 @@ module.exports = NodeHelper.create({
                         resp.instanceId = payload.instanceId;
                         console.log("[MMM-AccuWeatherForecastDeluxe] after instance id - " + resp.instanceId);
                         console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
-                        self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
+                        //self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
                         console.log("[MMM-AccuWeatherForecastDeluxe] after sendSocketNotification");
+
+                    } else {
+                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error + " - " + body);
+                    }
+
+                });
+
+                var apikey2 = (payload.apikey2 == null || payload.apikey2 == "") ? payload.apikey : payload.apikey2
+                url = payload.endpointNow +
+                    "/" + payload.locationKey +
+                    "?apikey=" + apikey2  +
+                    "&lang=" + payload.language + 
+                    "&details=true";
+
+                console.log("[MMM-AccuWeatherForecastDeluxe] Getting current weather data: " + url);
+
+                needle.get(url, function(error, response, body) {
+                    console.log("[MMM-AccuWeatherForecastDeluxe] " + JSON.stringify(body));
+                    if (!error && response.statusCode == 200) {
+
+                        //Good response
+                        //console.log("[MMM-AccuWeatherForecastDeluxe] before resp");
+                        //var resp = body; //JSON.stringify(body); //body; //needle automagically parses the response as JSON
+                        resp.CurrentWeather = body;
+                        //console.log("[MMM-AccuWeatherForecastDeluxe] before instance id - " + payload.instanceId);
+                        //resp.instanceId = payload.instanceId;
+                        //console.log("[MMM-AccuWeatherForecastDeluxe] after instance id - " + resp.instanceId);
+                        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
+                        //self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", resp);
+                        //console.log("[MMM-AccuWeatherForecastDeluxe] after sendSocketNotification");
 
                     } else {
                         console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + error + " - " + body);

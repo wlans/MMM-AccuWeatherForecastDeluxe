@@ -65,12 +65,14 @@ module.exports = NodeHelper.create({
 
                
                 try {
-                    const response =  needle('get', url);
+                    const response =  needle('get', url).catch(function(err) {
+                        console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
+                      });
                     console.log("[MMM-AccuWeatherForecastDeluxe] waiting for body");
                     resp =  response.body;
-                    console.log("[MMM-AccuWeatherForecastDeluxe] before resp");
-                    resp.instanceId = payload.instanceId;
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
+                    resp.instanceId = payload.instanceId;
+                    
                   } catch (err) {
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
                   }
@@ -84,7 +86,9 @@ module.exports = NodeHelper.create({
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting current weather data: " + url);
                 
                   try {
-                    const response =  needle('get', url);
+                    const response =  needle('get', url).catch(function(err) {
+                        console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
+                      });
                     console.log("[MMM-AccuWeatherForecastDeluxe] waiting for body");
                     resp.CurrentWeather =  response.body;
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);

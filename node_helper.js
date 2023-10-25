@@ -68,7 +68,7 @@ module.exports = NodeHelper.create({
                     resp =  needle('get', url)
                     .then(function (response) {
                         const parsed = JSON.parse(response.body);
-                        return parsed;
+                        return JSON.stringify(parsed);
                        })
                     .catch(function(err) {
                         console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);
@@ -94,7 +94,7 @@ module.exports = NodeHelper.create({
                     var resp2 =  needle('get', url)
                     .then(function (response) {
                         const parsed = JSON.parse(response.body);
-                        return parsed;
+                        return JSON.stringify(parsed);
                        })
                     .catch(function(err) {
                         console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);

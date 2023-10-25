@@ -65,9 +65,9 @@ module.exports = NodeHelper.create({
 
                
                 try {
-                    const response = await needle('get', url);
+                    const response =  needle('get', url);
                     console.log("[MMM-AccuWeatherForecastDeluxe] waiting for body");
-                    resp = await response.body;
+                    resp =  response.body;
                     console.log("[MMM-AccuWeatherForecastDeluxe] before resp");
                     resp.instanceId = payload.instanceId;
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
@@ -84,9 +84,9 @@ module.exports = NodeHelper.create({
                 console.log("[MMM-AccuWeatherForecastDeluxe] Getting current weather data: " + url);
                 
                   try {
-                    const response = await needle('get', url);
+                    const response =  needle('get', url);
                     console.log("[MMM-AccuWeatherForecastDeluxe] waiting for body");
-                    resp.CurrentWeather = await response.body;
+                    resp.CurrentWeather =  response.body;
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " " + resp);
                   } catch (err) {
                     console.error("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + " ** ERROR ** " + err);

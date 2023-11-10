@@ -567,7 +567,7 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 
 This module is set to be 300px wide by default. If you wish to override it, you can add the following to your `custom.css` file:
 
-```JavaScript
+```css
 .MMM-AccuWeatherForecastDeluxe .module-content {
   width: 500px; /* adjust this to taste */
 }

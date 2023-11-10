@@ -1,6 +1,6 @@
 /*********************************
 
-  Magic Mirror Module:
+  MagicMirror² Module:
   MMM-AccuWeatherMapForecast
   https://github.com/maxbethge/MMM-AccuWeatherMapForecastDeluxe
 

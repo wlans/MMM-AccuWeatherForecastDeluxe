@@ -1,6 +1,6 @@
 # MMM-OpenWeatherForecastDeluxe
 
-This a module for <strong>MagicMirror</strong>.<br>
+This a module for <strong>MagicMirror²</strong>.<br>
 https://magicmirror.builders/<br>
 https://github.com/MichMich/MagicMirror
 
@@ -104,11 +104,11 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>units</code></td>
-      <td>One of the following: <code>imperial</code>, <code>metric</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to units set for Magic Mirror.<br />See also: <a href="https://openweathermap.org/api/one-call-api#data">details on units</a>.</td>
+      <td>One of the following: <code>imperial</code>, <code>metric</code>.<br><br><strong>Type</strong> <code>String</code><br>Defaults to units set for MagicMirror².<br />See also: <a href="https://openweathermap.org/api/one-call-api#data">details on units</a>.</td>
     </tr>
     <tr>
       <td><code>language</code></td>
-      <td>The language to be used for display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to the language set for Magic Mirror, but can be overridden with any of the available <a href="https://openweathermap.org/api/one-call-api#multi">language codes</a>.</td>
+      <td>The language to be used for display.<br><br><strong>Type</strong> <code>String</code><br>Defaults to the language set for MagicMirror², but can be overridden with any of the available <a href="https://openweathermap.org/api/one-call-api#multi">language codes</a>.</td>
     </tr>
     <tr>
       <td><code>colored</code></td>
@@ -268,7 +268,7 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
 
 ### Units & Labels
 
-While OpenWeather supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for Magic Mirror.
+While OpenWeather supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for MagicMirror².
 
 If you want a space before or after the label, include it here.
 

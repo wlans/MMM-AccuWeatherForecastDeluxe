@@ -1,7 +1,7 @@
 {
     "name": "mmm-accuweatherforecastdeluxe",
     "version": "2.0.0",
-    "description": "Magic Mirror module that gets weather forecast data from AccuWeather",
+    "description": "MagicMirror² module that gets weather forecast data from AccuWeather",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/maxbethge/MMM-AccuWeatherForecastDeluxe"

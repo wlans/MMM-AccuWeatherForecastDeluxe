@@ -6,6 +6,10 @@
         "type": "git",
         "url": "git+https://github.com/maxbethge/MMM-AccuWeatherForecastDeluxe"
     },
+    "keywords": [
+        "magicmirror",
+        "weather"
+      ],
     "main": "MMM-AccuWeatherForecastDeluxe.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"

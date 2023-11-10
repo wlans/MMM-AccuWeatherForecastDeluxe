@@ -1,4 +1,4 @@
-# MMM-OpenWeatherForecastDeluxe
+# MMM-AccuWeatherForecastDeluxe
 
 This a module for <strong>MagicMirror²</strong>.<br>
 https://magicmirror.builders/<br>

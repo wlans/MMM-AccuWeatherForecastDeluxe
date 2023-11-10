@@ -1,45 +1,36 @@
 # MMM-AccuWeatherForecastDeluxe
 
-This a module for <strong>MagicMirror²</strong>.<br>
-https://magicmirror.builders/<br>
-https://github.com/MichMich/MagicMirror
-
-A weather module that displays current, hourly and daily forecast information using data from the AccuWeather API.
+This is a [MagicMirror²](https://magicmirror.builders) module that displays current, hourly and daily forecast information using data from the [AccuWeather](https://www.accuweather.com).
 
 | Tiled Layouts | Bars Layout (daily forecast only) |
 | --- | --- |
 | ![Tiled Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Lauouts") | ![Bars Layout (daily forecast only)](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)") |
 
-
 ## Installation
 
-**NOTE:** This module uses the Nunjucks templating system introduced in version 2.2.0 of MagicMirror.  If you're seeing nothing on your display where you expect this module to appear, make sure your MagicMirror version is at least 2.2.0.
-
-1. Navigate into your MagicMirror `modules` folder and execute<br>
-`git clone https://github.com/maxbethge/MMM-AccuWeatherForecastDeluxe.git`.
-2. Enter the new `MMM-AccuWeatherForecastDeluxe` directory and execute `npm install`.
-
-
+1. Navigate into your MagicMirror's `modules` folder and execute
+   `git clone https://github.com/maxbethge/MMM-AccuWeatherForecastDeluxe`.
+2. Enter the new `MMM-AccuWeatherForecastDeluxe` directory and execute
+   `npm install`.
 
 ## Configuration
 
 At a minimum you need to supply the following required configuration parameters:
 
-* `apikey`
-* `locationKey`
+- `apikey`
+- `locationKey`
 
 You can request an API key to access data here:
-https://openweathermap.org/api/one-call-api
+<https://developer.accuweather.com/packages>
 
 Free tier is fine -- by itself, a single instance of this module will not make any where near 1000 request on one day with the default `updateInterval` of `10`.
 
 Find out your latitude and longitude here:
-https://www.latlong.net/
-
+<https://www.latlong.net/>
 
 ### Sample Configuration
 
-```
+```JavaScript
 {
   module: "MMM-AccuWeatherForecastDeluxe",
   header: "Tiled Layouts",
@@ -63,6 +54,7 @@ https://www.latlong.net/
   }
 },
 ```
+
 More example configurations below in [Layouts and Configs](#layouts-and-configs)
 
 ### Using Multiple Instances
@@ -70,7 +62,6 @@ More example configurations below in [Layouts and Configs](#layouts-and-configs)
 Using increasingly larger `requestDelay` values can help prevent the API calls of multiple instances from being too close together, but ultimately each instance will make it's own api calls, which when combined with other modules that might use the same API, can threaten your rate limit.
 
 You can use the `listenerOnly` option with multiple instances, so that only a primary one makes API calls, and other `listenerOnly` instances strictly do not, and instead receive notifications broadcasted with the api's payload whenever the primary instance gets its data. `listenerOnly` instances will not use/do not need the `apikey`, `latitude`, `longitude`, `endpoint`, `updateInterval` or `requestDelay` paremeters.
-
 
 ### Optional Parameters
 
@@ -232,11 +223,11 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
     </tr>
     <tr>
       <td><code>mainIconset</code></td>
-      <td>Which icon set to use for current weather. See below for (previews of the icon sets)[#Icon Sets].<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>iconset value</code></td>
+      <td>Which icon set to use for current weather. See below for [previews of the icon sets](#Icon Sets).<br><br><strong>Type</strong> <code>String</code><br>Defaults to <code>iconset value</code></td>
     </tr>
     <tr>
       <td><code>useAnimatedIcons</code></td>
-      <td> *** <strong>LEGACY, please use icon set '6fa' or '6oa' for animated icons ***</strong> <p>Whether to use the Dark Sky's own animated icon set.  When set to true, this will override your choice for <code>iconset</code>. However, flat icons will still be used in some instances.  For example if you set the <code>animateMainIconOnly</code> parameter to true, daily and hourly forecasts will not be animated and instead will use your choice for <code>iconset</code>.  Inline icons (i.e. used to prefix precipitation and wind information) will always be flat.  A good <code>iconset</code> match for the animated set is <code>1c</code>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
+      <td> ***<strong>LEGACY, please use icon set '6fa' or '6oa' for animated icons***</strong> <p>Whether to use the Dark Sky's own animated icon set.  When set to true, this will override your choice for <code>iconset</code>. However, flat icons will still be used in some instances.  For example if you set the <code>animateMainIconOnly</code> parameter to true, daily and hourly forecasts will not be animated and instead will use your choice for <code>iconset</code>.  Inline icons (i.e. used to prefix precipitation and wind information) will always be flat.  A good <code>iconset</code> match for the animated set is <code>1c</code>.<br><br><strong>Type</strong> <code>Boolean</code><br>Defaults to <code>true</code></td>
     </tr>
     <tr>
       <td><code>animateMainIconOnly</code></td>
@@ -265,10 +256,9 @@ You can use the `listenerOnly` option with multiple instances, so that only a pr
   </tbody>
 </table>
 
-
 ### Units & Labels
 
-While OpenWeather supports other units, thus far this module has focussed on imperial and metric. Be aware of the <code>unit</code> option above, which defaults to the units set for MagicMirror².
+While OpenWeather supports other units, thus far this module has focussed on imperial and metric. Be aware of the `unit` option above, which defaults to the units set for MagicMirror².
 
 If you want a space before or after the label, include it here.
 
@@ -442,13 +432,13 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 
 ![Icon Sets](icons/iconsets.gif?raw=true "Icon Sets")
 
-
 ## Layouts and Configs
 
 ![Table Layouts](/screenshots/layouts-table.png?raw=true "Table Layouts")
-```
+
+```JavaScript
 {
-  module: "MMM-OpenWeatherForecastDeluxe",
+  module: "MMM-AccuWeatherForecastDeluxe",
   header: "Table Layouts",
   position: "top_right",
   classes: "default everyone",
@@ -476,9 +466,10 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 ```
 
 ![Bars Layout (daily forecast only)](/screenshots/layout-bars-daily.png?raw=true "Bars Layout (daily forecast only)")
-```
+
+```JavaScript
 {
-  module: "MMM-OpenWeatherForecastDeluxe",
+  module: "MMM-AccuWeatherForecastDeluxe",
   header: "Bars Layout (daily forecast only)",
   position: "top_right",
   classes: "default everyone",
@@ -510,9 +501,10 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 ```
 
 ![Bars Layout (colored; false)](/screenshots/layout-bars-nocolor.png?raw=true "Bars Layout (colored: false)")
-```
+
+```JavaScript
 {
-  module: "MMM-OpenWeatherForecastDeluxe",
+  module: "MMM-AccuWeatherForecastDeluxe",
   header: "Bars Layout (colored: false)",
   position: "top_right",
   classes: "default everyone",
@@ -544,9 +536,10 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 ```
 
 ![Tiled Layouts](/screenshots/layouts-tiled.png?raw=true "Tiled Layouts")
-```
+
+```JavaScript
 {
-  module: "MMM-OpenWeatherForecastDeluxe",
+  module: "MMM-AccuWeatherForecastDeluxe",
   header: "Tiled Layouts",
   position: "top_right",
   classes: "default everyone",
@@ -572,51 +565,49 @@ Options for specifying the decimal precision for various measurements. OpenWeath
 
 ## Styling
 
-This module is set to be 300px wide by default.  If you wish to override it, you can add the following to your `custom.css` file:
+This module is set to be 300px wide by default. If you wish to override it, you can add the following to your `custom.css` file:
 
-```
-.MMM-OpenWeatherForecastDeluxe .module-content {
+```JavaScript
+.MMM-AccuWeatherForecastDeluxe .module-content {
   width: 500px; /* adjust this to taste */
 }
 ```
 
-Most important elements of this module have one or more class names applied. Examine the `MMM-OpenWeatherForecastDeluxe.css` or inspect elements directly with your browser of choice to determine what class you would like to override.
-
+Most important elements of this module have one or more class names applied. Examine the `MMM-AccuWeatherForecastDeluxe.css` or inspect elements directly with your browser of choice to determine what class you would like to override.
 
 ## For Module Developers
 
-This module broadcasts a notification when it recieves a weather update.  The notification is `OPENWEATHER_ONE_CALL_FORECAST_DATA` and the payload contains OpenWeather's JSON weather forecast object.  For details on the weather object, see https://openweathermap.org/api/one-call-api.
-
+This module broadcasts a notification when it recieves a weather update. The notification is `ACCUWEATHER_ONE_CALL_FORECAST_DATA` and the payload contains OpenWeather's JSON weather forecast object. For details on the weather object, see <https://openweathermap.org/api/one-call-api>.
 
 ## Attributions
 
-This module has a heritage; <a href="https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe/network/members">learn more</a>!
+This module has a heritage: [learn more](https://github.com/luxiouronimo/MMM-OpenWeatherForecastDeluxe/network/members)!
 
 **Skycons - Animated icon set by Dark Sky**<br />
-http://darkskyapp.github.io/skycons/<br />
+<http://darkskyapp.github.io/skycons/><br />
 (using the fork created by Maxime Warner
 that allows individual details of the icons
 to be coloured<br />
-https://github.com/maxdow/skycons)
+<https://github.com/maxdow/skycons>)
 
 **Climacons by Adam Whitcroft**<br />
-http://adamwhitcroft.com/climacons/
+<http://adamwhitcroft.com/climacons/>
 
 **Free Weather Icons by Svilen Petrov**<br />
-https://www.behance.net/gallery/12410195/Free-Weather-Icons
+<https://www.behance.net/gallery/12410195/Free-Weather-Icons>
 
 **Weather Icons by Thom**<br />
 (Designed for DuckDuckGo)<br />
-https://dribbble.com/shots/1832162-Weather-Icons
+<https://dribbble.com/shots/1832162-Weather-Icons>
 
 Sets 4 and 5 were found on Graphberry, but I couldn't find
 the original artists.<br />
-https://www.graphberry.com/item/weather-icons<br />
-https://www.graphberry.com/item/weathera-weather-forecast-icons
+<https://www.graphberry.com/item/weather-icons><br />
+<https://www.graphberry.com/item/weathera-weather-forecast-icons>
 
 Some of the icons were modified to better work with the module's
 structure and aesthetic.
 
 **Weather data provided by OpenWeather**<br />
-https://openweathermap.org
+<https://www.accuweather.com>
 

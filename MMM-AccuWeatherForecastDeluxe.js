@@ -429,7 +429,6 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
         }
 
-
         return {
             "currently": {
                 temperature: this.getUnit('temp', this.weatherData.Current.Temperature.Imperial.Value),
@@ -515,7 +514,11 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
 
         // --------- Precipitation ---------
 //TODO: get max value from day/night
-        fItem.precipitation = this.formatPrecipitation(fData.Day.PrecipitationProbability, fData.Day.Rain.Value, fData.Day.Snow.Value);
+        var precipProbability = Math.max(fData.Day.PrecipitationProbability,fData.Night.PrecipitationProbability);
+        precipProbability = (precipProbability > 0) ? (precipProbability / 100) : precipProbability;
+        var rainValue = fData.Day.Rain.Value + fData.Night.Rain.Value;
+        var snowValue = fData.Day.Snow.Value + fData.Night.Snow.Value;
+        fItem.precipitation = this.formatPrecipitation(precipProbability, rainValue, snowValue);
 
         // --------- Wind ---------
 //TODO: get max value from day/night

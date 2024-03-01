@@ -56,8 +56,6 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     defaults: {
         apikey: "",
         apikey2: "",
-        //latitude: "",
-        //longitude: "",
         locationKey: "",
         endpoint: "http://dataservice.accuweather.com/forecasts/v1/daily/5day",
         endpointNow: "http://dataservice.accuweather.com/currentconditions/v1",
@@ -272,6 +270,10 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
             
         }
 
+        // Add formatted units value for field selection in node_helper.js; 'imperial' --> 'Imperial', 'metric' --> 'Metric'
+        this.config.unitsFormatted = this.config.units.charAt(0).toUpperCase() + this.config.units.slice(1);
+        Log.info("[MMM-AccuWeatherForecastDeluxe] " + "  unitsFormatted: " + this.config.unitsFormatted);
+
         Log.info("Done starting module: " + this.name);
     },
 
@@ -279,21 +281,19 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         this.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_GET", {
             apikey: this.config.apikey,
             apikey2: this.config.apikey2,
-            //latitude: this.config.latitude,
-            //longitude: this.config.longitude,
             locationKey: this.config.locationKey,
             units: this.config.units,
             language: this.config.language,
             instanceId: this.identifier,
             requestDelay: this.config.requestDelay,
             endpoint: this.config.endpoint,
-            endpointNow: this.config.endpointNow,
+            endpointNow: this.config.endpointNow
         });
 
     },
 
     notificationReceived: function(notification, payload, sender) {
-        //console.log(this.name, 'notificationReceived', notification, payload, sender);
+        console.log(this.name, 'notificationReceived', notification, payload, sender);
 
         if (
             this.config.listenerOnly &&
@@ -428,23 +428,26 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
             }
 
         }
+        console.log("[MMM-AccuWeatherForecastDeluxe] " + moment().format("D-MMM-YY HH:mm") + "  unitsFormatted: " + this.config.unitsFormatted );
 
         return {
             "currently": {
-                temperature: this.getUnit('temp', this.weatherData.Current.Temperature.Imperial.Value),
-                //temperature: this.getUnit('temp', this.weatherData.current.temp),
-                feelslike: this.getUnit('temp', this.weatherData.Current.RealFeelTemperature.Imperial.Value),
-                //feelslike: this.getUnit('temp', this.weatherData.current.feels_like),
+                temperature: this.getUnit('temp', this.weatherData.Current.Temperature[this.config.unitsFormatted].Value),
+                feelslike: this.getUnit('temp', this.weatherData.Current.RealFeelTemperature[this.config.unitsFormatted].Value),
                 animatedIconId: this.config.useAnimatedIcons ? this.getAnimatedIconId() : null,
                 animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.Current.WeatherIcon, this.weatherData.Current.WeatherText),
-                //animatedIconName: this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon),
-                //iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
                 iconPath: this.generateIconSrc(this.convertAccuWeatherIdToIcon(this.weatherData.DailyForecasts[0].Day.Icon, this.weatherData.DailyForecasts[0].Day.IconPhrase), true),
                 tempRange: this.formatHiLowTemperature(this.weatherData.DailyForecasts[0].Temperature.Maximum.Value, this.weatherData.DailyForecasts[0].Temperature.Minimum.Value),
-                precipitation: this.formatPrecipitation(null, ((this.weatherData.Current.PrecipitationType === 'Rain')? this.weatherData.Current.PrecipitationSummary.Past12Hours.Imperial.Value : null), ((this.weatherData.Current.PrecipitationType === 'Snow')? this.weatherData.Current.PrecipitationSummary.Past12Hours.Imperial.Value : null)),
-                //precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
-                //wind: this.formatWind(0, 0, 0),
-                wind: this.formatWind(this.weatherData.Current.Wind.Speed.Imperial.Value, this.weatherData.Current.Wind.Direction.Degrees, this.weatherData.Current.WindGust.Speed.Imperial.Value),
+                precipitation: this.formatPrecipitation(null, 
+                    ((this.weatherData.Current.PrecipitationType === 'Rain')? 
+                        this.weatherData.Current.PrecipitationSummary.Past12Hours[this.config.unitsFormatted].Value  : null), 
+                    ((this.weatherData.Current.PrecipitationType === 'Snow')? 
+                        this.weatherData.Current.PrecipitationSummary.Past12Hours[this.config.unitsFormatted].Value  : null)),
+                wind: this.formatWind(
+                    this.weatherData.Current.Wind.Speed[this.config.unitsFormatted].Value, 
+                    this.weatherData.Current.Wind.Direction.Degrees, 
+                    this.weatherData.Current.WindGust.Speed[this.config.unitsFormatted].Value
+                ),
             },
             "summary": summary,
             "hourly": hourlies,
@@ -487,8 +490,6 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         if (type == "hourly") { //just display projected temperature for that hour
             fItem.temperature = this.getUnit('temp',fData.temp);
         } else { //display High / Low temperatures
-            //console.log(this.name, 'high/low', fData);
-            //console.log(this.name, 'high/low', JSON.stringify(fData));
             fItem.tempRange = this.formatHiLowTemperature(fData.Temperature.Maximum.Value, fData.Temperature.Minimum.Value);
             
             fItem.bars = {
@@ -550,44 +551,16 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
         if (snowAccumulation) {
             accumulationtype = "snow";
             if (typeof snowAccumulation === "number") {
-                switch (this.config.units) {
-                    case 'imperial':
-                        accumulation = this.getUnit('snow', snowAccumulation/25.4);
-                        break;
-                    case 'metric':
-                        accumulation = this.getUnit('snow', snowAccumulation);
-                        break;
-                }
+                accumulation = this.getUnit('snow', snowAccumulation);
             } else if (typeof snowAccumulation === "object" && snowAccumulation["1h"]) {
-                switch (this.config.units) {
-                    case 'imperial':
-                        accumulation = this.getUnit('snow', snowAccumulation["1h"]/25.4);
-                        break;
-                    case 'metric':
-                        accumulation = this.getUnit('snow', snowAccumulation["1h"]);
-                        break;
-                }
+                accumulation = this.getUnit('snow', snowAccumulation["1h"]);
             }
         } else if (rainAccumulation) {
             accumulationtype = "rain";
             if (typeof rainAccumulation === "number") {
-                switch (this.config.units) {
-                    case 'imperial':
-                        accumulation = this.getUnit('rain', rainAccumulation/25.4);
-                        break;
-                    case 'metric':
-                        accumulation = this.getUnit('rain', rainAccumulation);
-                        break;
-                }
+                accumulation = this.getUnit('rain', rainAccumulation);
             } else if (typeof rainAccumulation === "object" && rainAccumulation["1h"]) {
-                switch (this.config.units) {
-                    case 'imperial':
-                        accumulation = this.getUnit('rain', rainAccumulation["1h"]/25.4);
-                        break;
-                    case 'metric':
-                        accumulation = this.getUnit('rain', rainAccumulation["1h"]);
-                        break;
-                }
+                accumulation = this.getUnit('rain', rainAccumulation["1h"]);
             }
         }
 

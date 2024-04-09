@@ -293,7 +293,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     },
 
     notificationReceived: function(notification, payload, sender) {
-        console.log(this.name, 'notificationReceived', notification, payload, sender);
+        //console.log(this.name, 'notificationReceived', notification, payload, sender);
 
         if (
             this.config.listenerOnly &&
@@ -328,7 +328,7 @@ Module.register("MMM-AccuWeatherForecastDeluxe", {
     },
 
     socketNotificationReceived: function(notification, payload) {
-        console.log(this.name, 'socketNotificationReceived', notification, payload);
+        //console.log(this.name, 'socketNotificationReceived', notification, payload);
 
         if (notification === "ACCUWEATHER_ONE_CALL_FORECAST_DATA" && payload.instanceId === this.identifier) {
             console.log(this.name, 'in notification ===', notification, payload);

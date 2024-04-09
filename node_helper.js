@@ -27,9 +27,8 @@ module.exports = NodeHelper.create({
     },
 
     socketNotificationReceived: function(notification, payload) {
-        console.log("[MMM-AccuWeatherForecastDeluxe] " + notification );
         if (notification === "ACCUWEATHER_ONE_CALL_FORECAST_GET") {
-
+            console.log("[MMM-AccuWeatherForecastDeluxe] " + notification );
             var self = this;
 
             if (payload.apikey == null || payload.apikey == "") {

@@ -55,13 +55,13 @@ module.exports = NodeHelper.create({
                     console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + forecastUrl);
                     const resp1 = await fetch(forecastUrl);
                     const json1 = await resp1.json();
-                    console.log("[MMM-AccuWeatherForecastDeluxe] url data: " + JSON.stringify(json1) );
+                    //console.log("[MMM-AccuWeatherForecastDeluxe] url data: " + JSON.stringify(json1) );
                     f = json1;
                     f.instanceId = payload.instanceId;
                     console.log("[MMM-AccuWeatherForecastDeluxe] Getting data: " + currentUrl);
                     const resp2 = await fetch(currentUrl);
                     const json2 = await resp2.json();
-                    console.log("[MMM-AccuWeatherForecastDeluxe] url2 data: " + JSON.stringify(json2) );
+                    //console.log("[MMM-AccuWeatherForecastDeluxe] url2 data: " + JSON.stringify(json2) );
                     f.Current = json2[0];                    
                     self.sendSocketNotification("ACCUWEATHER_ONE_CALL_FORECAST_DATA", f);
                     console.log("[MMM-AccuWeatherForecastDeluxe] " + " after sendSocketNotification");
